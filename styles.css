@@ -21,6 +21,10 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .platform-mark[data-logo-shape="handheld-wordmark"] .platform-logo-image{width:74px;height:32px}
 .platform-mark[data-logo-shape="legacy-wordmark"]{width:96px}
 .platform-mark[data-logo-shape="legacy-wordmark"] .platform-logo-image{width:88px;height:38px}
+.platform-mark[data-logo-shape="heritage-wordmark"]{width:136px;height:50px;background:#f4f4f5}
+.platform-mark[data-logo-shape="heritage-wordmark"] .platform-logo-image{width:126px;height:42px}
+.platform-mark[data-platform-logo="gameboyadvance"]{width:150px}
+.platform-mark[data-platform-logo="gameboyadvance"] .platform-logo-image{width:140px}
 .platform-logo-image{display:block;width:34px;height:34px;object-fit:contain}
 .platform-mark[data-platform-logo="nintendo"]{border:2px solid #fff;background:#e60012;box-shadow:0 0 0 1px color-mix(in srgb,#e60012 72%,transparent)}
 .platform-mark[data-platform-logo="nintendo"] .platform-logo-image{width:38px;height:34px}

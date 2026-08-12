@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.12';
+const APP_VERSION='0.0.13';
 const DEFAULT_ACCENT='#f7cf46';
 const CONSOLE_CATALOG={
   Sony:['PlayStation 1','PlayStation 2','PlayStation 3','PlayStation 4','PlayStation 5','PSP','PS Vita'],
@@ -16,17 +16,17 @@ const PLATFORM_THEMES=[
   {key:'psp',match:/\bpsp\b|playstation portable/,color:'#9aa5b8',mark:'PSP',logo:'psp',shape:'handheld-wordmark',mode:'image'},
   {key:'n64',match:/nintendo 64|\bn64\b/,color:'#069330',mark:'N64',logo:'nintendo64',mode:'image'},
   {key:'snes',match:/super nintendo|super nes|\bsnes\b|super famicom/,color:'#6eb92b',mark:'SNES',logo:'super-nintendo',mode:'image'},
-  {key:'nes',match:/nintendo entertainment system|\bnes\b/,color:'#e60012',mark:'NES',logo:'nintendo-nes',shape:'legacy-wordmark',mode:'image'},
+  {key:'nes',match:/nintendo entertainment system|\bnes\b/,color:'#e60012',mark:'NES',logo:'nintendo-nes',shape:'heritage-wordmark',mode:'image'},
   {key:'gamecube',match:/gamecube/,color:'#7357d6',mark:'GC',logo:'gamecube'},
   {key:'switch2',match:/nintendo switch 2|switch 2/,color:'#e60012',mark:'NS2',logo:'nintendo-switch-2',shape:'legacy-wordmark',mode:'image'},
   {key:'switch',match:/switch/,color:'#e60012',mark:'NS',logo:'nintendo-switch'},
   {key:'wiiu',match:/wii u|wiiu/,color:'#00a7e0',mark:'WiiU',logo:'nintendo-wiiu',shape:'legacy-wordmark',mode:'image'},
   {key:'wii',match:/\bwii\b/,color:'#00a7e0',mark:'Wii',logo:'nintendo-wii'},
-  {key:'gameboyadvance',match:/game boy advance|\bgba\b/,color:'#6545a5',mark:'GBA',logo:'game-boy-advance',shape:'legacy-wordmark',mode:'image'},
-  {key:'gameboycolor',match:/game boy color|\bgbc\b/,color:'#9b4d96',mark:'GBC',logo:'game-boy-color',shape:'legacy-wordmark',mode:'image'},
-  {key:'gameboy',match:/game boy/,color:'#2f328c',mark:'GB',logo:'game-boy',shape:'legacy-wordmark',mode:'image'},
+  {key:'gameboyadvance',match:/game boy advance|\bgba\b/,color:'#6545a5',mark:'GBA',logo:'game-boy-advance',shape:'heritage-wordmark',mode:'image'},
+  {key:'gameboycolor',match:/game boy color|\bgbc\b/,color:'#9b4d96',mark:'GBC',logo:'game-boy-color',shape:'heritage-wordmark',mode:'image'},
+  {key:'gameboy',match:/game boy/,color:'#2f328c',mark:'GB',logo:'game-boy',shape:'heritage-wordmark',mode:'image'},
   {key:'3ds',match:/nintendo 3ds|\b3ds\b/,color:'#e60012',mark:'3DS',logo:'nintendo-3ds',shape:'legacy-wordmark',mode:'image'},
-  {key:'ds',match:/nintendo ds|\bds\b/,color:'#aeb8c7',mark:'DS',logo:'nintendo-ds',shape:'legacy-wordmark',mode:'image'},
+  {key:'ds',match:/nintendo ds|\bds\b/,color:'#aeb8c7',mark:'DS',logo:'nintendo-ds',shape:'heritage-wordmark',mode:'image'},
   {key:'mastersystem',match:/master system/,color:'#e4312b',mark:'MS',logo:'master-system',shape:'legacy-wordmark',mode:'image'},
   {key:'megadrive',match:/mega drive|genesis/,color:'#ff5a2a',mark:'MD',logo:'mega-drive',shape:'legacy-wordmark',mode:'image'},
   {key:'saturn',match:/saturn/,color:'#5b7fb8',mark:'SAT',logo:'sega-saturn',mode:'image'},
