@@ -4,6 +4,8 @@ Les tracés PlayStation 2, 3, 4 et 5 proviennent de [Simple Icons](https://simpl
 
 Les lockups Master System et Mega Drive sont des reproductions vectorielles compactes de leurs identités historiques, utilisées uniquement pour distinguer les consoles dans la collection. Le symbole Sega générique provient de Simple Icons.
 
+Les wordmarks PSP et PlayStation Vita reprennent les tracés géométriques de Simple Icons, recadrés et colorés pour le fond sombre. L’emblème Sega Saturn est une reproduction vectorielle compacte de son identité historique à planète bleue et anneaux métalliques.
+
 Le SVG Xbox provient de [Font Awesome Free](https://fontawesome.com/) sous licence CC BY 4.0, Copyright Fonticons, Inc.
 
 Les SVG Nintendo Switch, Wii, Wii U et Game Boy proviennent de [Material Design Icons](https://pictogrammers.com/library/mdi/) sous licence Apache 2.0.

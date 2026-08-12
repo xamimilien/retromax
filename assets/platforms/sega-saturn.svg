@@ -1,0 +1,12 @@
+<svg role="img" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <title>Sega Saturn</title>
+  <defs>
+    <radialGradient id="planet" cx="35%" cy="28%" r="70%"><stop stop-color="#79c9ff"/><stop offset=".48" stop-color="#2774ba"/><stop offset="1" stop-color="#183d76"/></radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".44" stop-color="#b8c2d0"/><stop offset="1" stop-color="#596778"/></linearGradient>
+    <linearGradient id="flare" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd24a"/><stop offset=".55" stop-color="#f36f2b"/><stop offset="1" stop-color="#d42135"/></linearGradient>
+  </defs>
+  <circle cx="32" cy="31" r="15" fill="url(#planet)"/>
+  <ellipse cx="32" cy="31" rx="27" ry="10" fill="none" stroke="url(#ring)" stroke-width="5" transform="rotate(-24 32 31)"/>
+  <path d="M10 39C24 33 39 22 53 11" fill="none" stroke="url(#flare)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M21 52c8 3 18 2 25-2" fill="none" stroke="#8e9caf" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
