@@ -1,13 +1,13 @@
 # Logos des plateformes
 
-Ce dossier accueillera les futurs logos SVG ou PNG dont les droits d’utilisation auront été vérifiés.
+Les SVG PlayStation et Sega proviennent de [Simple Icons](https://simpleicons.org/) sous licence CC0 1.0.
 
-Le composant `.platform-mark` affiche actuellement une abréviation de secours. Pour ajouter un logo, associer son sélecteur `data-platform-logo` à la variable CSS `--platform-logo`, par exemple :
+Le SVG Xbox provient de [Font Awesome Free](https://fontawesome.com/) sous licence CC BY 4.0, Copyright Fonticons, Inc.
 
-```css
-[data-platform-logo="gamecube"] {
-  --platform-logo: url("assets/platforms/gamecube.svg");
-}
-```
+Les SVG Nintendo Switch, Wii, Wii U et Game Boy proviennent de [Material Design Icons](https://pictogrammers.com/library/mdi/) sous licence Apache 2.0.
 
-Le fond, la bordure et l’abréviation restent disponibles comme repli si l’image ne charge pas.
+Les symboles GameCube et Dreamcast sont des adaptations monochromes de fichiers de [Wikimedia Commons](https://commons.wikimedia.org/), déclarés dans le domaine public comme logos géométriques simples.
+
+Les noms et logos restent des marques de leurs propriétaires respectifs. Ils sont utilisés ici uniquement pour identifier les plateformes de la collection.
+
+Le composant `.platform-mark` conserve une abréviation de secours si un logo manque ou ne charge pas.

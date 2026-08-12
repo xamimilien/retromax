@@ -10,10 +10,10 @@ Utiliser le bouton **Importer** pour charger une sauvegarde JSON privée, puis *
 
 ## Identité des consoles
 
-Les couleurs et badges de remplacement sont centralisés dans `PLATFORM_THEMES` (`app.js`). Chaque badge expose aussi un attribut `data-platform-logo` et la variable CSS `--platform-logo` : de futurs logos locaux pourront donc remplacer les initiales sans modifier les cartes ni les données de collection.
+Les couleurs et logos sont centralisés dans `PLATFORM_THEMES` (`app.js`). Chaque badge utilise un SVG local lorsque celui-ci est disponible, avec une abréviation de secours pour les autres plateformes.
 
-Les futurs fichiers graphiques devront être ajoutés dans `assets/platforms/`, après vérification de leurs droits d’utilisation. Aucun logo tiers n’est actuellement inclus.
+Les fichiers et leurs attributions sont documentés dans `assets/platforms/README.md`. Les logos servent uniquement à identifier les plateformes et restent des marques de leurs propriétaires respectifs.
 
 ## Versions
 
-La version courante est **0.0.03**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.04`, `0.0.05`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.04**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.05`, `0.0.06`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).

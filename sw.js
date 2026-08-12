@@ -1,5 +1,5 @@
-const CACHE='retromax-public-v0.0.03';
-const ASSETS=['./','./index.html','./styles.css?v=0.0.03','./app.js?v=0.0.03','./manifest.webmanifest'];
+const CACHE='retromax-public-v0.0.04';
+const ASSETS=['./','./index.html','./styles.css?v=0.0.04','./app.js?v=0.0.04','./manifest.webmanifest','./assets/platforms/playstation.svg','./assets/platforms/playstation2.svg','./assets/platforms/playstation3.svg','./assets/platforms/playstation4.svg','./assets/platforms/playstation5.svg','./assets/platforms/psp.svg','./assets/platforms/psvita.svg','./assets/platforms/sega.svg','./assets/platforms/xbox.svg','./assets/platforms/nintendo-switch.svg','./assets/platforms/nintendo-wii.svg','./assets/platforms/nintendo-wiiu.svg','./assets/platforms/nintendo-game-boy.svg','./assets/platforms/gamecube.svg','./assets/platforms/dreamcast.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 
