@@ -10,7 +10,7 @@ Le SVG Xbox provient de [Font Awesome Free](https://fontawesome.com/) sous licen
 
 Les SVG Nintendo Switch, Wii et l'ancien pictogramme Game Boy proviennent de [Material Design Icons](https://pictogrammers.com/library/mdi/) sous licence Apache 2.0.
 
-Les identités NES, Game Boy, Game Boy Color, Game Boy Advance, Nintendo DS, Nintendo 3DS, Wii U et Nintendo Switch 2 sont des reproductions vectorielles compactes de leurs logos officiels, adaptées à la très petite taille des badges de l'application. Xbox original, Xbox 360, Xbox One et Xbox Series X|S utilisent les tracés complets propres à chaque génération, vérifiés avec les ressources Xbox et les archives de logos de Wikimedia Commons.
+Les identités NES, Game Boy, Game Boy Color, Game Boy Advance et Nintendo DS utilisent désormais les tracés vectoriels historiques complets archivés par Wikimedia Commons, avec un badge élargi afin de préserver leurs proportions. Nintendo 3DS, Wii U et Nintendo Switch 2 restent des reproductions vectorielles compactes de leurs logos officiels. Xbox original, Xbox 360, Xbox One et Xbox Series X|S utilisent les tracés complets propres à chaque génération, vérifiés avec les ressources Xbox et les archives de logos de Wikimedia Commons.
 
 Le cartouche Nintendo générique reprend le cadre rouge arrondi historique de la marque et le réduit à une initiale blanche afin de rester lisible dans les cartes constructeur.
 
