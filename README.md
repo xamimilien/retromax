@@ -12,8 +12,10 @@ Utiliser le bouton **Importer** pour charger une sauvegarde JSON privée, puis *
 
 Les couleurs et logos sont centralisés dans `PLATFORM_THEMES` (`app.js`). Chaque badge utilise un SVG local lorsque celui-ci est disponible, avec une abréviation de secours pour les autres plateformes.
 
+Le formulaire d'ajout s'appuie sur `CONSOLE_CATALOG` : les principales consoles Sony, Nintendo, Sega et Microsoft restent proposées même lorsqu'aucun jeu de cette plateforme n'est encore présent dans la collection locale.
+
 Les fichiers et leurs attributions sont documentés dans `assets/platforms/README.md`. Les logos servent uniquement à identifier les plateformes et restent des marques de leurs propriétaires respectifs.
 
 ## Versions
 
-La version courante est **0.0.07**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.08`, `0.0.09`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.08**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.09`, `0.0.10`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).

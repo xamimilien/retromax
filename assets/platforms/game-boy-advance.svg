@@ -1,0 +1,6 @@
+<svg role="img" viewBox="0 0 240 54" xmlns="http://www.w3.org/2000/svg">
+  <title>Nintendo Game Boy Advance</title>
+  <defs><linearGradient id="gba" x1="0" x2="1"><stop stop-color="#2448a5"/><stop offset=".45" stop-color="#7754b0"/><stop offset="1" stop-color="#c13c82"/></linearGradient></defs>
+  <text x="3" y="35" fill="url(#gba)" font-family="Arial Black,Arial,sans-serif" font-size="30" font-style="italic" font-weight="900" letter-spacing="-2">GAME BOY</text>
+  <text x="147" y="35" fill="url(#gba)" font-family="Arial,Helvetica,sans-serif" font-size="22" font-style="italic" font-weight="700" letter-spacing="-1.5">ADVANCE</text>
+</svg>

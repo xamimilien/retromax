@@ -8,7 +8,9 @@ Les wordmarks PSP et PlayStation Vita reprennent les tracés géométriques de S
 
 Le SVG Xbox provient de [Font Awesome Free](https://fontawesome.com/) sous licence CC BY 4.0, Copyright Fonticons, Inc.
 
-Les SVG Nintendo Switch, Wii, Wii U et Game Boy proviennent de [Material Design Icons](https://pictogrammers.com/library/mdi/) sous licence Apache 2.0.
+Les SVG Nintendo Switch, Wii et l'ancien pictogramme Game Boy proviennent de [Material Design Icons](https://pictogrammers.com/library/mdi/) sous licence Apache 2.0.
+
+Les identités NES, Game Boy, Game Boy Color, Game Boy Advance, Nintendo DS, Nintendo 3DS, Wii U, Nintendo Switch 2, Xbox, Xbox 360, Xbox One et Xbox Series sont des reproductions vectorielles compactes de leurs logos officiels, adaptées à la très petite taille des badges de l'application. Les références visuelles ont été vérifiées sur les sites de Nintendo et Xbox ainsi que dans les archives de logos de Wikimedia Commons.
 
 Les symboles GameCube et Dreamcast sont des adaptations monochromes de fichiers de [Wikimedia Commons](https://commons.wikimedia.org/), déclarés dans le domaine public comme logos géométriques simples.
 

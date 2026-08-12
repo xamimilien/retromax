@@ -1,0 +1,10 @@
+<svg role="img" viewBox="0 0 188 64" xmlns="http://www.w3.org/2000/svg">
+  <title>Nintendo Switch 2</title>
+  <g fill="none" stroke="#e60012" stroke-width="4">
+    <path d="M8 7h18v50H8A7 7 0 0 1 1 50V14a7 7 0 0 1 7-7Z"/><path d="M34 7h18a7 7 0 0 1 7 7v36a7 7 0 0 1-7 7H34Z"/>
+  </g>
+  <circle cx="15" cy="21" r="4" fill="#e60012"/><circle cx="45" cy="42" r="4" fill="#e60012"/>
+  <text x="67" y="26" fill="#f4f4f5" font-family="Arial,Helvetica,sans-serif" font-size="17" font-weight="900" letter-spacing="-.7">NINTENDO</text>
+  <text x="67" y="50" fill="#f4f4f5" font-family="Arial Black,Arial,sans-serif" font-size="24" font-weight="900" letter-spacing="-1">SWITCH</text>
+  <text x="157" y="52" fill="#e60012" font-family="Arial Black,Arial,sans-serif" font-size="42" font-weight="900">2</text>
+</svg>
