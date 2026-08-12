@@ -23,6 +23,7 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .platform-mark[data-logo-shape="legacy-wordmark"] .platform-logo-image{width:88px;height:38px}
 .platform-logo-image{display:block;width:34px;height:34px;object-fit:contain}
 .platform-mark[data-platform-logo="nintendo"] .platform-logo-image{width:40px;height:36px}
+.platform-mark[data-platform-logo="xbox"],.platform-mark[data-platform-logo="xbox360"],.platform-mark[data-platform-logo="xboxone"],.platform-mark[data-platform-logo="mastersystem"]{background:#f4f4f5}
 .platform-mark[data-has-logo="true"] .platform-fallback{display:none}
 .platform-fallback{color:inherit!important;font-size:11px!important;font-weight:900;letter-spacing:-.04em}
 .game-card{position:relative;overflow:hidden;grid-template-columns:auto 1fr auto;background:linear-gradient(100deg,var(--platform-soft),var(--panel) 28%);border-color:color-mix(in srgb,var(--platform-accent) 34%,var(--line))}

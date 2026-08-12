@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.09';
+const APP_VERSION='0.0.10';
 const DEFAULT_ACCENT='#f7cf46';
 const CONSOLE_CATALOG={
   Sony:['PlayStation 1','PlayStation 2','PlayStation 3','PlayStation 4','PlayStation 5','PSP','PS Vita'],
@@ -27,8 +27,8 @@ const PLATFORM_THEMES=[
   {key:'gameboy',match:/game boy/,color:'#2f328c',mark:'GB',logo:'game-boy',shape:'legacy-wordmark',mode:'image'},
   {key:'3ds',match:/nintendo 3ds|\b3ds\b/,color:'#e60012',mark:'3DS',logo:'nintendo-3ds',shape:'legacy-wordmark',mode:'image'},
   {key:'ds',match:/nintendo ds|\bds\b/,color:'#aeb8c7',mark:'DS',logo:'nintendo-ds',shape:'legacy-wordmark',mode:'image'},
-  {key:'mastersystem',match:/master system/,color:'#e4312b',mark:'MS',logo:'master-system',shape:'wide-wordmark',mode:'image'},
-  {key:'megadrive',match:/mega drive|genesis/,color:'#ff5a2a',mark:'MD',logo:'mega-drive',shape:'wide-wordmark',mode:'image'},
+  {key:'mastersystem',match:/master system/,color:'#e4312b',mark:'MS',logo:'master-system',shape:'legacy-wordmark',mode:'image'},
+  {key:'megadrive',match:/mega drive|genesis/,color:'#ff5a2a',mark:'MD',logo:'mega-drive',shape:'legacy-wordmark',mode:'image'},
   {key:'saturn',match:/saturn/,color:'#5b7fb8',mark:'SAT',logo:'sega-saturn',mode:'image'},
   {key:'dreamcast',match:/dreamcast/,color:'#f36f21',mark:'DC',logo:'dreamcast'},
   {key:'xboxseries',match:/xbox series/,color:'#107c10',mark:'XS',logo:'xbox-series',shape:'legacy-wordmark',mode:'image'},
