@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Nintendo Wii U</title><path d="M2,15.96C2,18.19 3.54,19.5 5.79,19.5H18.57C20.47,19.5 22,18.2 22,16.32V6.97C22,5.83 21.15,4.6 20.11,4.6H17.15V12.3C17.15,18.14 6.97,18.09 6.97,12.41V4.5H4.72C3.26,4.5 2,5.41 2,6.85V15.96M9.34,11.23C9.34,15.74 14.66,15.09 14.66,11.94V4.5H9.34V11.23Z"/></svg>
+<svg role="img" viewBox="0 0 190 62" xmlns="http://www.w3.org/2000/svg">
+  <title>Nintendo Wii U</title>
+  <text x="5" y="44" fill="#aeb8c7" font-family="Arial,Helvetica,sans-serif" font-size="48" font-weight="300" letter-spacing="-4">Wii</text>
+  <path d="M104 10h17v28c0 8 5 11 13 11s13-3 13-11V10h17v30c0 16-12 22-30 22s-30-6-30-22Z" fill="#00a7e0" transform="translate(0 -4) scale(.86)"/>
+  <text x="158" y="45" fill="#00a7e0" font-family="Arial,Helvetica,sans-serif" font-size="10" font-weight="700">TM</text>
+</svg>
