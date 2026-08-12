@@ -17,6 +17,8 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .platform-mark[data-logo-shape="wordmark"] .platform-logo-image{width:58px;height:30px}
 .platform-mark[data-logo-shape="wide-wordmark"]{width:76px}
 .platform-mark[data-logo-shape="wide-wordmark"] .platform-logo-image{width:68px;height:34px}
+.platform-mark[data-logo-shape="handheld-wordmark"]{width:82px}
+.platform-mark[data-logo-shape="handheld-wordmark"] .platform-logo-image{width:74px;height:32px}
 .platform-logo-image{display:block;width:34px;height:34px;object-fit:contain}
 .platform-mark[data-has-logo="true"] .platform-fallback{display:none}
 .platform-fallback{color:inherit!important;font-size:11px!important;font-weight:900;letter-spacing:-.04em}
