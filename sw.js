@@ -1,5 +1,5 @@
-const CACHE='retromax-public-v0.0.02';
-const ASSETS=['./','./index.html','./styles.css?v=0.0.02','./app.js?v=0.0.02','./manifest.webmanifest'];
+const CACHE='retromax-public-v0.0.03';
+const ASSETS=['./','./index.html','./styles.css?v=0.0.03','./app.js?v=0.0.03','./manifest.webmanifest'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 

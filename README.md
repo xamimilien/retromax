@@ -16,4 +16,4 @@ Les futurs fichiers graphiques devront être ajoutés dans `assets/platforms/`, 
 
 ## Versions
 
-La version courante est **0.0.02**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.03`, `0.0.04`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.03**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.04`, `0.0.05`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).

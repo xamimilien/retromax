@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.02';
+const APP_VERSION='0.0.03';
 const DEFAULT_ACCENT='#f7cf46';
 const PLATFORM_THEMES=[
   {key:'gamecube',match:/gamecube/,color:'#7357d6',mark:'GC'},
@@ -34,6 +34,7 @@ function normalizeImported(data){const arr=Array.isArray(data)?data:(Array.isArr
 async function importFile(file){try{const text=await file.text();const imported=normalizeImported(JSON.parse(text));const replace=!games.length||confirm(`Importer ${imported.length} jeux ?\n\nOK = remplacer la collection locale\nAnnuler = conserver la collection actuelle`);if(replace){games=imported}else{return}save();populateFilters();render();alert(`${imported.length} jeux importés sur cet appareil.\nAucune donnée n'a été envoyée à GitHub.`)}catch(err){alert(`Import impossible : ${err.message}`)}finally{els.file.value=''}}
 ['input','change'].forEach(ev=>{els.search.addEventListener(ev,render);els.mf.addEventListener(ev,render);els.cf.addEventListener(ev,render);els.sf.addEventListener(ev,render)});
 els.cards.addEventListener('click',e=>{const b=e.target.closest('[data-maker]');if(!b)return;els.mf.value=els.mf.value===b.dataset.maker?'':b.dataset.maker;render()});els.list.addEventListener('click',e=>{const c=e.target.closest('[data-id]');if(c)openForm(games.find(g=>g.id===c.dataset.id))});
+$('#refreshBtn').onclick=async e=>{const button=e.currentTarget;button.disabled=true;button.classList.add('refreshing');button.setAttribute('aria-label','Actualisation en cours');try{if('serviceWorker'in navigator){const registration=await navigator.serviceWorker.getRegistration();await registration?.update()}}catch{}finally{location.reload()}};
 $('#addBtn').onclick=()=>openForm();$('#clearFilters').onclick=()=>{els.search.value='';els.mf.value='';els.cf.value='';els.sf.value='';render()};$('#manufacturer').onchange=e=>setConsoleOptions(e.target.value);
 els.form.addEventListener('submit',e=>{e.preventDefault();const id=$('#gameId').value;const obj={id:id||'g'+Date.now(),title:$('#title').value.trim(),manufacturer:$('#manufacturer').value,console:$('#console').value,status:$('#status').value,quantity:Math.max(1,+$('#quantity').value||1),region:$('#region').value,format:$('#format').value,tags:$('#tags').value.split(',').map(x=>x.trim()).filter(Boolean),notes:$('#notes').value.trim(),source:id?(games.find(g=>g.id===id)?.source||'manuel'):'manuel'};if(id)games=games.map(g=>g.id===id?obj:g);else games.push(obj);save();populateFilters();els.dialog.close();render()});
 $('#deleteBtn').onclick=()=>{const id=$('#gameId').value;if(id&&confirm('Supprimer ce jeu de RétroMax ?')){games=games.filter(g=>g.id!==id);save();populateFilters();els.dialog.close();render()}};

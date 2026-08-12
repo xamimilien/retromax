@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.02" />
+  <link rel="stylesheet" href="styles.css?v=0.0.03" />
 </head>
 <body>
   <header class="topbar">
@@ -17,7 +17,10 @@
       <p class="eyebrow">MA COLLECTION</p>
       <h1>RétroMax <span>🎮</span> <small class="app-version" id="appVersion"></small></h1>
     </div>
-    <button class="icon-btn" id="addBtn" aria-label="Ajouter un jeu">＋</button>
+    <div class="topbar-actions">
+      <button class="icon-btn refresh-btn" id="refreshBtn" type="button" aria-label="Actualiser l’application" title="Actualiser">↻</button>
+      <button class="icon-btn" id="addBtn" type="button" aria-label="Ajouter un jeu">＋</button>
+    </div>
   </header>
 
   <main>
@@ -96,6 +99,6 @@
     </form>
   </dialog>
 
-  <script src="app.js?v=0.0.02"></script>
+  <script src="app.js?v=0.0.03"></script>
 </body>
 </html>
