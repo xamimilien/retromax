@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.13" />
+  <link rel="stylesheet" href="styles.css?v=0.0.14" />
 </head>
 <body>
   <header class="topbar">
@@ -57,7 +57,18 @@
 
     <section class="section-head">
       <div><p class="eyebrow">JEUX</p><h2 id="resultTitle">Toute la collection</h2></div>
-      <button class="ghost-btn" id="clearFilters">Réinitialiser</button>
+      <div class="section-actions">
+        <button class="ghost-btn" id="clearFilters" type="button" title="Effacer la recherche et tous les filtres">Réinitialiser</button>
+        <button class="ghost-btn select-mode-btn" id="selectModeBtn" type="button" aria-label="Sélectionner plusieurs jeux" aria-pressed="false" title="Sélection multiple"><span aria-hidden="true">☑</span></button>
+      </div>
+    </section>
+    <section id="selectionBar" class="selection-bar hidden" aria-live="polite">
+      <strong id="selectionCount">0 jeu sélectionné</strong>
+      <div class="selection-actions">
+        <button class="ghost-btn compact" id="selectAllVisible" type="button">Tout sélectionner</button>
+        <button class="primary-btn compact" id="bulkEditBtn" type="button" disabled>Modifier</button>
+        <button class="ghost-btn compact" id="cancelSelection" type="button">Annuler</button>
+      </div>
     </section>
     <section id="gameList" class="game-list"></section>
     <p id="emptyState" class="empty hidden">Aucun jeu ne correspond à ces critères.</p>
@@ -99,6 +110,38 @@
     </form>
   </dialog>
 
-  <script src="app.js?v=0.0.13"></script>
+  <dialog id="bulkDialog">
+    <form method="dialog" id="bulkForm">
+      <div class="dialog-head"><div><p class="eyebrow">MODIFICATION GROUPÉE</p><h2><span id="bulkDialogCount">0</span> jeux</h2></div><button class="icon-btn small" id="bulkCloseBtn" type="button" aria-label="Fermer">×</button></div>
+      <p class="bulk-help">Coche uniquement les informations à appliquer. Les autres restent inchangées.</p>
+      <div class="bulk-field">
+        <label class="bulk-toggle"><input type="checkbox" id="applyBulkRegion" /> Région</label>
+        <select id="bulkRegion" disabled><option value="">— Aucune —</option><option>PAL</option><option>JAP</option><option>US</option><option>DE</option></select>
+      </div>
+      <div class="bulk-field">
+        <label class="bulk-toggle"><input type="checkbox" id="applyBulkFormat" /> Format</label>
+        <select id="bulkFormat" disabled><option value="">— Aucun —</option><option>Boîte</option><option>Loose</option><option>Dématérialisé</option></select>
+      </div>
+      <div class="bulk-field">
+        <label class="bulk-toggle"><input type="checkbox" id="applyBulkStatus" /> Statut</label>
+        <select id="bulkStatus" disabled><option>Acquis</option><option>Recherché</option></select>
+      </div>
+      <div class="bulk-field bulk-tags-field">
+        <label class="bulk-toggle"><input type="checkbox" id="applyBulkTags" /> Tags</label>
+        <div class="bulk-tags-controls">
+          <select id="bulkTagsMode" disabled><option value="add">Ajouter aux tags existants</option><option value="replace">Remplacer les tags</option></select>
+          <input id="bulkTags" disabled placeholder="VR, Démo, Repro…" />
+        </div>
+      </div>
+      <p id="bulkError" class="form-error hidden">Sélectionne au moins une information à appliquer.</p>
+      <div class="dialog-actions bulk-dialog-actions">
+        <button type="button" class="ghost-btn" id="bulkCancelBtn">Annuler</button>
+        <button type="submit" class="primary-btn">Appliquer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js?v=0.0.14"></script>
 </body>
 </html>
+
