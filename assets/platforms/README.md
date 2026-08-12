@@ -8,6 +8,8 @@ Les SVG Nintendo Switch, Wii, Wii U et Game Boy proviennent de [Material Design 
 
 Les symboles GameCube et Dreamcast sont des adaptations monochromes de fichiers de [Wikimedia Commons](https://commons.wikimedia.org/), déclarés dans le domaine public comme logos géométriques simples.
 
+Les emblèmes PlayStation d’origine et Super Nintendo proviennent de [Wikimedia Commons](https://commons.wikimedia.org/) et sont déclarés dans le domaine public comme logos géométriques simples. L’emblème Nintendo 64 est une reproduction vectorielle du logo de Nintendo utilisée uniquement pour identifier la console.
+
 Les noms et logos restent des marques de leurs propriétaires respectifs. Ils sont utilisés ici uniquement pour identifier les plateformes de la collection.
 
 Le composant `.platform-mark` conserve une abréviation de secours si un logo manque ou ne charge pas.
