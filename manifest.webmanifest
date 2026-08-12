@@ -1,1 +1,1 @@
-{"name":"RétroMax","short_name":"RétroMax","description":"Gestionnaire privé de collection de jeux vidéo rétro","start_url":"./","scope":"./","display":"standalone","background_color":"#0b0b0d","theme_color":"#0b0b0d","icons":[]}
+{"id":"./","name":"RétroMax","short_name":"RétroMax","description":"Gestionnaire privé de collection de jeux vidéo rétro","start_url":"./?source=pwa","scope":"./","display":"standalone","display_override":["standalone"],"background_color":"#0b0b0d","theme_color":"#0b0b0d","icons":[]}
