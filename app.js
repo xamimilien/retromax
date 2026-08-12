@@ -1,13 +1,15 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.04';
+const APP_VERSION='0.0.05';
 const DEFAULT_ACCENT='#f7cf46';
 const PLATFORM_THEMES=[
-  {key:'ps5',match:/playstation 5|\bps5\b/,color:'#1675d1',mark:'PS5',logo:'playstation5'},
-  {key:'ps4',match:/playstation 4|\bps4\b/,color:'#1675d1',mark:'PS4',logo:'playstation4'},
-  {key:'ps3',match:/playstation 3|\bps3\b/,color:'#1675d1',mark:'PS3',logo:'playstation3'},
-  {key:'ps2',match:/playstation 2|\bps2\b/,color:'#3155c6',mark:'PS2',logo:'playstation2'},
-  {key:'psvita',match:/ps vita|playstation vita/,color:'#1675d1',mark:'VITA',logo:'psvita'},
-  {key:'psp',match:/\bpsp\b|playstation portable/,color:'#1675d1',mark:'PSP',logo:'psp'},
+  {key:'ps5',match:/playstation 5|\bps5\b/,color:'#1675d1',mark:'PS5',logo:'playstation5',shape:'wordmark'},
+  {key:'ps4',match:/playstation 4|\bps4\b/,color:'#1675d1',mark:'PS4',logo:'playstation4',shape:'wordmark'},
+  {key:'ps3',match:/playstation 3|\bps3\b/,color:'#1675d1',mark:'PS3',logo:'playstation3',shape:'wordmark'},
+  {key:'ps2',match:/playstation 2|\bps2\b/,color:'#3155c6',mark:'PS2',logo:'playstation2',shape:'wordmark'},
+  {key:'psvita',match:/ps vita|playstation vita/,color:'#1675d1',mark:'VITA',logo:'psvita',shape:'wordmark'},
+  {key:'psp',match:/\bpsp\b|playstation portable/,color:'#1675d1',mark:'PSP',logo:'psp',shape:'wordmark'},
+  {key:'n64',match:/nintendo 64|\bn64\b/,color:'#069330',mark:'N64',logo:'nintendo64',mode:'image'},
+  {key:'snes',match:/super nintendo|super nes|\bsnes\b|super famicom/,color:'#6eb92b',mark:'SNES',logo:'super-nintendo',mode:'image'},
   {key:'gamecube',match:/gamecube/,color:'#7357d6',mark:'GC',logo:'gamecube'},
   {key:'switch',match:/switch/,color:'#e60012',mark:'NS',logo:'nintendo-switch'},
   {key:'wiiu',match:/wii u|wiiu/,color:'#00a7e0',mark:'WiiU',logo:'nintendo-wiiu'},
@@ -15,7 +17,7 @@ const PLATFORM_THEMES=[
   {key:'gameboy',match:/game boy/,color:'#e60012',mark:'GB',logo:'nintendo-game-boy'},
   {key:'dreamcast',match:/dreamcast/,color:'#f36f21',mark:'DC',logo:'dreamcast'},
   {key:'xbox',match:/xbox/,color:'#52b043',mark:'XB',logo:'xbox'},
-  {key:'playstation',match:/playstation(?: 1)?|\bps1\b|sony/,color:'#1675d1',mark:'PS',logo:'playstation'},
+  {key:'playstation',match:/playstation(?: 1)?|\bps1\b|sony/,color:'#1675d1',mark:'PS',logo:'playstation-classic',mode:'image'},
   {key:'nintendo',match:/nintendo|\bnes\b|game boy|\bwii\b|\b3ds\b|\bds\b/,color:'#e60012',mark:'N'},
   {key:'sega',match:/sega|master system|mega drive|saturn|game gear/,color:'#0089cf',mark:'SEGA',logo:'sega'},
   {key:'microsoft',match:/microsoft/,color:'#52b043',mark:'MS',logo:'xbox'}
@@ -30,7 +32,7 @@ function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt
 function uniq(xs){return [...new Set(xs.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'fr'))}
 function platformTheme(consoleName='',manufacturer=''){const haystack=`${consoleName} ${manufacturer}`.toLowerCase();return PLATFORM_THEMES.find(theme=>theme.match.test(haystack))||{key:'other',color:DEFAULT_ACCENT,mark:'•'}}
 function platformStyle(theme){return `--platform-accent:${theme.color};--platform-soft:${theme.color}24${theme.logo?`;--platform-logo:url(assets/platforms/${theme.logo}.svg)`:''}`}
-function platformMark(theme,label){return `<span class="platform-mark" data-platform-logo="${theme.key}" data-has-logo="${theme.logo?'true':'false'}" role="img" aria-label="${esc(label)}"><span class="platform-fallback">${esc(theme.mark)}</span></span>`}
+function platformMark(theme,label){const mode=theme.mode||'mask',shape=theme.shape||'emblem',image=theme.logo&&mode==='image'?`<img class="platform-logo-image" src="assets/platforms/${theme.logo}.svg" alt="" loading="lazy">`:'';return `<span class="platform-mark" data-platform-logo="${theme.key}" data-logo-mode="${mode}" data-logo-shape="${shape}" data-has-logo="${theme.logo?'true':'false'}" role="img" aria-label="${esc(label)}">${image}<span class="platform-fallback">${esc(theme.mark)}</span></span>`}
 function applyActiveTheme(){const theme=els.cf.value?platformTheme(els.cf.value):els.mf.value?platformTheme('',els.mf.value):null;document.documentElement.style.setProperty('--accent',theme?.color||DEFAULT_ACCENT);document.documentElement.style.setProperty('--accent-soft',theme?`${theme.color}24`:'#f7cf4624');document.body.dataset.activePlatform=theme?.key||'all'}
 function populateFilters(manufacturer=els.mf.value,consoleName=els.cf.value){const m=uniq(games.map(g=>g.manufacturer));els.mf.innerHTML='<option value="">Tous les constructeurs</option>'+m.map(x=>`<option>${esc(x)}</option>`).join('');els.mf.value=m.includes(manufacturer)?manufacturer:'';const c=uniq(games.filter(g=>!els.mf.value||g.manufacturer===els.mf.value).map(g=>g.console));els.cf.innerHTML='<option value="">Toutes les consoles</option>'+c.map(x=>`<option>${esc(x)}</option>`).join('');els.cf.value=c.includes(consoleName)?consoleName:'';const fm=$('#manufacturer'),fc=$('#console'),allConsoles=uniq(games.map(g=>g.console));fm.innerHTML=m.length?m.map(x=>`<option>${esc(x)}</option>`).join(''):'<option>Sony</option><option>Nintendo</option><option>Sega</option><option>Microsoft</option>';fc.innerHTML=allConsoles.length?allConsoles.map(x=>`<option>${esc(x)}</option>`).join(''):'<option>PlayStation 1</option>'}
 function visible(){const q=els.search.value.trim().toLowerCase(),mf=els.mf.value,cf=els.cf.value,sf=els.sf.value;return games.filter(g=>(!q||[g.title,g.console,g.manufacturer,g.region,g.format,...(g.tags||[])].join(' ').toLowerCase().includes(q))&&(!mf||g.manufacturer===mf)&&(!cf||g.console===cf)&&(!sf||g.status===sf)).sort((a,b)=>(a.console||'').localeCompare(b.console||'','fr')||(a.title||'').localeCompare(b.title||'','fr'))}

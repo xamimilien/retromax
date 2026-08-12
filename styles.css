@@ -10,8 +10,11 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .maker-card.active{outline-color:var(--platform-accent)}
 .maker-copy,.game-copy{min-width:0}
 .maker-card .maker-copy>span{color:var(--muted)}
-.platform-mark{flex:0 0 auto;display:grid;place-items:center;width:42px;height:42px;border:1px solid color-mix(in srgb,var(--platform-accent) 55%,transparent);border-radius:13px;background-color:var(--platform-soft);color:var(--platform-accent)}
-.platform-mark[data-has-logo="true"]::before{content:"";width:27px;height:27px;background:var(--platform-accent);-webkit-mask:var(--platform-logo) center/contain no-repeat;mask:var(--platform-logo) center/contain no-repeat}
+.platform-mark{flex:0 0 auto;display:grid;place-items:center;width:46px;height:42px;border:1px solid color-mix(in srgb,var(--platform-accent) 55%,transparent);border-radius:13px;background-color:var(--platform-soft);color:var(--platform-accent)}
+.platform-mark[data-has-logo="true"][data-logo-mode="mask"]::before{content:"";width:29px;height:29px;background:var(--platform-accent);-webkit-mask:var(--platform-logo) center/contain no-repeat;mask:var(--platform-logo) center/contain no-repeat}
+.platform-mark[data-logo-shape="wordmark"]{width:52px}
+.platform-mark[data-logo-shape="wordmark"]::before{width:42px!important;height:24px!important}
+.platform-logo-image{display:block;width:34px;height:34px;object-fit:contain}
 .platform-mark[data-has-logo="true"] .platform-fallback{display:none}
 .platform-fallback{color:inherit!important;font-size:11px!important;font-weight:900;letter-spacing:-.04em}
 .game-card{position:relative;overflow:hidden;grid-template-columns:auto 1fr auto;background:linear-gradient(100deg,var(--platform-soft),var(--panel) 28%);border-color:color-mix(in srgb,var(--platform-accent) 34%,var(--line))}
