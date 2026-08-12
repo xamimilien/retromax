@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.08';
+const APP_VERSION='0.0.09';
 const DEFAULT_ACCENT='#f7cf46';
 const CONSOLE_CATALOG={
   Sony:['PlayStation 1','PlayStation 2','PlayStation 3','PlayStation 4','PlayStation 5','PSP','PS Vita'],
@@ -36,7 +36,7 @@ const PLATFORM_THEMES=[
   {key:'xbox360',match:/xbox 360/,color:'#6abf4b',mark:'360',logo:'xbox-360',shape:'legacy-wordmark',mode:'image'},
   {key:'xbox',match:/xbox/,color:'#52b043',mark:'XB',logo:'xbox-original',shape:'legacy-wordmark',mode:'image'},
   {key:'playstation',match:/playstation(?: 1)?|\bps1\b|sony/,color:'#1675d1',mark:'PS',logo:'playstation-classic',mode:'image'},
-  {key:'nintendo',match:/nintendo|\bnes\b|game boy|\bwii\b|\b3ds\b|\bds\b/,color:'#e60012',mark:'N'},
+  {key:'nintendo',match:/nintendo|\bnes\b|game boy|\bwii\b|\b3ds\b|\bds\b/,color:'#e60012',mark:'N',logo:'nintendo-mark',mode:'image'},
   {key:'sega',match:/sega|master system|mega drive|saturn|game gear/,color:'#0089cf',mark:'SEGA',logo:'sega'},
   {key:'microsoft',match:/microsoft/,color:'#52b043',mark:'MS',logo:'xbox'}
 ];

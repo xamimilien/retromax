@@ -12,6 +12,8 @@ Les SVG Nintendo Switch, Wii et l'ancien pictogramme Game Boy proviennent de [Ma
 
 Les identités NES, Game Boy, Game Boy Color, Game Boy Advance, Nintendo DS, Nintendo 3DS, Wii U, Nintendo Switch 2, Xbox, Xbox 360, Xbox One et Xbox Series sont des reproductions vectorielles compactes de leurs logos officiels, adaptées à la très petite taille des badges de l'application. Les références visuelles ont été vérifiées sur les sites de Nintendo et Xbox ainsi que dans les archives de logos de Wikimedia Commons.
 
+Le cartouche Nintendo générique reprend le cadre rouge arrondi historique de la marque et le réduit à une initiale blanche afin de rester lisible dans les cartes constructeur.
+
 Les symboles GameCube et Dreamcast sont des adaptations monochromes de fichiers de [Wikimedia Commons](https://commons.wikimedia.org/), déclarés dans le domaine public comme logos géométriques simples.
 
 Les emblèmes PlayStation d’origine et Super Nintendo proviennent de [Wikimedia Commons](https://commons.wikimedia.org/) et sont déclarés dans le domaine public comme logos géométriques simples. L’emblème Nintendo 64 est une reproduction vectorielle du logo de Nintendo utilisée uniquement pour identifier la console.
