@@ -1,4 +1,5 @@
 const KEY='retromax-games-v2-private';
+const APP_VERSION='0.0.01';
 const DEFAULT_ACCENT='#f7cf46';
 const PLATFORM_THEMES=[
   {key:'gamecube',match:/gamecube/,color:'#7357d6',mark:'GC'},
@@ -15,6 +16,7 @@ const PLATFORM_THEMES=[
 let games=load();
 const $=s=>document.querySelector(s);
 const els={stats:$('#stats'),search:$('#search'),mf:$('#manufacturerFilter'),cf:$('#consoleFilter'),sf:$('#statusFilter'),cards:$('#manufacturerCards'),list:$('#gameList'),empty:$('#emptyState'),result:$('#resultTitle'),dialog:$('#gameDialog'),form:$('#gameForm'),welcome:$('#emptyWelcome'),privacy:$('#privacyBanner'),file:$('#importFile')};
+$('#appVersion').textContent=`v${APP_VERSION}`;
 function load(){try{const raw=localStorage.getItem(KEY);return raw?JSON.parse(raw):[]}catch{return []}}
 function save(){localStorage.setItem(KEY,JSON.stringify(games))}
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
