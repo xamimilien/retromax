@@ -1,0 +1,7 @@
+<svg role="img" viewBox="0 0 180 60" xmlns="http://www.w3.org/2000/svg">
+  <title>Sega Master System</title>
+  <path fill="#0878be" d="M8 7h62v5H8zm0 8h62v5H8zm0 8h62v5H8z"/>
+  <text x="78" y="28" fill="#49a7db" font-family="Arial Black,Arial,sans-serif" font-size="24" font-weight="900" letter-spacing="1">SEGA</text>
+  <path fill="#df2f2f" d="M7 34h166v4H7z"/>
+  <text x="8" y="55" fill="#f6f7fb" font-family="Georgia,Times New Roman,serif" font-size="19" font-weight="700" letter-spacing="1.1">MASTER SYSTEM</text>
+</svg>

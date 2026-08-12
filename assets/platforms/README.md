@@ -1,6 +1,8 @@
 # Logos des plateformes
 
-Les SVG PlayStation et Sega proviennent de [Simple Icons](https://simpleicons.org/) sous licence CC0 1.0.
+Les tracés PlayStation 2, 3, 4 et 5 proviennent de [Simple Icons](https://simpleicons.org/) sous licence CC0 1.0. Leur cadrage et leur couleur sont adaptés au fond sombre de l’application sans modifier leur silhouette.
+
+Les lockups Master System et Mega Drive sont des reproductions vectorielles compactes de leurs identités historiques, utilisées uniquement pour distinguer les consoles dans la collection. Le symbole Sega générique provient de Simple Icons.
 
 Le SVG Xbox provient de [Font Awesome Free](https://fontawesome.com/) sous licence CC BY 4.0, Copyright Fonticons, Inc.
 
