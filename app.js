@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.01';
+const APP_VERSION='0.0.02';
 const DEFAULT_ACCENT='#f7cf46';
 const PLATFORM_THEMES=[
   {key:'gamecube',match:/gamecube/,color:'#7357d6',mark:'GC'},
