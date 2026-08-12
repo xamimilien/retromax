@@ -1,11 +1,11 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.05';
+const APP_VERSION='0.0.06';
 const DEFAULT_ACCENT='#f7cf46';
 const PLATFORM_THEMES=[
-  {key:'ps5',match:/playstation 5|\bps5\b/,color:'#1675d1',mark:'PS5',logo:'playstation5',shape:'wordmark'},
-  {key:'ps4',match:/playstation 4|\bps4\b/,color:'#1675d1',mark:'PS4',logo:'playstation4',shape:'wordmark'},
-  {key:'ps3',match:/playstation 3|\bps3\b/,color:'#1675d1',mark:'PS3',logo:'playstation3',shape:'wordmark'},
-  {key:'ps2',match:/playstation 2|\bps2\b/,color:'#3155c6',mark:'PS2',logo:'playstation2',shape:'wordmark'},
+  {key:'ps5',match:/playstation 5|\bps5\b/,color:'#f1f5ff',mark:'PS5',logo:'playstation5',shape:'wordmark',mode:'image'},
+  {key:'ps4',match:/playstation 4|\bps4\b/,color:'#147bd1',mark:'PS4',logo:'playstation4',shape:'wordmark',mode:'image'},
+  {key:'ps3',match:/playstation 3|\bps3\b/,color:'#aeb8c7',mark:'PS3',logo:'playstation3',shape:'wordmark',mode:'image'},
+  {key:'ps2',match:/playstation 2|\bps2\b/,color:'#6574ff',mark:'PS2',logo:'playstation2',shape:'wordmark',mode:'image'},
   {key:'psvita',match:/ps vita|playstation vita/,color:'#1675d1',mark:'VITA',logo:'psvita',shape:'wordmark'},
   {key:'psp',match:/\bpsp\b|playstation portable/,color:'#1675d1',mark:'PSP',logo:'psp',shape:'wordmark'},
   {key:'n64',match:/nintendo 64|\bn64\b/,color:'#069330',mark:'N64',logo:'nintendo64',mode:'image'},
@@ -15,6 +15,8 @@ const PLATFORM_THEMES=[
   {key:'wiiu',match:/wii u|wiiu/,color:'#00a7e0',mark:'WiiU',logo:'nintendo-wiiu'},
   {key:'wii',match:/\bwii\b/,color:'#00a7e0',mark:'Wii',logo:'nintendo-wii'},
   {key:'gameboy',match:/game boy/,color:'#e60012',mark:'GB',logo:'nintendo-game-boy'},
+  {key:'mastersystem',match:/master system/,color:'#e4312b',mark:'MS',logo:'master-system',shape:'wide-wordmark',mode:'image'},
+  {key:'megadrive',match:/mega drive|genesis/,color:'#ff5a2a',mark:'MD',logo:'mega-drive',shape:'wide-wordmark',mode:'image'},
   {key:'dreamcast',match:/dreamcast/,color:'#f36f21',mark:'DC',logo:'dreamcast'},
   {key:'xbox',match:/xbox/,color:'#52b043',mark:'XB',logo:'xbox'},
   {key:'playstation',match:/playstation(?: 1)?|\bps1\b|sony/,color:'#1675d1',mark:'PS',logo:'playstation-classic',mode:'image'},
