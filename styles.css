@@ -12,8 +12,11 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .maker-card .maker-copy>span{color:var(--muted)}
 .platform-mark{flex:0 0 auto;display:grid;place-items:center;width:46px;height:42px;border:1px solid color-mix(in srgb,var(--platform-accent) 55%,transparent);border-radius:13px;background-color:var(--platform-soft);color:var(--platform-accent)}
 .platform-mark[data-has-logo="true"][data-logo-mode="mask"]::before{content:"";width:29px;height:29px;background:var(--platform-accent);-webkit-mask:var(--platform-logo) center/contain no-repeat;mask:var(--platform-logo) center/contain no-repeat}
-.platform-mark[data-logo-shape="wordmark"]{width:52px}
-.platform-mark[data-logo-shape="wordmark"]::before{width:42px!important;height:24px!important}
+.platform-mark[data-logo-shape="wordmark"]{width:68px}
+.platform-mark[data-logo-shape="wordmark"]::before{width:58px!important;height:28px!important}
+.platform-mark[data-logo-shape="wordmark"] .platform-logo-image{width:58px;height:30px}
+.platform-mark[data-logo-shape="wide-wordmark"]{width:76px}
+.platform-mark[data-logo-shape="wide-wordmark"] .platform-logo-image{width:68px;height:34px}
 .platform-logo-image{display:block;width:34px;height:34px;object-fit:contain}
 .platform-mark[data-has-logo="true"] .platform-fallback{display:none}
 .platform-fallback{color:inherit!important;font-size:11px!important;font-weight:900;letter-spacing:-.04em}
