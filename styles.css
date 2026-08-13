@@ -43,7 +43,8 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .primary-btn:disabled{opacity:.45}
 .select-mode-btn{display:grid;place-items:center;width:42px;height:42px;padding:0;font-size:20px}
 .select-mode-btn[aria-pressed="true"]{background:var(--accent);color:#17140a}
-.selection-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 11px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--accent) 46%,var(--line));border-radius:15px;background:var(--accent-soft)}
+.selection-bar{position:fixed;z-index:29;top:calc(var(--topbar-height) + env(safe-area-inset-top) + 8px);left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:space-between;gap:12px;width:min(1064px,calc(100% - 36px));margin:0;padding:10px 12px;border:1px solid color-mix(in srgb,var(--accent) 46%,var(--line));border-radius:15px;background:color-mix(in srgb,var(--panel2) 94%,var(--accent));box-shadow:0 12px 32px #0009;backdrop-filter:blur(18px)}
+.selection-bar:not(.hidden)+.game-list{padding-top:63px}
 .selection-bar strong{font-size:14px}
 .selection-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}
 .compact{padding:8px 10px;font-size:13px}
@@ -60,7 +61,7 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .bulk-tags-controls{display:grid;gap:7px}
 .form-error{margin:12px 0 0;color:#ff9aa5;font-size:13px}
 .bulk-dialog-actions{display:flex;justify-content:flex-end}
-@media(max-width:560px){.selection-bar{align-items:flex-start;flex-direction:column}.selection-actions{width:100%;justify-content:stretch}.selection-actions .ghost-btn:first-child{flex:1}.bulk-field{grid-template-columns:1fr}.bulk-dialog-actions>*{flex:1}}
+@media(max-width:560px){.selection-bar{align-items:flex-start;flex-direction:column;width:calc(100% - 24px)}.selection-bar:not(.hidden)+.game-list{padding-top:105px}.selection-actions{width:100%;justify-content:stretch}.selection-actions .ghost-btn:first-child{flex:1}.bulk-field{grid-template-columns:1fr}.bulk-dialog-actions>*{flex:1}}
 
 /* Scan de code-barres sur mobile. */
 .scan-btn{display:grid;place-items:center;border:1px solid var(--line);background:var(--panel2);color:var(--text)}

@@ -1,5 +1,5 @@
 const KEY='retromax-games-v2-private';
-const APP_VERSION='0.0.20';
+const APP_VERSION='0.0.21';
 const DEFAULT_ACCENT='#f7cf46';
 const CONSOLE_CATALOG={
   Sony:['PlayStation 1','PlayStation 2','PlayStation 3','PlayStation 4','PlayStation 5','PSP','PS Vita'],
