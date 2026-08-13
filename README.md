@@ -18,5 +18,8 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.14**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.15`, `0.0.16`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.15**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.16`, `0.0.17`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
+## Scan d’un jeu
+
+Le bouton de scan ouvre la caméra arrière sur iPhone/iPad pour lire le code-barres d’une boîte. L’image reste sur l’appareil : seul le numéro du code-barres est utilisé pour rechercher le titre, la console et la région dans le catalogue spécialisé LevelComplete, via le relais CORS corsproxy.io requis par cette PWA statique. La fiche préremplie reste entièrement modifiable avant son enregistrement. Une saisie manuelle du code et la création d’une fiche vide restent disponibles si la caméra ou la recherche ne répondent pas.

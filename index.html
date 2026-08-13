@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.14" />
+  <link rel="stylesheet" href="styles.css?v=0.0.15" />
 </head>
 <body>
   <header class="topbar">
@@ -19,6 +19,9 @@
       <h1>RétroMax <span>🎮</span> <small class="app-version" id="appVersion"></small></h1>
     </div>
     <div class="topbar-actions">
+      <button class="icon-btn scan-btn" id="scanBtn" type="button" aria-label="Scanner le code-barres d’un jeu" title="Scanner un jeu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M7 8v8M10 8v8M14 8v8M17 8v8"/></svg>
+      </button>
       <button class="icon-btn refresh-btn" id="refreshBtn" type="button" aria-label="Actualiser l’application" title="Actualiser">↻</button>
       <button class="icon-btn" id="addBtn" type="button" aria-label="Ajouter un jeu">＋</button>
     </div>
@@ -84,8 +87,10 @@
 
   <dialog id="gameDialog">
     <form method="dialog" id="gameForm">
-      <div class="dialog-head"><div><p class="eyebrow">FICHE JEU</p><h2 id="dialogTitle">Ajouter</h2></div><button class="icon-btn small" value="cancel" aria-label="Fermer">×</button></div>
+      <div class="dialog-head"><div><p class="eyebrow">FICHE JEU</p><h2 id="dialogTitle">Ajouter</h2></div><button class="icon-btn small" id="gameCloseBtn" type="button" aria-label="Fermer">×</button></div>
       <input type="hidden" id="gameId" />
+      <input type="hidden" id="entrySource" />
+      <p id="scanPrefillNote" class="scan-prefill-note hidden"></p>
       <label>Titre<input id="title" required /></label>
       <div class="two-cols">
         <label>Constructeur<select id="manufacturer" required></select></label>
@@ -104,10 +109,28 @@
       <div class="dialog-actions">
         <button type="button" class="danger hidden" id="deleteBtn">Supprimer</button>
         <span></span>
-        <button value="cancel" class="ghost-btn">Annuler</button>
+        <button type="button" id="gameCancelBtn" class="ghost-btn">Annuler</button>
         <button type="submit" class="primary-btn">Enregistrer</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog id="scanDialog" class="scan-dialog">
+    <section class="scan-shell">
+      <div class="dialog-head"><div><p class="eyebrow">APPAREIL PHOTO</p><h2>Scanner un jeu</h2></div><button class="icon-btn small" id="scanCloseBtn" type="button" aria-label="Fermer">×</button></div>
+      <p class="scan-copy">Place le code-barres de la boîte dans le cadre. La vidéo est analysée sur cet appareil et n’est ni enregistrée ni envoyée.</p>
+      <div class="scan-preview">
+        <video id="scanVideo" autoplay muted playsinline aria-label="Aperçu de la caméra"></video>
+        <span class="scan-frame" aria-hidden="true"></span>
+      </div>
+      <p id="scanStatus" class="scan-status" role="status" aria-live="polite">Ouverture de la caméra…</p>
+      <div class="manual-barcode">
+        <label>Code-barres<input id="barcodeInput" inputmode="numeric" autocomplete="off" placeholder="8 à 14 chiffres" /></label>
+        <button class="primary-btn" id="barcodeLookupBtn" type="button">Rechercher</button>
+      </div>
+      <button class="ghost-btn scan-manual-btn hidden" id="scanBlankBtn" type="button">Créer la fiche et la compléter moi-même</button>
+      <p class="scan-privacy">Seul le numéro détecté est envoyé au catalogue LevelComplete via un relais CORS. Tu pourras toujours corriger la fiche avant de l’enregistrer.</p>
+    </section>
   </dialog>
 
   <dialog id="bulkDialog">
@@ -141,7 +164,7 @@
     </form>
   </dialog>
 
-  <script src="app.js?v=0.0.14"></script>
+  <script src="https://unpkg.com/@zxing/library@0.23.0/umd/index.min.js"></script>
+  <script src="app.js?v=0.0.15"></script>
 </body>
 </html>
-
