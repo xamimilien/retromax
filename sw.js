@@ -1,4 +1,4 @@
-const VERSION='0.0.14';
+const VERSION='0.0.15';
 const CACHE=`retromax-public-v${VERSION}`;
 const ASSETS=['./','./index.html',`./styles.css?v=${VERSION}`,`./app.js?v=${VERSION}`,'./manifest.webmanifest','./assets/platforms/playstation.svg','./assets/platforms/playstation-classic.svg','./assets/platforms/playstation2.svg','./assets/platforms/playstation3.svg','./assets/platforms/playstation4.svg','./assets/platforms/playstation5.svg','./assets/platforms/psp.svg','./assets/platforms/psvita.svg','./assets/platforms/super-nintendo.svg','./assets/platforms/nintendo64.svg','./assets/platforms/nintendo-mark.svg','./assets/platforms/nintendo-nes.svg','./assets/platforms/game-boy.svg','./assets/platforms/game-boy-color.svg','./assets/platforms/game-boy-advance.svg','./assets/platforms/nintendo-ds.svg','./assets/platforms/nintendo-3ds.svg','./assets/platforms/nintendo-switch-2.svg','./assets/platforms/master-system.svg','./assets/platforms/mega-drive.svg','./assets/platforms/sega-saturn.svg','./assets/platforms/sega.svg','./assets/platforms/xbox.svg','./assets/platforms/xbox-original.svg','./assets/platforms/xbox-360.svg','./assets/platforms/xbox-one.svg','./assets/platforms/xbox-series.svg','./assets/platforms/nintendo-switch.svg','./assets/platforms/nintendo-wii.svg','./assets/platforms/nintendo-wiiu.svg','./assets/platforms/nintendo-game-boy.svg','./assets/platforms/gamecube.svg','./assets/platforms/dreamcast.svg'].map(path=>path.startsWith('./assets/platforms/')?`${path}?v=${VERSION}`:path);
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
@@ -22,4 +22,3 @@ async function networkFirst(request){
 self.addEventListener('fetch',e=>{
   if(e.request.method==='GET')e.respondWith(networkFirst(e.request));
 });
-

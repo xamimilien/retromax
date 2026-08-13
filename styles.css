@@ -62,3 +62,22 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .bulk-dialog-actions{display:flex;justify-content:flex-end}
 @media(max-width:560px){.selection-bar{align-items:flex-start;flex-direction:column}.selection-actions{width:100%;justify-content:stretch}.selection-actions .ghost-btn:first-child{flex:1}.bulk-field{grid-template-columns:1fr}.bulk-dialog-actions>*{flex:1}}
 
+/* Scan de code-barres sur mobile. */
+.scan-btn{display:grid;place-items:center;border:1px solid var(--line);background:var(--panel2);color:var(--text)}
+.scan-btn svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.scan-shell{padding:18px}
+.scan-copy,.scan-privacy{color:var(--muted);font-size:13px;line-height:1.45}
+.scan-copy{margin:-4px 0 14px}
+.scan-preview{position:relative;overflow:hidden;aspect-ratio:4/3;border:1px solid var(--line);border-radius:18px;background:#050506}
+.scan-preview video{display:block;width:100%;height:100%;object-fit:cover}
+.scan-frame{position:absolute;inset:28% 8%;border:2px solid var(--accent);border-radius:14px;box-shadow:0 0 0 999px #0005;pointer-events:none}
+.scan-status{min-height:20px;margin:11px 0;color:var(--muted);font-size:13px}
+.scan-status[data-state="success"]{color:var(--good)}
+.scan-status[data-state="error"]{color:#ff9aa5}
+.manual-barcode{display:grid;grid-template-columns:1fr auto;align-items:end;gap:9px}
+.manual-barcode label{display:block;margin:0;color:#bbb;font-size:12px}
+.manual-barcode input{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text)}
+.scan-manual-btn{width:100%;margin-top:10px}
+.scan-privacy{margin:12px 0 0;font-size:11px}
+.scan-prefill-note{margin:0 0 12px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));border-radius:13px;background:var(--accent-soft);font-size:13px;line-height:1.4}
+@media(max-width:420px){.scan-shell{padding:14px}.scan-preview{aspect-ratio:16/11}.manual-barcode{grid-template-columns:1fr}.manual-barcode .primary-btn{width:100%}}
