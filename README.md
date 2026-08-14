@@ -18,7 +18,7 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.26**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.27`, `0.0.28`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.27**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.28`, `0.0.29`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Banque locale de titres
 
@@ -28,4 +28,4 @@ La banque est générée depuis les données structurées CC0 de Wikidata. Sa pr
 
 ## Scan d’un jeu
 
-Le bouton de scan ouvre la caméra arrière sur iPhone/iPad pour lire le code-barres d’une boîte. L’image reste sur l’appareil : seul le numéro du code-barres est utilisé pour rechercher le titre, la console et la région dans le catalogue spécialisé LevelComplete. La recherche interroge automatiquement les formes UPC-A et EAN-13 équivalentes, notamment utilisées sur les jeux Xbox One. Une image haute définition et la mise au point continue sont demandées lorsque l’iPhone les permet. La fiche préremplie reste entièrement modifiable avant son enregistrement. Une saisie manuelle du code et la création d’une fiche vide restent disponibles si la caméra ou la recherche ne répondent pas. Le lecteur ZXing 0.23.0 est embarqué localement afin que son chargement ne dépende pas d’un CDN.
+Le bouton de scan ouvre la caméra arrière sur iPhone/iPad pour lire le code-barres d’une boîte. L’image reste sur l’appareil : seul le numéro du code-barres est utilisé pour rechercher le titre, la console et la région dans le catalogue spécialisé LevelComplete. Comme ce catalogue n’autorise pas les appels directs d’une page web, le numéro passe au besoin par le relais CORS `corsproxy.io`, compatible avec GitHub Pages. La recherche interroge automatiquement les formes UPC-A et EAN-13 équivalentes, notamment utilisées sur les jeux Xbox One. Une image haute définition et la mise au point continue sont demandées lorsque l’iPhone les permet. La fiche préremplie reste entièrement modifiable avant son enregistrement. Une saisie manuelle du code et la création d’une fiche vide restent disponibles si la caméra ou la recherche ne répondent pas. Le lecteur ZXing 0.23.0 est embarqué localement afin que son chargement ne dépende pas d’un CDN.
