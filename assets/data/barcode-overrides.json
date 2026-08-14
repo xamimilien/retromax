@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "version": "2026-08-14.1",
+  "updatedAt": "2026-08-14",
+  "license": "CC0-1.0",
+  "entries": [
+    {
+      "gtin14": "00889842150032",
+      "observedCodes": [
+        "889842150032",
+        "0889842150032"
+      ],
+      "title": "Forza Horizon 3",
+      "manufacturer": "Microsoft",
+      "console": "Xbox One",
+      "source": {
+        "kind": "manual-verification",
+        "reference": "retromax-scan-audit",
+        "checkedAt": "2026-08-14"
+      }
+    },
+    {
+      "gtin14": "05030931103650",
+      "observedCodes": [
+        "5030931103650"
+      ],
+      "title": "Need for Speed: The Run",
+      "manufacturer": "Sony",
+      "console": "PlayStation 3",
+      "source": {
+        "kind": "manual-verification",
+        "reference": "retromax-scan-audit",
+        "checkedAt": "2026-08-14"
+      }
+    }
+  ]
+}

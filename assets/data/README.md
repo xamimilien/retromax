@@ -10,7 +10,13 @@
 - Contenu : 48 304 associations titre/plateforme sur 29 plateformes
 - SHA-256 : `BE0E4D42B09F052D04ACCB5A4E29E76E753EDE8A87956885E93BD3FC492D11B5`
 
-Le fichier ne contient aucune donnée de collection, aucun statut personnel et aucun code-barres. Il est chargé uniquement lors de la saisie d'un titre puis conservé dans le cache public de la PWA.
+Le catalogue de titres ne contient aucune donnée de collection ni aucun statut personnel. Il est chargé uniquement lors de la saisie d'un titre puis conservé dans le cache public de la PWA.
+
+## Références de code-barres vérifiées
+
+`barcode-overrides.json` est une petite table CC0 de références vérifiées sur leur emballage. Les codes UPC-A et EAN-13 y sont ramenés à une clé GTIN-14 unique, après contrôle du chiffre de vérification. Cette table est consultée hors ligne avant LevelComplete et ne contient aucune photo ni donnée personnelle.
+
+Chaque entrée conserve uniquement le code observé, le titre, le constructeur, la console et une provenance technique datée. Toute nouvelle référence doit être vérifiée, dédupliquée et couverte par les tests de `test/barcode-scanner.test.mjs`.
 
 ## Mise à jour
 
