@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.23" />
+  <link rel="stylesheet" href="styles.css?v=0.0.24" />
 </head>
 <body>
   <header class="topbar">
@@ -92,7 +92,15 @@
       <input type="hidden" id="gameId" />
       <input type="hidden" id="entrySource" />
       <p id="scanPrefillNote" class="scan-prefill-note hidden"></p>
-      <label>Titre<input id="title" required /></label>
+      <div class="form-field title-field">
+        <label for="title">Titre</label>
+        <div class="title-combobox">
+          <input id="title" required autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="titleSuggestions" aria-describedby="titleCatalogHelp titleSuggestionStatus" />
+          <ul id="titleSuggestions" class="title-suggestions" role="listbox" hidden></ul>
+        </div>
+        <p id="titleCatalogHelp" class="title-catalog-help">Tape au moins 2 lettres pour chercher dans la banque locale, toutes plateformes confondues. La saisie libre reste possible.</p>
+        <p id="titleSuggestionStatus" class="sr-only" aria-live="polite"></p>
+      </div>
       <div class="two-cols">
         <label>Constructeur<select id="manufacturer" required></select></label>
         <label>Console<select id="console" required></select></label>
@@ -165,7 +173,7 @@
     </form>
   </dialog>
 
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.23"></script>
-  <script src="app.js?v=0.0.23"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.24"></script>
+  <script src="app.js?v=0.0.24"></script>
 </body>
 </html>

@@ -82,3 +82,19 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 .scan-privacy{margin:12px 0 0;font-size:11px}
 .scan-prefill-note{margin:0 0 12px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));border-radius:13px;background:var(--accent-soft);font-size:13px;line-height:1.4}
 @media(max-width:420px){.scan-shell{padding:14px}.scan-preview{aspect-ratio:16/11}.manual-barcode{grid-template-columns:1fr}.manual-barcode .primary-btn{width:100%}}
+
+/* Banque locale de titres et autocomplétion de la fiche. */
+#gameDialog{max-height:calc(100dvh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));overflow-y:auto;overscroll-behavior:contain}
+.form-field>label{display:block;margin:10px 0 6px;color:#bbb;font-size:12px}
+.title-combobox input{display:block;width:100%;margin:0;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);font-size:16px;outline:none}
+.title-combobox input:focus{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.title-suggestions{list-style:none;max-height:min(260px,32dvh);margin:7px 0 0;padding:5px;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:0 14px 32px #0008}
+.title-suggestion{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:9px 10px;border-radius:10px;cursor:pointer}
+.title-suggestion[aria-selected="true"]{background:var(--accent-soft);outline:1px solid color-mix(in srgb,var(--accent) 60%,transparent)}
+.title-suggestion-copy{min-width:0}
+.title-suggestion strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-size:14px}
+.title-suggestion small{display:block;margin-top:3px;color:var(--muted);font-size:11px}
+.title-suggestion-owned{flex:none;padding:3px 6px;border-radius:999px;background:#153023;color:var(--good);font-size:10px;font-weight:800}
+.title-catalog-help{margin:6px 1px 0;color:var(--muted);font-size:11px;line-height:1.35}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+[hidden]{display:none!important}

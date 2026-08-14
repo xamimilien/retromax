@@ -1,0 +1,10 @@
+{
+  "name": "retromax",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:catalog": "node scripts/build-game-catalog.mjs",
+    "check:catalog": "node scripts/check-game-catalog.mjs",
+    "test": "node --test --test-isolation=none test/game-catalog.test.mjs"
+  }
+}
