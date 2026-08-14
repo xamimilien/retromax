@@ -18,7 +18,13 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.23**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.24`, `0.0.25`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.24**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.25`, `0.0.26`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+
+## Banque locale de titres
+
+Le champ **Titre** propose désormais des jeux issus d'une banque locale de **48 304 références titre/plateforme couvrant les 29 plateformes** du formulaire. La recherche fonctionne hors ligne après l'installation de la PWA, ne transmet pas la saisie et conserve toujours la possibilité d'entrer ou de corriger librement un titre. Choisir une proposition renseigne également le constructeur et la console correspondants.
+
+La banque est générée depuis les données structurées CC0 de Wikidata. Sa provenance, son format et la procédure de mise à jour sont détaillés dans `assets/data/README.md`.
 
 ## Scan d’un jeu
 
