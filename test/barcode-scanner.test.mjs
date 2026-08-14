@@ -42,16 +42,16 @@ test('la caméra active la mise au point continue lorsqu’elle est disponible',
   assert.equal(await barcode.optimizeStream({getVideoTracks:()=>[{getCapabilities:()=>({})}]}),false);
 });
 
-test('le lecteur privilégie la caméra haute définition sans relais CORS payant',()=>{
+test('le lecteur privilégie la caméra haute définition et un relais compatible GitHub Pages',()=>{
   assert.match(appSource,/width:\{ideal:1920\}/);
   assert.match(appSource,/focusMode:\{ideal:'continuous'\}/);
   assert.match(appSource,/RetroMaxBarcode/);
   assert.doesNotMatch(appSource,/DecodeHintType\.TRY_HARDER/);
-  assert.doesNotMatch(appSource,/corsproxy\.io/);
+  assert.match(appSource,/https:\/\/corsproxy\.io\/\?url=\$\{encodeURIComponent\(target\)\}/);
 });
 
-test('les utilitaires de scan 0.0.26 sont chargés et mis en cache par la PWA',()=>{
-  assert.match(htmlSource,/barcode-utils\.js\?v=0\.0\.26/);
+test('les utilitaires de scan 0.0.27 sont chargés et mis en cache par la PWA',()=>{
+  assert.match(htmlSource,/barcode-utils\.js\?v=0\.0\.27/);
   assert.match(workerSource,/barcode-utils\.js\?v=\$\{VERSION\}/);
   assert.match(htmlSource,/id="scanRetryBtn"/);
   assert.match(appSource,/scanRetryBtn\.onclick=startScanner/);
