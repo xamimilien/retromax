@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.25" />
+  <link rel="stylesheet" href="styles.css?v=0.0.26" />
 </head>
 <body>
   <header class="topbar">
@@ -137,8 +137,9 @@
         <label>Code-barres<input id="barcodeInput" inputmode="numeric" autocomplete="off" placeholder="8 à 14 chiffres" /></label>
         <button class="primary-btn" id="barcodeLookupBtn" type="button">Rechercher</button>
       </div>
+      <button class="ghost-btn scan-manual-btn hidden" id="scanRetryBtn" type="button">Scanner à nouveau</button>
       <button class="ghost-btn scan-manual-btn hidden" id="scanBlankBtn" type="button">Créer la fiche et la compléter moi-même</button>
-      <p class="scan-privacy">Seul le numéro détecté est envoyé au catalogue LevelComplete via un relais CORS. Tu pourras toujours corriger la fiche avant de l’enregistrer.</p>
+      <p class="scan-privacy">Seul le numéro détecté est envoyé directement au catalogue LevelComplete. Tu pourras toujours corriger la fiche avant de l’enregistrer.</p>
     </section>
   </dialog>
 
@@ -173,7 +174,8 @@
     </form>
   </dialog>
 
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.25"></script>
-  <script src="app.js?v=0.0.25"></script>
+  <script src="barcode-utils.js?v=0.0.26"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.26"></script>
+  <script src="app.js?v=0.0.26"></script>
 </body>
 </html>
