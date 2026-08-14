@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const catalogRaw = await readFile(resolve(ROOT, 'assets/data/game-catalog.json'));
+const catalogCanonicalRaw = Buffer.from(catalogRaw.toString('utf8').replace(/\r\n/g, '\n'));
 const catalog = JSON.parse(catalogRaw.toString('utf8'));
 const catalogReadme = await readFile(resolve(ROOT, 'assets/data/README.md'), 'utf8');
 const appSource = await readFile(resolve(ROOT, 'app.js'), 'utf8');
@@ -34,7 +35,7 @@ test('des titres emblématiques sont présents sur leur plateforme', () => {
 
 test('le compte public correspond à la somme des plateformes', () => {
   assert.equal(catalog.count, catalog.platforms.reduce((sum, platform) => sum + platform[3].length, 0));
-  assert.match(catalogReadme, new RegExp(createHash('sha256').update(catalogRaw).digest('hex'), 'i'));
+  assert.match(catalogReadme, new RegExp(createHash('sha256').update(catalogCanonicalRaw).digest('hex'), 'i'));
 });
 
 test('la fiche utilise un combobox libre relié à la banque locale', () => {
@@ -44,9 +45,9 @@ test('la fiche utilise un combobox libre relié à la banque locale', () => {
   assert.doesNotMatch(htmlSource, /<datalist/i);
 });
 
-test('la version 0.0.24 met en cache la banque sans supprimer les caches étrangers', () => {
-  assert.match(appSource, /APP_VERSION='0\.0\.24'/);
-  assert.match(workerSource, /VERSION='0\.0\.24'/);
+test('la version 0.0.25 met en cache la banque sans supprimer les caches étrangers', () => {
+  assert.match(appSource, /APP_VERSION='0\.0\.25'/);
+  assert.match(workerSource, /VERSION='0\.0\.25'/);
   assert.match(workerSource, /CATALOG_URL/);
   assert.match(workerSource, /k\.startsWith\('retromax-public-v'\)/);
 });
