@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="stylesheet" href="styles.css?v=0.0.28" />
+  <link rel="stylesheet" href="styles.css?v=0.0.29" />
 </head>
 <body>
   <header class="topbar">
@@ -83,6 +83,7 @@
     <button class="nav-item" data-nav="wanted"><span>♡</span>Recherchés</button>
     <button class="nav-item" id="importBtn"><span>⇧</span>Importer</button>
     <button class="nav-item" id="exportBtn"><span>⇩</span>Sauvegarde</button>
+    <button class="nav-item" id="tutorialBtn" type="button" aria-label="Ouvrir le guide d’utilisation"><span aria-hidden="true">?</span>Aide</button>
   </nav>
   <input id="importFile" type="file" accept="application/json,.json" hidden />
 
@@ -174,8 +175,67 @@
     </form>
   </dialog>
 
-  <script src="barcode-utils.js?v=0.0.28"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.28"></script>
-  <script src="app.js?v=0.0.28"></script>
+  <dialog id="tutorialDialog" class="tutorial-dialog" aria-labelledby="tutorialTitle" aria-describedby="tutorialDescription">
+    <section class="tutorial-shell">
+      <div class="dialog-head tutorial-head">
+        <div><p class="eyebrow">GUIDE DE DÉMARRAGE</p><h2 id="tutorialTitle">Découvrir RétroMax</h2></div>
+        <button class="icon-btn small" id="tutorialCloseBtn" type="button" aria-label="Fermer le guide">×</button>
+      </div>
+      <p class="sr-only" id="tutorialDescription">Cinq étapes pour prendre en main ta collection, le scanner, les filtres et les sauvegardes.</p>
+      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-label="Progression du guide">
+        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 5</span>
+        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="tutorial-pages">
+        <article class="tutorial-step" data-tutorial-step="0">
+          <span class="tutorial-icon" aria-hidden="true">🔒</span>
+          <p class="eyebrow">BIENVENUE</p>
+          <h3 tabindex="-1">Ta collection reste privée</h3>
+          <p>RétroMax mémorise tes jeux dans ce navigateur, sur cet appareil. Ta collection n’est pas envoyée sur GitHub.</p>
+          <div class="tutorial-callout"><strong>À retenir</strong><span>Il n’y a pas de synchronisation automatique entre l’iPhone, l’iPad et l’ordinateur.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="1" hidden>
+          <span class="tutorial-icon" aria-hidden="true">＋</span>
+          <p class="eyebrow">AJOUTER UN JEU</p>
+          <h3 tabindex="-1">Manuellement ou avec la caméra</h3>
+          <p>Utilise <strong>＋</strong> pour créer une fiche, ou le pictogramme scanner pour lire le code-barres d’une boîte.</p>
+          <ul><li>Le titre peut être recherché dans la banque locale.</li><li>Le préremplissage du scanner reste toujours modifiable.</li><li>Si un code est inconnu, tu peux compléter la fiche toi-même.</li></ul>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="2" hidden>
+          <span class="tutorial-icon" aria-hidden="true">⌕</span>
+          <p class="eyebrow">RETROUVER UN JEU</p>
+          <h3 tabindex="-1">Recherche et filtres en cascade</h3>
+          <p>Recherche un titre, choisis un constructeur, puis une console et un statut. Les consoles proposées suivent automatiquement le constructeur sélectionné.</p>
+          <div class="tutorial-callout"><strong>Réinitialiser</strong><span>Ce bouton efface uniquement la recherche et les filtres. Il ne supprime aucun jeu.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="3" hidden>
+          <span class="tutorial-icon" aria-hidden="true">☑</span>
+          <p class="eyebrow">GAGNER DU TEMPS</p>
+          <h3 tabindex="-1">Modifier plusieurs jeux ensemble</h3>
+          <p>Active la multisélection avec <strong>☑</strong>, coche les fiches voulues, puis touche <strong>Modifier</strong>.</p>
+          <p>Tu peux appliquer en une fois une région, un format, un statut ou des tags sans toucher aux autres informations.</p>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="4" hidden>
+          <span class="tutorial-icon" aria-hidden="true">⇩</span>
+          <p class="eyebrow">INDISPENSABLE</p>
+          <h3 tabindex="-1">Sauvegarde régulièrement ta collection</h3>
+          <p><strong>Sauvegarde</strong> télécharge ton fichier JSON privé. Conserve-le dans Fichiers ou iCloud Drive pour pouvoir restaurer ta collection.</p>
+          <div class="tutorial-callout important"><strong>Importer</strong><span>Restaure une sauvegarde et remplace la collection locale actuelle après confirmation.</span></div>
+          <p class="tutorial-reopen">Tu pourras rouvrir ce guide à tout moment avec <strong>Aide</strong>.</p>
+        </article>
+      </div>
+      <div class="tutorial-actions">
+        <button class="ghost-btn" id="tutorialSkipBtn" type="button">Passer</button>
+        <span></span>
+        <button class="ghost-btn" id="tutorialPrevBtn" type="button" disabled>Précédent</button>
+        <button class="primary-btn" id="tutorialNextBtn" type="button">Suivant</button>
+      </div>
+    </section>
+  </dialog>
+
+  <script src="tutorial-utils.js?v=0.0.29"></script>
+  <script src="barcode-utils.js?v=0.0.29"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.29"></script>
+  <script src="app.js?v=0.0.29"></script>
 </body>
 </html>

@@ -18,7 +18,11 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.28**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.29`, `0.0.30`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.29**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.30`, `0.0.31`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+
+## Guide de démarrage
+
+Lors de la première ouverture, un guide en cinq étapes explique la confidentialité de la collection, l’ajout manuel ou par scan, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
 
 ## Banque locale de titres
 
