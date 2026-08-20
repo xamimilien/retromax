@@ -18,11 +18,11 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.33**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.34`, `0.0.35`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.34**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.35`, `0.0.36`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Guide de démarrage
 
-Lors de la première ouverture, un guide en huit étapes explique la confidentialité de la collection, l’installation en mode app sur l’écran d’accueil de l’iPhone, la création et la configuration des fiches, le scan, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
+Lors de la première ouverture, un guide en dix étapes explique la confidentialité de la collection, l’installation en mode app sur l’écran d’accueil de l’iPhone, la création et la configuration des fiches, le scan, les statuts, les statistiques personnalisables, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
 
 L’installation iPhone suit le parcours Safari **Partager → Sur l’écran d’accueil → Ouvrir comme app web → Ajouter**, conformément au [guide Apple](https://support.apple.com/fr-fr/guide/iphone/iphea86e5236/ios). Les icônes 180, 192 et 512 px sont fournies localement afin que le raccourci utilise l’identité RétroMax.
 

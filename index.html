@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.33" />
+  <link rel="stylesheet" href="styles.css?v=0.0.34" />
 </head>
 <body>
   <header class="topbar">
@@ -216,10 +216,10 @@
         <div><p class="eyebrow">GUIDE DE DÉMARRAGE</p><h2 id="tutorialTitle">Découvrir RétroMax</h2></div>
         <button class="icon-btn small" id="tutorialCloseBtn" type="button" aria-label="Fermer le guide">×</button>
       </div>
-      <p class="sr-only" id="tutorialDescription">Huit étapes pour installer RétroMax comme une app et utiliser les fonctions essentielles de ta collection.</p>
-      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Progression du guide">
-        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 8</span>
-        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <p class="sr-only" id="tutorialDescription">Dix étapes pour installer RétroMax comme une app et utiliser les fonctions essentielles de ta collection.</p>
+      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" aria-label="Progression du guide">
+        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 10</span>
+        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="tutorial-pages">
         <article class="tutorial-step" data-tutorial-step="0" data-tutorial-topic="privacy">
@@ -263,21 +263,37 @@
           <p>Touche un jeu existant pour corriger sa fiche ou compléter sa région, son format, son statut, sa quantité, ses tags et ses notes.</p>
           <div class="tutorial-callout"><strong>Modifier ou supprimer</strong><span>Enregistre tes corrections, ou utilise <strong>Supprimer</strong> si tu veux retirer cette fiche de la collection.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="5" data-tutorial-topic="search" hidden>
+        <article class="tutorial-step" data-tutorial-step="5" data-tutorial-topic="status" hidden>
+          <span class="tutorial-icon" aria-hidden="true">◉</span>
+          <p class="eyebrow">SUIVRE CHAQUE JEU</p>
+          <h3 tabindex="-1">Acquis, Commandé ou Recherché</h3>
+          <p>Le statut indique où en est chaque fiche et alimente les indicateurs de l’accueil.</p>
+          <ul><li><strong>Acquis</strong> compte la quantité dans les exemplaires acquis.</li><li><strong>Commandé</strong> garde à part les jeux en attente de réception.</li><li><strong>Recherché</strong> alimente ta liste d’envies.</li></ul>
+          <div class="tutorial-callout"><strong>Filtrer ou modifier</strong><span>Utilise le filtre <strong>Statut</strong> pour les retrouver, ou la multisélection pour modifier plusieurs jeux ensemble.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="6" data-tutorial-topic="statistics" hidden>
+          <span class="tutorial-icon" aria-hidden="true">◔</span>
+          <p class="eyebrow">PERSONNALISER L’ACCUEIL</p>
+          <h3 tabindex="-1">Choisis tes statistiques</h3>
+          <p>Touche <strong>Détails</strong> dans la section Statistiques pour choisir la vue affichée sur l’accueil.</p>
+          <ul><li><strong>Aperçu</strong> affiche uniquement les indicateurs que tu coches.</li><li><strong>Camembert</strong> et <strong>Frise</strong> remplacent les cartes de l’accueil par une répartition visuelle.</li><li>Répartis par plateforme, constructeur, statut, région ou format, puis choisis le périmètre et le calcul en jeux ou exemplaires.</li></ul>
+          <div class="tutorial-callout"><strong>Tout reste visible</strong><span>Chaque plateforme possède sa propre ligne et sa propre couleur. Sur iPhone, fais défiler la légende pour toutes les consulter.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="search" hidden>
           <span class="tutorial-icon" aria-hidden="true">⌕</span>
           <p class="eyebrow">RETROUVER UN JEU</p>
           <h3 tabindex="-1">Recherche et filtres en cascade</h3>
           <p>Recherche un titre, choisis un constructeur, puis une console et un statut. Les consoles proposées suivent automatiquement le constructeur sélectionné. L’onglet <strong>Recherchés</strong> rassemble ta liste d’envies.</p>
           <div class="tutorial-callout"><strong>Réinitialiser</strong><span>Ce bouton efface uniquement la recherche et les filtres. Il ne supprime aucun jeu.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="6" data-tutorial-topic="bulk" hidden>
+        <article class="tutorial-step" data-tutorial-step="8" data-tutorial-topic="bulk" hidden>
           <span class="tutorial-icon" aria-hidden="true">☑</span>
           <p class="eyebrow">GAGNER DU TEMPS</p>
           <h3 tabindex="-1">Modifier plusieurs jeux ensemble</h3>
           <p>Active la multisélection avec <strong>☑</strong>, coche les fiches voulues, puis touche <strong>Modifier</strong>.</p>
           <p>Tu peux appliquer en une fois une région, un format, un statut ou des tags. Seules les informations cochées sont modifiées.</p>
         </article>
-        <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="backup" hidden>
+        <article class="tutorial-step" data-tutorial-step="9" data-tutorial-topic="backup" hidden>
           <span class="tutorial-icon" aria-hidden="true">⇩</span>
           <p class="eyebrow">INDISPENSABLE</p>
           <h3 tabindex="-1">Sauvegarde régulièrement ta collection</h3>
@@ -295,11 +311,11 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.33"></script>
-  <script src="barcode-utils.js?v=0.0.33"></script>
-  <script src="status-utils.js?v=0.0.33"></script>
-  <script src="stats-utils.js?v=0.0.33"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.33"></script>
-  <script src="app.js?v=0.0.33"></script>
+  <script src="tutorial-utils.js?v=0.0.34"></script>
+  <script src="barcode-utils.js?v=0.0.34"></script>
+  <script src="status-utils.js?v=0.0.34"></script>
+  <script src="stats-utils.js?v=0.0.34"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.34"></script>
+  <script src="app.js?v=0.0.34"></script>
 </body>
 </html>

@@ -58,9 +58,9 @@ test('Commandé est exporté sans être ajouté à l’onglet Recherchés',()=>{
   assert.match(appSource,/b\.dataset\.nav==='wanted'\?'Recherché':''/);
 });
 
-test('l’utilitaire de statut 0.0.33 est chargé avant l’application et mis en cache',()=>{
-  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.33');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.33');
+test('l’utilitaire de statut 0.0.34 est chargé avant l’application et mis en cache',()=>{
+  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.34');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.34');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/status-utils\.js\?v=\$\{VERSION\}/);
 });
