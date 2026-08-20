@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.32" />
+  <link rel="stylesheet" href="styles.css?v=0.0.33" />
 </head>
 <body>
   <header class="topbar">
@@ -102,8 +102,8 @@
         <button type="button" role="tab" data-stats-view="frieze" aria-selected="false" aria-controls="statsDashboard">Frise</button>
       </div>
       <div class="stats-options">
-        <fieldset class="stats-card-options">
-          <legend>Indicateurs affichés sur l’accueil</legend>
+        <fieldset class="stats-card-options" id="statsCardOptions">
+          <legend>Indicateurs de la vue Aperçu</legend>
           <label><input type="checkbox" data-stats-card value="games" /> Jeux au total</label>
           <label><input type="checkbox" data-stats-card value="copies" checked /> Exemplaires acquis</label>
           <label><input type="checkbox" data-stats-card value="platforms" checked /> Plateformes</label>
@@ -295,11 +295,11 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.32"></script>
-  <script src="barcode-utils.js?v=0.0.32"></script>
-  <script src="status-utils.js?v=0.0.32"></script>
-  <script src="stats-utils.js?v=0.0.32"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.32"></script>
-  <script src="app.js?v=0.0.32"></script>
+  <script src="tutorial-utils.js?v=0.0.33"></script>
+  <script src="barcode-utils.js?v=0.0.33"></script>
+  <script src="status-utils.js?v=0.0.33"></script>
+  <script src="stats-utils.js?v=0.0.33"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.33"></script>
+  <script src="app.js?v=0.0.33"></script>
 </body>
 </html>

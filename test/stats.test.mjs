@@ -78,6 +78,16 @@ test('la modale propose aperçu, camembert, frise et sélection des indicateurs'
   for(const group of ['console','manufacturer','status','region','format'])assert.match(htmlSource,new RegExp(`<option value="${group}"`));
 });
 
+test('le type choisi remplace réellement les statistiques de l’accueil',()=>{
+  assert.match(appSource,/els\.stats\.dataset\.statsView=view/);
+  assert.match(appSource,/els\.stats\.classList\.toggle\('stats-home-chart',chartView\)/);
+  assert.match(appSource,/els\.stats\.innerHTML=`<div class="stats-home-visual">\$\{statsChartMarkup\(view,true\)\}<\/div>`/);
+  assert.match(appSource,/else\{els\.stats\.style\.setProperty\('--stats-columns'/);
+  assert.match(appSource,/statsEls\.cardOptions\.classList\.toggle\('hidden',view!=='overview'\)/);
+  assert.match(styleSource,/\.stats\.stats-home-chart\{display:block\}/);
+  assert.match(styleSource,/\.stats-home-visual \.stats-pie-layout/);
+});
+
 test('les graphiques sont natifs, accessibles et adaptés au mobile',()=>{
   assert.match(appSource,/role="img" aria-label=/);
   assert.match(appSource,/conic-gradient\(\$\{slices\}\)/);
@@ -94,9 +104,9 @@ test('le résumé et le détail utilisent la même source sans muter les jeux',(
   assert.doesNotMatch(utilitySource,/setItem\(['"]retromax-games-v2-private/);
 });
 
-test('l’utilitaire statistique 0.0.32 est chargé avant l’app et disponible hors ligne',()=>{
-  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.32');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.32');
+test('l’utilitaire statistique 0.0.33 est chargé avant l’app et disponible hors ligne',()=>{
+  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.33');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.33');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/stats-utils\.js\?v=\$\{VERSION\}/);
 });
