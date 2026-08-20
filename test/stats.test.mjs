@@ -88,6 +88,16 @@ test('le type choisi remplace réellement les statistiques de l’accueil',()=>{
   assert.match(styleSource,/\.stats-home-visual \.stats-pie-layout/);
 });
 
+test('la vue d’accueil conserve chaque plateforme sans catégorie Autres',()=>{
+  assert.doesNotMatch(appSource,/label:'Autres'/);
+  assert.doesNotMatch(appSource,/rawData\.slice\(/);
+  assert.match(appSource,/const data=STATS\.distribution\(games,statsPreferences\)/);
+  assert.match(appSource,/statsLegendMarkup\(data,total,hint\)/);
+  assert.match(appSource,/Détail complet de la répartition/);
+  assert.match(appSource,/fais défiler la liste/);
+  assert.match(styleSource,/\.stats-home-visual \.stats-legend\{[^}]*overflow-y:auto/);
+});
+
 test('les graphiques sont natifs, accessibles et adaptés au mobile',()=>{
   assert.match(appSource,/role="img" aria-label=/);
   assert.match(appSource,/conic-gradient\(\$\{slices\}\)/);
@@ -104,9 +114,9 @@ test('le résumé et le détail utilisent la même source sans muter les jeux',(
   assert.doesNotMatch(utilitySource,/setItem\(['"]retromax-games-v2-private/);
 });
 
-test('l’utilitaire statistique 0.0.33 est chargé avant l’app et disponible hors ligne',()=>{
-  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.33');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.33');
+test('l’utilitaire statistique 0.0.34 est chargé avant l’app et disponible hors ligne',()=>{
+  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.34');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.34');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/stats-utils\.js\?v=\$\{VERSION\}/);
 });

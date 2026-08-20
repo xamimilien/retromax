@@ -1,7 +1,7 @@
 (function attachRetroMaxTutorial(scope){
   'use strict';
 
-  const KEY='retromax-tutorial-seen-v2';
+  const KEY='retromax-tutorial-seen-v3';
 
   function resolveStorage(storage){
     if(storage!==undefined)return storage;

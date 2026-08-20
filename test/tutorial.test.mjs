@@ -17,7 +17,7 @@ context.globalThis=context;
 vm.runInNewContext(utilitySource,context);
 const tutorial=context.RetroMaxTutorial;
 
-const TOPICS=['privacy','install-ios','create','scan','configure','search','bulk','backup'];
+const TOPICS=['privacy','install-ios','create','scan','configure','status','statistics','search','bulk','backup'];
 
 function memoryStorage(initial={}){
   const values=new Map(Object.entries(initial));
@@ -70,14 +70,15 @@ function cssValues(selector,property){
   return values;
 }
 
-test('le nouveau guide utilise un indicateur v2 sans toucher à la collection',()=>{
-  assert.equal(tutorial.KEY,'retromax-tutorial-seen-v2');
+test('le nouveau guide utilise un indicateur v3 sans toucher à la collection',()=>{
+  assert.equal(tutorial.KEY,'retromax-tutorial-seen-v3');
   assert.notEqual(tutorial.KEY,'retromax-games-v2-private');
   const storage=memoryStorage({
     'retromax-tutorial-seen-v1':'1',
+    'retromax-tutorial-seen-v2':'1',
     'retromax-games-v2-private':'[{"title":"Sonic"}]'
   });
-  assert.equal(tutorial.hasSeen(storage),false,'le guide enrichi doit apparaître même si la v1 a été vue');
+  assert.equal(tutorial.hasSeen(storage),false,'le guide enrichi doit apparaître même si les versions précédentes ont été vues');
   assert.equal(storage.value('retromax-games-v2-private'),'[{"title":"Sonic"}]');
 });
 
@@ -113,17 +114,17 @@ test('la détection du mode app couvre iOS et le standard display-mode',()=>{
   assert.equal(detect(false,false),false);
 });
 
-test('la navigation reste bornée de la première à la dernière des huit étapes',()=>{
+test('la navigation reste bornée de la première à la dernière des dix étapes',()=>{
   assert.equal(tutorial.clampStep(-10,TOPICS.length),0);
   assert.equal(tutorial.clampStep(0,TOPICS.length),0);
   assert.equal(tutorial.clampStep(4,TOPICS.length),4);
-  assert.equal(tutorial.clampStep(7,TOPICS.length),7);
-  assert.equal(tutorial.clampStep(99,TOPICS.length),7);
+  assert.equal(tutorial.clampStep(9,TOPICS.length),9);
+  assert.equal(tutorial.clampStep(99,TOPICS.length),9);
   assert.equal(tutorial.clampStep(Number.NaN,TOPICS.length),0);
   assert.equal(tutorial.clampStep(3,0),0);
 });
 
-test('la modale expose huit thèmes ordonnés et une progression accessible',()=>{
+test('la modale expose dix thèmes ordonnés et une progression accessible',()=>{
   assert.match(htmlSource,/<dialog id="tutorialDialog"[^>]+aria-labelledby="tutorialTitle"[^>]+aria-describedby="tutorialDescription"/);
   const steps=tutorialTags();
   assert.deepEqual(steps.map(step=>step.index),TOPICS.map((_,index)=>index));
@@ -170,6 +171,8 @@ test('chaque fonction clé possède une slide dédiée et compréhensible',()=>{
     create:[/ajoute un jeu manuellement/i,/titre/i,/constructeur/i,/console/i,/statut/i,/quantité/i,/Enregistrer/i],
     scan:[/code-barres/i,/caméra/i,/corrig/i,/toi-même|manuell/i],
     configure:[/région/i,/format/i,/statut/i,/quantité/i,/tags/i,/notes/i],
+    status:[/Acquis/i,/Commandé/i,/Recherché/i,/exemplaires acquis/i,/filtre/i,/Statut/i,/multisélection/i],
+    statistics:[/Détails/i,/Aperçu/i,/Camembert/i,/Frise/i,/remplacent[\s\S]*accueil/i,/plateforme/i,/constructeur/i,/statut/i,/région/i,/format/i,/jeux/i,/exemplaires/i,/fais défiler/i],
     search:[/recherche/i,/filtres en cascade/i,/Réinitialiser[\s\S]*ne supprime aucun jeu/i],
     bulk:[/multisélection/i,/Modifier/i,/région/i,/format/i,/statut/i,/tags/i],
     backup:[/Sauvegarde/i,/JSON/i,/Importer/i,/remplace la collection locale/i,/Aide/i]
