@@ -5,6 +5,6 @@
   "scripts": {
     "build:catalog": "node scripts/build-game-catalog.mjs",
     "check:catalog": "node scripts/check-game-catalog.mjs",
-    "test": "node --test --test-isolation=none test/game-catalog.test.mjs test/barcode-scanner.test.mjs test/tutorial.test.mjs test/status.test.mjs"
+    "test": "node --test --test-isolation=none test/game-catalog.test.mjs test/barcode-scanner.test.mjs test/tutorial.test.mjs test/status.test.mjs test/stats.test.mjs"
   }
 }
