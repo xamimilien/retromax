@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.30" />
+  <link rel="stylesheet" href="styles.css?v=0.0.31" />
 </head>
 <body>
   <header class="topbar">
@@ -54,7 +54,7 @@
         <select id="manufacturerFilter" aria-label="Constructeur"><option value="">Tous les constructeurs</option></select>
         <select id="consoleFilter" aria-label="Console"><option value="">Toutes les consoles</option></select>
         <select id="statusFilter" aria-label="Statut">
-          <option value="">Tous les statuts</option><option value="Acquis">Acquis</option><option value="Recherché">Recherché</option>
+          <option value="">Tous les statuts</option><option value="Acquis">Acquis</option><option value="Commandé">Commandé</option><option value="Recherché">Recherché</option>
         </select>
       </div>
     </section>
@@ -109,7 +109,7 @@
         <label>Console<select id="console" required></select></label>
       </div>
       <div class="two-cols">
-        <label>Statut<select id="status"><option>Acquis</option><option>Recherché</option></select></label>
+        <label>Statut<select id="status"><option>Acquis</option><option>Commandé</option><option>Recherché</option></select></label>
         <label>Quantité<input id="quantity" type="number" min="1" value="1" /></label>
       </div>
       <div class="two-cols">
@@ -160,7 +160,7 @@
       </div>
       <div class="bulk-field">
         <label class="bulk-toggle"><input type="checkbox" id="applyBulkStatus" /> Statut</label>
-        <select id="bulkStatus" disabled><option>Acquis</option><option>Recherché</option></select>
+        <select id="bulkStatus" disabled><option>Acquis</option><option>Commandé</option><option>Recherché</option></select>
       </div>
       <div class="bulk-field bulk-tags-field">
         <label class="bulk-toggle"><input type="checkbox" id="applyBulkTags" /> Tags</label>
@@ -262,9 +262,10 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.30"></script>
-  <script src="barcode-utils.js?v=0.0.30"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.30"></script>
-  <script src="app.js?v=0.0.30"></script>
+  <script src="tutorial-utils.js?v=0.0.31"></script>
+  <script src="barcode-utils.js?v=0.0.31"></script>
+  <script src="status-utils.js?v=0.0.31"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.31"></script>
+  <script src="app.js?v=0.0.31"></script>
 </body>
 </html>
