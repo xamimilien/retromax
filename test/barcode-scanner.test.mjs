@@ -112,8 +112,8 @@ test('le lecteur privilégie la caméra haute définition et un relais compatibl
   assert.match(appSource,/https:\/\/corsproxy\.io\/\?url=\$\{encodeURIComponent\(target\)\}/);
 });
 
-test('les utilitaires de scan 0.0.29 et la banque locale sont mis en cache par la PWA',()=>{
-  assert.match(htmlSource,/barcode-utils\.js\?v=0\.0\.29/);
+test('les utilitaires de scan 0.0.30 et la banque locale sont mis en cache par la PWA',()=>{
+  assert.match(htmlSource,/barcode-utils\.js\?v=0\.0\.30/);
   assert.match(workerSource,/barcode-utils\.js\?v=\$\{VERSION\}/);
   assert.match(workerSource,/BARCODE_BANK_URL/);
   assert.match(workerSource,/barcode-overrides\.json/);

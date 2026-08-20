@@ -102,8 +102,8 @@ button,input,select,textarea{font:inherit}.topbar{position:fixed;inset:0 0 auto;
 /* Guide de premier demarrage. */
 .bottom-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:min(520px,calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)))}
 .bottom-nav .nav-item{min-width:0;min-height:52px;padding:7px 3px;line-height:1.1;white-space:nowrap}
-#tutorialDialog{width:min(620px,calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));max-height:calc(100dvh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));overflow:hidden}
-.tutorial-shell{display:flex;flex-direction:column;height:min(680px,calc(100dvh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom))));max-height:100%;padding:18px 18px max(18px,env(safe-area-inset-bottom))}
+#tutorialDialog{box-sizing:border-box;width:min(620px,calc(100% - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));height:calc(100vh - 48px);height:calc(100svh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));max-height:680px;overflow:hidden}
+.tutorial-shell{box-sizing:border-box;display:flex;flex-direction:column;height:calc(100vh - 48px);height:calc(100svh - max(24px,env(safe-area-inset-top)) - max(24px,env(safe-area-inset-bottom)));max-height:680px;min-height:0;padding:18px 18px max(18px,env(safe-area-inset-bottom))}
 .tutorial-head{flex:none;margin-bottom:8px}
 .tutorial-head>div{min-width:0}
 .tutorial-head h2{font-size:24px;line-height:1.15}
