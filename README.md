@@ -22,7 +22,9 @@ La version courante est **0.0.29**. Chaque nouvelle livraison terminée et test�
 
 ## Guide de démarrage
 
-Lors de la première ouverture, un guide en cinq étapes explique la confidentialité de la collection, l’ajout manuel ou par scan, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
+Lors de la première ouverture, un guide en huit étapes explique la confidentialité de la collection, l’installation en mode app sur l’écran d’accueil de l’iPhone, la création et la configuration des fiches, le scan, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
+
+L’installation iPhone suit le parcours Safari **Partager → Sur l’écran d’accueil → Ouvrir comme app web → Ajouter**, conformément au [guide Apple](https://support.apple.com/fr-fr/guide/iphone/iphea86e5236/ios). Les icônes 180, 192 et 512 px sont fournies localement afin que le raccourci utilise l’identité RétroMax.
 
 ## Banque locale de titres
 

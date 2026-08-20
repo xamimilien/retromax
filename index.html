@@ -10,6 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="RétroMax" />
   <title>RétroMax</title>
   <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
   <link rel="stylesheet" href="styles.css?v=0.0.29" />
 </head>
 <body>
@@ -181,41 +183,68 @@
         <div><p class="eyebrow">GUIDE DE DÉMARRAGE</p><h2 id="tutorialTitle">Découvrir RétroMax</h2></div>
         <button class="icon-btn small" id="tutorialCloseBtn" type="button" aria-label="Fermer le guide">×</button>
       </div>
-      <p class="sr-only" id="tutorialDescription">Cinq étapes pour prendre en main ta collection, le scanner, les filtres et les sauvegardes.</p>
-      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-label="Progression du guide">
-        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 5</span>
-        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <p class="sr-only" id="tutorialDescription">Huit étapes pour installer RétroMax comme une app et utiliser les fonctions essentielles de ta collection.</p>
+      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-label="Progression du guide">
+        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 8</span>
+        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="tutorial-pages">
-        <article class="tutorial-step" data-tutorial-step="0">
+        <article class="tutorial-step" data-tutorial-step="0" data-tutorial-topic="privacy">
           <span class="tutorial-icon" aria-hidden="true">🔒</span>
           <p class="eyebrow">BIENVENUE</p>
           <h3 tabindex="-1">Ta collection reste privée</h3>
           <p>RétroMax mémorise tes jeux dans ce navigateur, sur cet appareil. Ta collection n’est pas envoyée sur GitHub.</p>
           <div class="tutorial-callout"><strong>À retenir</strong><span>Il n’y a pas de synchronisation automatique entre l’iPhone, l’iPad et l’ordinateur.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="1" hidden>
-          <span class="tutorial-icon" aria-hidden="true">＋</span>
-          <p class="eyebrow">AJOUTER UN JEU</p>
-          <h3 tabindex="-1">Manuellement ou avec la caméra</h3>
-          <p>Utilise <strong>＋</strong> pour créer une fiche, ou le pictogramme scanner pour lire le code-barres d’une boîte.</p>
-          <ul><li>Le titre peut être recherché dans la banque locale.</li><li>Le préremplissage du scanner reste toujours modifiable.</li><li>Si un code est inconnu, tu peux compléter la fiche toi-même.</li></ul>
+        <article class="tutorial-step" data-tutorial-step="1" data-tutorial-topic="install-ios" hidden>
+          <span class="tutorial-icon" aria-hidden="true">◰</span>
+          <p class="eyebrow">SUR IPHONE ET IPAD</p>
+          <h3 tabindex="-1">Ajoute RétroMax à l’écran d’accueil</h3>
+          <div class="tutorial-callout tutorial-install-state" id="tutorialInstallState" role="status" hidden><strong>Mode app actif</strong><span>RétroMax est déjà ouvert depuis l’écran d’accueil.</span></div>
+          <ol class="tutorial-ios-steps">
+            <li><span>Ouvre RétroMax dans <strong>Safari</strong>.</span></li>
+            <li><span>Touche le bouton <strong>Partager</strong>. Selon la disposition de Safari, touche d’abord le bouton <strong>Plus</strong>.</span></li>
+            <li><span>Fais défiler les actions et choisis <strong>Sur l’écran d’accueil</strong>.</span></li>
+            <li><span>Active <strong>Ouvrir comme app web</strong>, puis touche <strong>Ajouter</strong>.</span></li>
+          </ol>
+          <div class="tutorial-callout"><strong>Option absente ?</strong><span>En bas des actions de partage, touche <strong>Modifier les actions</strong> pour ajouter « Sur l’écran d’accueil ».</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="2" hidden>
+        <article class="tutorial-step" data-tutorial-step="2" data-tutorial-topic="create" hidden>
+          <span class="tutorial-icon" aria-hidden="true">＋</span>
+          <p class="eyebrow">CRÉER UNE FICHE</p>
+          <h3 tabindex="-1">Ajoute un jeu manuellement</h3>
+          <p>Touche <strong>＋</strong>, saisis le titre, puis choisis le constructeur, la console, le statut et la quantité.</p>
+          <ul><li>Dès deux lettres, la banque locale propose des titres.</li><li>La saisie libre reste toujours possible.</li><li>Touche <strong>Enregistrer</strong> pour ajouter la fiche à ta collection.</li></ul>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="3" data-tutorial-topic="scan" hidden>
+          <span class="tutorial-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M7 8v8M10 8v8M14 8v8M17 8v8"/></svg></span>
+          <p class="eyebrow">SCANNER UNE BOÎTE</p>
+          <h3 tabindex="-1">Préremplis une fiche avec la caméra</h3>
+          <p>Touche le pictogramme scanner dans l’en-tête et place le code-barres de la boîte dans le cadre.</p>
+          <ul><li>Vérifie et corrige toujours les informations avant d’enregistrer.</li><li>Si le code n’est pas reconnu, saisis-le ou crée la fiche toi-même.</li><li>La vidéo reste sur l’appareil et n’est pas enregistrée.</li></ul>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="4" data-tutorial-topic="configure" hidden>
+          <span class="tutorial-icon" aria-hidden="true">⚙</span>
+          <p class="eyebrow">CONFIGURER UNE FICHE</p>
+          <h3 tabindex="-1">Précise chaque exemplaire</h3>
+          <p>Touche un jeu existant pour corriger sa fiche ou compléter sa région, son format, son statut, sa quantité, ses tags et ses notes.</p>
+          <div class="tutorial-callout"><strong>Modifier ou supprimer</strong><span>Enregistre tes corrections, ou utilise <strong>Supprimer</strong> si tu veux retirer cette fiche de la collection.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="5" data-tutorial-topic="search" hidden>
           <span class="tutorial-icon" aria-hidden="true">⌕</span>
           <p class="eyebrow">RETROUVER UN JEU</p>
           <h3 tabindex="-1">Recherche et filtres en cascade</h3>
-          <p>Recherche un titre, choisis un constructeur, puis une console et un statut. Les consoles proposées suivent automatiquement le constructeur sélectionné.</p>
+          <p>Recherche un titre, choisis un constructeur, puis une console et un statut. Les consoles proposées suivent automatiquement le constructeur sélectionné. L’onglet <strong>Recherchés</strong> rassemble ta liste d’envies.</p>
           <div class="tutorial-callout"><strong>Réinitialiser</strong><span>Ce bouton efface uniquement la recherche et les filtres. Il ne supprime aucun jeu.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="3" hidden>
+        <article class="tutorial-step" data-tutorial-step="6" data-tutorial-topic="bulk" hidden>
           <span class="tutorial-icon" aria-hidden="true">☑</span>
           <p class="eyebrow">GAGNER DU TEMPS</p>
           <h3 tabindex="-1">Modifier plusieurs jeux ensemble</h3>
           <p>Active la multisélection avec <strong>☑</strong>, coche les fiches voulues, puis touche <strong>Modifier</strong>.</p>
-          <p>Tu peux appliquer en une fois une région, un format, un statut ou des tags sans toucher aux autres informations.</p>
+          <p>Tu peux appliquer en une fois une région, un format, un statut ou des tags. Seules les informations cochées sont modifiées.</p>
         </article>
-        <article class="tutorial-step" data-tutorial-step="4" hidden>
+        <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="backup" hidden>
           <span class="tutorial-icon" aria-hidden="true">⇩</span>
           <p class="eyebrow">INDISPENSABLE</p>
           <h3 tabindex="-1">Sauvegarde régulièrement ta collection</h3>
