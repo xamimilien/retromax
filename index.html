@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.31" />
+  <link rel="stylesheet" href="styles.css?v=0.0.32" />
 </head>
 <body>
   <header class="topbar">
@@ -35,7 +35,11 @@
       <span>🔒 Collection mémorisée par ce navigateur</span>
     </section>
 
-    <section class="stats" id="stats"></section>
+    <div class="stats-toolbar">
+      <div><p class="eyebrow">STATISTIQUES</p><span>Résumé configurable</span></div>
+      <button class="ghost-btn compact" id="statsOpenBtn" type="button" aria-label="Afficher et configurer les statistiques"><span aria-hidden="true">◔</span> Détails</button>
+    </div>
+    <section class="stats" id="stats" aria-label="Résumé des statistiques"></section>
 
     <section id="emptyWelcome" class="welcome hidden">
       <p class="eyebrow">PREMIER DÉMARRAGE</p>
@@ -88,6 +92,35 @@
     <button class="nav-item" id="tutorialBtn" type="button" aria-label="Ouvrir le guide d’utilisation"><span aria-hidden="true">?</span>Aide</button>
   </nav>
   <input id="importFile" type="file" accept="application/json,.json" hidden />
+
+  <dialog id="statsDialog" aria-labelledby="statsDialogTitle">
+    <section class="stats-dialog-shell">
+      <div class="dialog-head stats-dialog-head"><div><p class="eyebrow">MA COLLECTION</p><h2 id="statsDialogTitle">Statistiques</h2></div><button class="icon-btn small" id="statsCloseBtn" type="button" aria-label="Fermer les statistiques">×</button></div>
+      <div class="stats-view-switch" role="tablist" aria-label="Type de visualisation">
+        <button type="button" role="tab" data-stats-view="overview" aria-selected="true" aria-controls="statsDashboard">Aperçu</button>
+        <button type="button" role="tab" data-stats-view="pie" aria-selected="false" aria-controls="statsDashboard">Camembert</button>
+        <button type="button" role="tab" data-stats-view="frieze" aria-selected="false" aria-controls="statsDashboard">Frise</button>
+      </div>
+      <div class="stats-options">
+        <fieldset class="stats-card-options">
+          <legend>Indicateurs affichés sur l’accueil</legend>
+          <label><input type="checkbox" data-stats-card value="games" /> Jeux au total</label>
+          <label><input type="checkbox" data-stats-card value="copies" checked /> Exemplaires acquis</label>
+          <label><input type="checkbox" data-stats-card value="platforms" checked /> Plateformes</label>
+          <label><input type="checkbox" data-stats-card value="manufacturers" /> Constructeurs</label>
+          <label><input type="checkbox" data-stats-card value="ordered" /> Commandés</label>
+          <label><input type="checkbox" data-stats-card value="wanted" checked /> Recherchés</label>
+        </fieldset>
+        <div class="stats-chart-controls hidden" id="statsChartControls">
+          <label>Répartir par<select id="statsGroupBy"><option value="console">Plateforme</option><option value="manufacturer">Constructeur</option><option value="status">Statut</option><option value="region">Région</option><option value="format">Format</option></select></label>
+          <label>Périmètre<select id="statsScope"><option value="all">Toute la collection</option><option>Acquis</option><option>Commandé</option><option>Recherché</option></select></label>
+          <label>Mesurer<select id="statsMeasure"><option value="games">Jeux</option><option value="copies">Exemplaires</option></select></label>
+        </div>
+      </div>
+      <section class="stats-dashboard" id="statsDashboard" role="tabpanel" aria-live="polite"></section>
+      <div class="stats-dialog-actions"><button class="primary-btn" id="statsDoneBtn" type="button">Terminé</button></div>
+    </section>
+  </dialog>
 
   <dialog id="gameDialog">
     <form method="dialog" id="gameForm">
@@ -262,10 +295,11 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.31"></script>
-  <script src="barcode-utils.js?v=0.0.31"></script>
-  <script src="status-utils.js?v=0.0.31"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.31"></script>
-  <script src="app.js?v=0.0.31"></script>
+  <script src="tutorial-utils.js?v=0.0.32"></script>
+  <script src="barcode-utils.js?v=0.0.32"></script>
+  <script src="status-utils.js?v=0.0.32"></script>
+  <script src="stats-utils.js?v=0.0.32"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.32"></script>
+  <script src="app.js?v=0.0.32"></script>
 </body>
 </html>

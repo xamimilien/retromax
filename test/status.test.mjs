@@ -53,15 +53,14 @@ test('le filtre et les formulaires conservent la valeur choisie',()=>{
   assert.match(appSource,/status:'Acquis'/,'un scan physique reste acquis par défaut');
 });
 
-test('Commandé est exporté sans être compté comme acquis ou recherché',()=>{
+test('Commandé est exporté sans être ajouté à l’onglet Recherchés',()=>{
   assert.match(appSource,/const payload=\{app:'RétroMax',version:2,exportedAt:new Date\(\)\.toISOString\(\),games\}/);
-  assert.match(appSource,/owned=games\.filter\(g=>g\.status==='Acquis'\),wanted=games\.filter\(g=>g\.status==='Recherché'\)/);
   assert.match(appSource,/b\.dataset\.nav==='wanted'\?'Recherché':''/);
 });
 
-test('l’utilitaire de statut 0.0.31 est chargé avant l’application et mis en cache',()=>{
-  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.31');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.31');
+test('l’utilitaire de statut 0.0.32 est chargé avant l’application et mis en cache',()=>{
+  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.32');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.32');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/status-utils\.js\?v=\$\{VERSION\}/);
 });
