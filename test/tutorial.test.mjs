@@ -58,6 +58,18 @@ function manifestIcon(size){
   return manifest.icons?.find(icon=>String(icon.sizes||'').split(/\s+/).includes(`${size}x${size}`));
 }
 
+function cssValues(selector,property){
+  const escapedSelector=selector.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const escapedProperty=property.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const values=[];
+  for(const rule of styleSource.matchAll(new RegExp(`${escapedSelector}\\{([^}]*)\\}`,'g'))){
+    for(const declaration of rule[1].matchAll(new RegExp(`(?:^|;)\\s*${escapedProperty}\\s*:\\s*([^;}]+)`,'g'))){
+      values.push(declaration[1].trim());
+    }
+  }
+  return values;
+}
+
 test('le nouveau guide utilise un indicateur v2 sans toucher à la collection',()=>{
   assert.equal(tutorial.KEY,'retromax-tutorial-seen-v2');
   assert.notEqual(tutorial.KEY,'retromax-games-v2-private');
@@ -203,12 +215,42 @@ test('la progression visuelle est dynamique et la modale reste adaptée aux peti
   assert.match(styleSource,/\.tutorial-dots i\.current/);
   assert.match(styleSource,/\.tutorial-dots i\.complete/);
   assert.doesNotMatch(styleSource,/\.tutorial-progress\[aria-valuenow=/,'la progression ne doit pas être limitée à un nombre fixe de slides');
-  assert.match(styleSource,/#tutorialDialog[^}]*100dvh/);
   assert.match(styleSource,/\.tutorial-pages[^}]*overflow-y:auto/);
   assert.match(styleSource,/\.tutorial-actions button[^}]*min-height:44px/);
   assert.match(styleSource,/@media\(max-width:320px\)/);
   assert.match(styleSource,/env\(safe-area-inset-bottom\)/);
   assert.match(styleSource,/@media\(prefers-reduced-motion:reduce\)/);
+});
+
+test('la hauteur du guide est portée par le dialogue sans cycle WebKit',()=>{
+  const dialogHeights=cssValues('#tutorialDialog','height');
+  const fallbackIndex=dialogHeights.findIndex(value=>/100vh\b/i.test(value));
+  const stableIndex=dialogHeights.findIndex(value=>/100svh\b/i.test(value));
+  assert.ok(fallbackIndex>=0,'le dialogue doit avoir une hauteur vh explicite');
+  assert.ok(stableIndex>fallbackIndex,'la petite hauteur stable doit améliorer le repli vh');
+  assert.ok(cssValues('#tutorialDialog','max-height').includes('680px'),'le dialogue doit rester plafonné');
+
+  const shellHeights=cssValues('.tutorial-shell','height');
+  assert.ok(shellHeights.some(value=>/100vh\b/i.test(value)),'le shell doit conserver le repli vh');
+  assert.ok(shellHeights.some(value=>/100svh\b/i.test(value)),'le shell doit suivre la hauteur stable du dialogue');
+  assert.ok(cssValues('.tutorial-shell','max-height').includes('680px'),'le shell doit partager le plafond du dialogue');
+  assert.ok(cssValues('.tutorial-shell','min-height').includes('0'),'le shell flex doit pouvoir rétrécir');
+  assert.doesNotMatch([...shellHeights,...cssValues('.tutorial-shell','max-height')].join(';'),/100%/,'le shell ne doit plus dépendre d’une hauteur circulaire');
+  assert.match(styleSource,/\.tutorial-pages[^}]*min-height:0[^}]*overflow-y:auto/);
+  assert.match(styleSource,/\.tutorial-head[^}]*flex:none/);
+  assert.match(styleSource,/\.tutorial-actions[^}]*flex:none/);
+});
+
+test('le focus du guide ne fait plus défiler le dialogue effondré',()=>{
+  const focusFunction=appSource.split(/\r?\n/).find(line=>line.startsWith('function focusTutorialHeading('))||'';
+  assert.match(focusFunction,/dialog\.scrollTop=0/);
+  assert.match(focusFunction,/pages\.scrollTop=0/);
+  assert.match(focusFunction,/focus\(\{preventScroll:true\}\)/);
+  const openTutorial=appSource.split(/\r?\n/).find(line=>line.startsWith('function openTutorial('))||'';
+  assert.ok(openTutorial.indexOf('.showModal()')>=0);
+  assert.ok(openTutorial.indexOf('.showModal()')<openTutorial.indexOf('focusTutorialHeading(0)'),'le focus doit suivre showModal');
+  const renderTutorial=appSource.split(/\r?\n/).find(line=>line.startsWith('function renderTutorialStep('))||'';
+  assert.match(renderTutorial,/if\(focus\)focusTutorialHeading\(\)/);
 });
 
 test('la PWA possède les métadonnées et icônes nécessaires à l’ajout sur l’accueil',async()=>{

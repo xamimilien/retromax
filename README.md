@@ -18,7 +18,7 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.29**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.30`, `0.0.31`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.30**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.31`, `0.0.32`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Guide de démarrage
 
