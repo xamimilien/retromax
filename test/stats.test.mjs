@@ -28,8 +28,8 @@ function memoryStorage(initial={}){
   return{getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,String(value)),value:key=>values.get(key)};
 }
 
-test('le résumé distingue jeux, exemplaires, plateformes et statuts',()=>{
-  assert.deepEqual({...stats.summary(games)},{games:4,copies:3,platforms:3,manufacturers:3,ordered:1,wanted:1});
+test('le résumé sépare la collection de la wishlist',()=>{
+  assert.deepEqual({...stats.summary(games)},{games:3,copies:3,platforms:2,manufacturers:2,ordered:1,wanted:1});
 });
 
 test('les préférences restent bornées et conservent au moins un indicateur',()=>{
@@ -39,6 +39,7 @@ test('les préférences restent bornées et conservent au moins un indicateur',(
   assert.equal(normalized.groupBy,'region');
   assert.equal(normalized.measure,'copies');
   assert.equal(normalized.scope,'Commandé');
+  assert.equal(stats.normalizePreferences({scope:'all'}).scope,'collection','les anciennes préférences sont migrées hors wishlist');
   assert.deepEqual([...stats.normalizePreferences({cards:[]}).cards],['copies','platforms','wanted']);
 });
 
@@ -50,11 +51,13 @@ test('les choix statistiques sont mémorisés séparément de la collection',()=
   assert.deepEqual(stats.loadPreferences(storage),saved);
 });
 
-test('la répartition calcule les jeux par plateforme',()=>{
-  assert.deepEqual([...stats.distribution(games,{groupBy:'console',measure:'games',scope:'all'})].map(item=>({...item})),[
+test('la répartition de collection exclut la wishlist',()=>{
+  assert.deepEqual([...stats.distribution(games,{groupBy:'console',measure:'games',scope:'collection'})].map(item=>({...item})),[
     {label:'PlayStation 2',value:2},
-    {label:'Dreamcast',value:1},
     {label:'Xbox One',value:1}
+  ]);
+  assert.deepEqual([...stats.distribution(games,{groupBy:'console',measure:'games',scope:'Recherché'})].map(item=>({...item})),[
+    {label:'Dreamcast',value:1}
   ]);
 });
 
@@ -62,10 +65,9 @@ test('la répartition accepte les exemplaires et un périmètre de statut',()=>{
   assert.deepEqual([...stats.distribution(games,{groupBy:'manufacturer',measure:'copies',scope:'Acquis'})].map(item=>({...item})),[
     {label:'Sony',value:3}
   ]);
-  assert.deepEqual([...stats.distribution(games,{groupBy:'status',measure:'games',scope:'all'})].map(item=>({...item})),[
+  assert.deepEqual([...stats.distribution(games,{groupBy:'status',measure:'games',scope:'collection'})].map(item=>({...item})),[
     {label:'Acquis',value:2},
-    {label:'Commandé',value:1},
-    {label:'Recherché',value:1}
+    {label:'Commandé',value:1}
   ]);
 });
 
@@ -76,6 +78,7 @@ test('la modale propose aperçu, camembert, frise et sélection des indicateurs'
   assert.match(htmlSource,/data-stats-view="frieze"[^>]*>[\s\S]*?Frise/);
   for(const metric of ['games','copies','platforms','manufacturers','ordered','wanted'])assert.match(htmlSource,new RegExp(`data-stats-card value="${metric}"`));
   for(const group of ['console','manufacturer','status','region','format'])assert.match(htmlSource,new RegExp(`<option value="${group}"`));
+  assert.match(htmlSource,/<option value="collection">Collection \(hors wishlist\)<\/option>/);
 });
 
 test('le type choisi remplace réellement les statistiques de l’accueil',()=>{
@@ -114,9 +117,9 @@ test('le résumé et le détail utilisent la même source sans muter les jeux',(
   assert.doesNotMatch(utilitySource,/setItem\(['"]retromax-games-v2-private/);
 });
 
-test('l’utilitaire statistique 0.0.34 est chargé avant l’app et disponible hors ligne',()=>{
-  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.34');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.34');
+test('l’utilitaire statistique 0.0.35 est chargé avant l’app et disponible hors ligne',()=>{
+  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.35');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.35');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/stats-utils\.js\?v=\$\{VERSION\}/);
 });

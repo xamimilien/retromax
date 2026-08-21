@@ -3,18 +3,18 @@
 
   const KEY='retromax-stats-preferences-v1';
   const METRICS=Object.freeze([
-    Object.freeze({id:'games',label:'jeux au total'}),
+    Object.freeze({id:'games',label:'jeux en collection'}),
     Object.freeze({id:'copies',label:'exemplaires acquis'}),
     Object.freeze({id:'platforms',label:'plateformes'}),
     Object.freeze({id:'manufacturers',label:'constructeurs'}),
     Object.freeze({id:'ordered',label:'commandés'}),
-    Object.freeze({id:'wanted',label:'recherchés'})
+    Object.freeze({id:'wanted',label:'wishlist · recherchés'})
   ]);
   const VIEWS=Object.freeze(['overview','pie','frieze']);
   const GROUPS=Object.freeze(['console','manufacturer','status','region','format']);
   const MEASURES=Object.freeze(['games','copies']);
-  const SCOPES=Object.freeze(['all','Acquis','Commandé','Recherché']);
-  const DEFAULTS=Object.freeze({cards:Object.freeze(['copies','platforms','wanted']),view:'overview',groupBy:'console',measure:'games',scope:'all'});
+  const SCOPES=Object.freeze(['collection','Acquis','Commandé','Recherché']);
+  const DEFAULTS=Object.freeze({cards:Object.freeze(['copies','platforms','wanted']),view:'overview',groupBy:'console',measure:'games',scope:'collection'});
   const metricIds=new Set(METRICS.map(metric=>metric.id));
 
   function resolveStorage(storage){
@@ -29,7 +29,7 @@
       view:VIEWS.includes(value?.view)?value.view:DEFAULTS.view,
       groupBy:GROUPS.includes(value?.groupBy)?value.groupBy:DEFAULTS.groupBy,
       measure:MEASURES.includes(value?.measure)?value.measure:DEFAULTS.measure,
-      scope:SCOPES.includes(value?.scope)?value.scope:DEFAULTS.scope
+      scope:SCOPES.includes(value?.scope)?value.scope:value?.scope==='all'?'collection':DEFAULTS.scope
     };
   }
 
@@ -52,11 +52,12 @@
 
   function summary(games){
     const list=records(games);
+    const collection=list.filter(game=>game.status!=='Recherché');
     return{
-      games:list.length,
+      games:collection.length,
       copies:list.filter(game=>game.status==='Acquis').reduce((total,game)=>total+quantity(game),0),
-      platforms:distinct(list.map(game=>String(game.console||'').trim())),
-      manufacturers:distinct(list.map(game=>String(game.manufacturer||'').trim())),
+      platforms:distinct(collection.map(game=>String(game.console||'').trim())),
+      manufacturers:distinct(collection.map(game=>String(game.manufacturer||'').trim())),
       ordered:list.filter(game=>game.status==='Commandé').length,
       wanted:list.filter(game=>game.status==='Recherché').length
     };
@@ -70,7 +71,7 @@
 
   function distribution(games,preferences={}){
     const settings=normalizePreferences(preferences),totals=new Map();
-    const list=records(games).filter(game=>settings.scope==='all'||game.status===settings.scope);
+    const list=records(games).filter(game=>settings.scope==='collection'?game.status!=='Recherché':game.status===settings.scope);
     for(const game of list){
       const label=groupLabel(game,settings.groupBy),value=settings.measure==='copies'?quantity(game):1;
       totals.set(label,(totals.get(label)||0)+value);

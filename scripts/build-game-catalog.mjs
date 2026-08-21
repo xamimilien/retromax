@@ -5,7 +5,7 @@ import { CATALOG_PLATFORMS, CATALOG_REVISION, WIKIDATA_ENDPOINT } from './game-c
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUTPUT = resolve(ROOT, 'assets/data/game-catalog.json');
-const USER_AGENT = 'RetroMaxCatalogBuilder/0.0.34 (https://github.com/xamimilien/retromax)';
+const USER_AGENT = 'RetroMaxCatalogBuilder/0.0.35 (https://github.com/xamimilien/retromax)';
 
 const wait = milliseconds => new Promise(resolvePromise => setTimeout(resolvePromise, milliseconds));
 const clean = value => String(value || '').normalize('NFC').replace(/[\u0000-\u001f\u007f]/g, '').replace(/\s+/g, ' ').trim();
