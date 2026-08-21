@@ -171,8 +171,8 @@ test('chaque fonction clé possède une slide dédiée et compréhensible',()=>{
     create:[/ajoute un jeu manuellement/i,/titre/i,/constructeur/i,/console/i,/statut/i,/quantité/i,/Enregistrer/i],
     scan:[/code-barres/i,/caméra/i,/corrig/i,/toi-même|manuell/i],
     configure:[/région/i,/format/i,/statut/i,/quantité/i,/tags/i,/notes/i],
-    status:[/Acquis/i,/Commandé/i,/Recherché/i,/exemplaires acquis/i,/filtre/i,/Statut/i,/multisélection/i],
-    statistics:[/Détails/i,/Aperçu/i,/Camembert/i,/Frise/i,/remplacent[\s\S]*accueil/i,/plateforme/i,/constructeur/i,/statut/i,/région/i,/format/i,/jeux/i,/exemplaires/i,/fais défiler/i],
+    status:[/Acquis/i,/Commandé/i,/Recherché/i,/exemplaires acquis/i,/wishlist/i,/sans gonfler[\s\S]*statistiques/i,/filtre/i,/Statut/i,/multisélection/i],
+    statistics:[/Détails/i,/Aperçu/i,/Camembert/i,/Frise/i,/remplacent[\s\S]*accueil/i,/plateforme/i,/constructeur/i,/statut/i,/région/i,/format/i,/wishlist/i,/jeux/i,/exemplaires/i,/fais défiler/i],
     search:[/recherche/i,/filtres en cascade/i,/Réinitialiser[\s\S]*ne supprime aucun jeu/i],
     bulk:[/multisélection/i,/Modifier/i,/région/i,/format/i,/statut/i,/tags/i],
     backup:[/Sauvegarde/i,/JSON/i,/Importer/i,/remplace la collection locale/i,/Aide/i]

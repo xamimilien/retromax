@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.34" />
+  <link rel="stylesheet" href="styles.css?v=0.0.35" />
 </head>
 <body>
   <header class="topbar">
@@ -104,16 +104,16 @@
       <div class="stats-options">
         <fieldset class="stats-card-options" id="statsCardOptions">
           <legend>Indicateurs de la vue Aperçu</legend>
-          <label><input type="checkbox" data-stats-card value="games" /> Jeux au total</label>
+          <label><input type="checkbox" data-stats-card value="games" /> Jeux en collection</label>
           <label><input type="checkbox" data-stats-card value="copies" checked /> Exemplaires acquis</label>
           <label><input type="checkbox" data-stats-card value="platforms" checked /> Plateformes</label>
           <label><input type="checkbox" data-stats-card value="manufacturers" /> Constructeurs</label>
           <label><input type="checkbox" data-stats-card value="ordered" /> Commandés</label>
-          <label><input type="checkbox" data-stats-card value="wanted" checked /> Recherchés</label>
+          <label><input type="checkbox" data-stats-card value="wanted" checked /> Wishlist · recherchés</label>
         </fieldset>
         <div class="stats-chart-controls hidden" id="statsChartControls">
           <label>Répartir par<select id="statsGroupBy"><option value="console">Plateforme</option><option value="manufacturer">Constructeur</option><option value="status">Statut</option><option value="region">Région</option><option value="format">Format</option></select></label>
-          <label>Périmètre<select id="statsScope"><option value="all">Toute la collection</option><option>Acquis</option><option>Commandé</option><option>Recherché</option></select></label>
+          <label>Périmètre<select id="statsScope"><option value="collection">Collection (hors wishlist)</option><option>Acquis</option><option>Commandé</option><option>Recherché</option></select></label>
           <label>Mesurer<select id="statsMeasure"><option value="games">Jeux</option><option value="copies">Exemplaires</option></select></label>
         </div>
       </div>
@@ -268,7 +268,7 @@
           <p class="eyebrow">SUIVRE CHAQUE JEU</p>
           <h3 tabindex="-1">Acquis, Commandé ou Recherché</h3>
           <p>Le statut indique où en est chaque fiche et alimente les indicateurs de l’accueil.</p>
-          <ul><li><strong>Acquis</strong> compte la quantité dans les exemplaires acquis.</li><li><strong>Commandé</strong> garde à part les jeux en attente de réception.</li><li><strong>Recherché</strong> alimente ta liste d’envies.</li></ul>
+          <ul><li><strong>Acquis</strong> compte la quantité dans les exemplaires acquis.</li><li><strong>Commandé</strong> garde à part les jeux en attente de réception.</li><li><strong>Recherché</strong> alimente uniquement ta wishlist, sans gonfler les statistiques de collection.</li></ul>
           <div class="tutorial-callout"><strong>Filtrer ou modifier</strong><span>Utilise le filtre <strong>Statut</strong> pour les retrouver, ou la multisélection pour modifier plusieurs jeux ensemble.</span></div>
         </article>
         <article class="tutorial-step" data-tutorial-step="6" data-tutorial-topic="statistics" hidden>
@@ -276,7 +276,7 @@
           <p class="eyebrow">PERSONNALISER L’ACCUEIL</p>
           <h3 tabindex="-1">Choisis tes statistiques</h3>
           <p>Touche <strong>Détails</strong> dans la section Statistiques pour choisir la vue affichée sur l’accueil.</p>
-          <ul><li><strong>Aperçu</strong> affiche uniquement les indicateurs que tu coches.</li><li><strong>Camembert</strong> et <strong>Frise</strong> remplacent les cartes de l’accueil par une répartition visuelle.</li><li>Répartis par plateforme, constructeur, statut, région ou format, puis choisis le périmètre et le calcul en jeux ou exemplaires.</li></ul>
+          <ul><li><strong>Aperçu</strong> affiche uniquement les indicateurs que tu coches.</li><li><strong>Camembert</strong> et <strong>Frise</strong> remplacent les cartes de l’accueil par une répartition visuelle.</li><li>Répartis par plateforme, constructeur, statut, région ou format, puis choisis entre la collection, les acquis, les commandés ou la wishlist et un calcul en jeux ou exemplaires.</li></ul>
           <div class="tutorial-callout"><strong>Tout reste visible</strong><span>Chaque plateforme possède sa propre ligne et sa propre couleur. Sur iPhone, fais défiler la légende pour toutes les consulter.</span></div>
         </article>
         <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="search" hidden>
@@ -311,11 +311,11 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.34"></script>
-  <script src="barcode-utils.js?v=0.0.34"></script>
-  <script src="status-utils.js?v=0.0.34"></script>
-  <script src="stats-utils.js?v=0.0.34"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.34"></script>
-  <script src="app.js?v=0.0.34"></script>
+  <script src="tutorial-utils.js?v=0.0.35"></script>
+  <script src="barcode-utils.js?v=0.0.35"></script>
+  <script src="status-utils.js?v=0.0.35"></script>
+  <script src="stats-utils.js?v=0.0.35"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.35"></script>
+  <script src="app.js?v=0.0.35"></script>
 </body>
 </html>
