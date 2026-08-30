@@ -45,9 +45,9 @@ test('la fiche utilise un combobox libre relié à la banque locale', () => {
   assert.doesNotMatch(htmlSource, /id="title"[^>]+list=/i);
 });
 
-test('la version 0.0.36 met en cache la banque sans supprimer les caches étrangers', () => {
-  assert.match(appSource, /APP_VERSION='0\.0\.36'/);
-  assert.match(workerSource, /VERSION='0\.0\.36'/);
+test('la version 0.0.37 met en cache la banque sans supprimer les caches étrangers', () => {
+  assert.match(appSource, /APP_VERSION='0\.0\.37'/);
+  assert.match(workerSource, /VERSION='0\.0\.37'/);
   assert.match(workerSource, /CATALOG_URL/);
   assert.match(workerSource, /k\.startsWith\('retromax-public-v'\)/);
 });

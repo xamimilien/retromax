@@ -10,6 +10,7 @@
   }
 
   function text(value,fallback=''){return String(value??fallback).trim()}
+  function lookup(value=''){return text(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').replace(/[^a-z0-9]+/g,' ').trim()}
   function consoleQuantity(value){return Math.max(1,Math.round(Number(value)||1))}
   function partQuantity(value){return Math.max(0,Math.round(Number(value)||0))}
   function condition(value){
@@ -94,5 +95,16 @@
     }));
   }
 
-  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,condition,normalize,load,save,summary,filter,groupByManufacturer});
+  function suggest(values,query='',limit=8){
+    const needle=lookup(query),seen=new Set(),entries=[];
+    for(const value of Array.isArray(values)?values:[]){
+      const label=text(value),key=lookup(label);
+      if(!label||seen.has(key)||needle&&!key.includes(needle))continue;
+      seen.add(key);entries.push({label,key,prefix:needle&&key.startsWith(needle)?0:1});
+    }
+    const ranked=needle?entries.sort((a,b)=>a.prefix-b.prefix||a.label.localeCompare(b.label,'fr')):entries;
+    return ranked.slice(0,Math.max(1,Number(limit)||8)).map(entry=>entry.label);
+  }
+
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,condition,normalize,load,save,summary,filter,groupByManufacturer,suggest});
 })(globalThis);

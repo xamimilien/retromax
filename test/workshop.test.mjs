@@ -58,6 +58,12 @@ test('la recherche, le filtre et les sections par marque fonctionnent ensemble',
   assert.deepEqual(Array.from(groups,group=>group.manufacturer),['Nintendo','Sega']);
 });
 
+test('les suggestions sont tolérantes aux accents, dédupliquées et classées',()=>{
+  assert.deepEqual(Array.from(workshop.suggest(['Écran','Bloc optique','Ecran','Câble vidéo'],'ecr')),['Écran']);
+  assert.deepEqual(Array.from(workshop.suggest(['Mega Drive','Game Boy','Game Boy Color'],'ga')),['Game Boy','Game Boy Color','Mega Drive']);
+  assert.deepEqual(Array.from(workshop.suggest(['A','B','C'],'',2)),['A','B']);
+});
+
 test('le stockage de l’atelier est local, séparé et résiste à un JSON invalide',()=>{
   const storage=memoryStorage({'retromax-games-v2-private':'[{"title":"Sonic"}]'});
   workshop.save(sample,storage);
@@ -73,6 +79,31 @@ test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
   for(const id of ['workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+});
+
+test('les champs de l’atelier proposent une autocomplétion accessible sur iPhone',()=>{
+  for(const [input,list] of [['workshopConsoleManufacturer','workshopConsoleManufacturerSuggestions'],['workshopConsoleName','workshopConsoleNameSuggestions'],['workshopPartManufacturer','workshopPartManufacturerSuggestions'],['workshopPartConsole','workshopPartConsoleSuggestions'],['workshopPartName','workshopPartNameSuggestions']]){
+    assert.match(htmlSource,new RegExp(`id="${input}"[^>]+role="combobox"[^>]+aria-autocomplete="list"[^>]+aria-controls="${list}"`));
+    assert.match(htmlSource,new RegExp(`id="${list}"[^>]+role="listbox"[^>]+hidden`));
+  }
+  assert.doesNotMatch(htmlSource,/<datalist\b[^>]*id="workshop/i);
+  assert.match(styleSource,/\.workshop-autocomplete-list\{[^}]*position:absolute[^}]*max-height:190px[^}]*overflow-y:auto/);
+  assert.match(styleSource,/\.workshop-autocomplete-list button\{[^}]*min-height:40px/);
+});
+
+test('les suggestions suivent la marque et complètent automatiquement la fiche',()=>{
+  assert.match(appSource,/function workshopConsoleChoices\(manufacturerValue=''/);
+  assert.match(appSource,/CONSOLE_CATALOG\[manufacturer\]/);
+  assert.match(appSource,/function workshopManufacturerForConsole/);
+  assert.match(appSource,/manufacturerInput\.value=inferred/);
+  assert.match(appSource,/WORKSHOP_PART_CATALOG/);
+  assert.match(appSource,/function workshopPartChoices/);
+  assert.match(appSource,/workshop\.parts\.filter/,'les pièces déjà saisies doivent enrichir les propositions');
+  assert.match(appSource,/event\.key==='ArrowDown'/);
+  assert.match(appSource,/event\.key==='Enter'/);
+  assert.match(appSource,/event\.key==='Escape'/);
+  assert.match(appSource,/aria-activedescendant/);
+  assert.match(appSource,/setupWorkshopAutocomplete\('#workshopPartName'/);
 });
 
 test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
@@ -99,7 +130,7 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.36');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.36');
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.37');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.37');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
