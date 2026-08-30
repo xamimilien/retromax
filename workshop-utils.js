@@ -25,6 +25,7 @@
       id:text(entry.id,`console-${index}`),
       manufacturer:text(entry.manufacturer,'Autre'),
       console:text(entry.console,'Console non précisée'),
+      variant:text(entry.variant),
       condition:condition(entry.condition),
       quantity:consoleQuantity(entry.quantity),
       issue:text(entry.issue),
@@ -38,6 +39,7 @@
       manufacturer:text(entry.manufacturer,'Autre'),
       name:text(entry.name,'Pièce non précisée'),
       console:text(entry.console),
+      variant:text(entry.variant),
       quantity:partQuantity(entry.quantity),
       location:text(entry.location),
       notes:text(entry.notes)
