@@ -12,7 +12,9 @@ Utiliser le bouton **Importer** pour charger une sauvegarde JSON privée, puis *
 
 L’onglet **Atelier** est séparé de la collection de jeux. Il permet d’inventorier les consoles par marque, modèle, quantité et état (**OK**, **Semi-HS** ou **HS**), puis de noter la panne, l’intervention prévue et l’historique de chaque machine.
 
-Le même volet gère le stock de pièces avec la marque, la console compatible, la quantité disponible, l’emplacement et des notes libres. Les consoles et les pièces sont regroupées par marque, recherchables et filtrables. Elles restent dans un stockage local distinct de celui des jeux, mais sont incluses ensemble dans les nouvelles sauvegardes JSON v3. Les anciennes sauvegardes de collection restent importables et ne suppriment pas un atelier existant lorsqu’elles ne contiennent aucune donnée d’atelier.
+Le même volet gère le stock de pièces avec la marque, la console compatible, la quantité disponible, l’emplacement et des notes libres. Les champs de marque, console et pièce proposent une autocomplétion tactile et clavier. Les modèles sont filtrés en cascade par marque, choisir une console peut renseigner automatiquement sa marque, et les pièces déjà enregistrées enrichissent les propositions suivantes. La saisie libre reste possible.
+
+Les consoles et les pièces sont regroupées par marque, recherchables et filtrables. Elles restent dans un stockage local distinct de celui des jeux, mais sont incluses ensemble dans les nouvelles sauvegardes JSON v3. Les anciennes sauvegardes de collection restent importables et ne suppriment pas un atelier existant lorsqu’elles ne contiennent aucune donnée d’atelier.
 
 ## Identité des consoles
 
@@ -24,7 +26,7 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.36**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.37`, `0.0.38`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.37**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.38`, `0.0.39`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Guide de démarrage
 
