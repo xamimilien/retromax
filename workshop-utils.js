@@ -1,0 +1,98 @@
+(function attachRetroMaxWorkshop(scope){
+  'use strict';
+
+  const KEY='retromax-workshop-v1-private';
+  const CONDITIONS=Object.freeze(['OK','Semi-HS','HS']);
+
+  function resolveStorage(storage){
+    if(storage!==undefined)return storage;
+    try{return scope.localStorage}catch{return null}
+  }
+
+  function text(value,fallback=''){return String(value??fallback).trim()}
+  function consoleQuantity(value){return Math.max(1,Math.round(Number(value)||1))}
+  function partQuantity(value){return Math.max(0,Math.round(Number(value)||0))}
+  function condition(value){
+    const normalized=text(value).toLocaleLowerCase('fr').replace(/[\s_]+/g,'-');
+    if(normalized==='hs')return'HS';
+    if(normalized==='semi-hs'||normalized==='semihs')return'Semi-HS';
+    return'OK';
+  }
+
+  function normalizeConsole(entry={},index=0){
+    return{
+      id:text(entry.id,`console-${index}`),
+      manufacturer:text(entry.manufacturer,'Autre'),
+      console:text(entry.console,'Console non précisée'),
+      condition:condition(entry.condition),
+      quantity:consoleQuantity(entry.quantity),
+      issue:text(entry.issue),
+      notes:text(entry.notes)
+    };
+  }
+
+  function normalizePart(entry={},index=0){
+    return{
+      id:text(entry.id,`part-${index}`),
+      manufacturer:text(entry.manufacturer,'Autre'),
+      name:text(entry.name,'Pièce non précisée'),
+      console:text(entry.console),
+      quantity:partQuantity(entry.quantity),
+      location:text(entry.location),
+      notes:text(entry.notes)
+    };
+  }
+
+  function normalize(value={}){
+    const source=value&&typeof value==='object'?value:{};
+    return{
+      consoles:(Array.isArray(source.consoles)?source.consoles:[]).filter(item=>item&&typeof item==='object').map(normalizeConsole),
+      parts:(Array.isArray(source.parts)?source.parts:[]).filter(item=>item&&typeof item==='object').map(normalizePart)
+    };
+  }
+
+  function load(storage){
+    try{
+      const raw=resolveStorage(storage)?.getItem(KEY);
+      return normalize(raw?JSON.parse(raw):{});
+    }catch{return normalize()}
+  }
+
+  function save(value,storage){
+    const normalized=normalize(value);
+    try{resolveStorage(storage)?.setItem(KEY,JSON.stringify(normalized))}catch{}
+    return normalized;
+  }
+
+  function summary(value){
+    const state=normalize(value),result={consoles:0,ok:0,semiHs:0,hs:0,parts:0,partReferences:state.parts.length};
+    for(const item of state.consoles){
+      result.consoles+=item.quantity;
+      if(item.condition==='OK')result.ok+=item.quantity;
+      else if(item.condition==='Semi-HS')result.semiHs+=item.quantity;
+      else result.hs+=item.quantity;
+    }
+    for(const item of state.parts)result.parts+=item.quantity;
+    return result;
+  }
+
+  function filter(value,criteria={}){
+    const state=normalize(value),manufacturer=text(criteria.manufacturer),query=text(criteria.query).toLocaleLowerCase('fr');
+    const matches=item=>(!manufacturer||item.manufacturer===manufacturer)&&(!query||Object.values(item).join(' ').toLocaleLowerCase('fr').includes(query));
+    return{consoles:state.consoles.filter(matches),parts:state.parts.filter(matches)};
+  }
+
+  function groupByManufacturer(value){
+    const state=normalize(value),groups=new Map();
+    const ensure=manufacturer=>{if(!groups.has(manufacturer))groups.set(manufacturer,{manufacturer,consoles:[],parts:[]});return groups.get(manufacturer)};
+    state.consoles.forEach(item=>ensure(item.manufacturer).consoles.push(item));
+    state.parts.forEach(item=>ensure(item.manufacturer).parts.push(item));
+    return[...groups.values()].sort((a,b)=>a.manufacturer.localeCompare(b.manufacturer,'fr')).map(group=>({
+      ...group,
+      consoles:group.consoles.sort((a,b)=>a.console.localeCompare(b.console,'fr')),
+      parts:group.parts.sort((a,b)=>a.name.localeCompare(b.name,'fr'))
+    }));
+  }
+
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,condition,normalize,load,save,summary,filter,groupByManufacturer});
+})(globalThis);

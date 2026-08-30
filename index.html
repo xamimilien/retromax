@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.35" />
+  <link rel="stylesheet" href="styles.css?v=0.0.36" />
 </head>
 <body>
   <header class="topbar">
@@ -35,6 +35,7 @@
       <span>🔒 Collection mémorisée par ce navigateur</span>
     </section>
 
+    <section id="gamesPane">
     <div class="stats-toolbar">
       <div><p class="eyebrow">STATISTIQUES</p><span>Résumé configurable</span></div>
       <button class="ghost-btn compact" id="statsOpenBtn" type="button" aria-label="Afficher et configurer les statistiques"><span aria-hidden="true">◔</span> Détails</button>
@@ -82,11 +83,27 @@
     </section>
     <section id="gameList" class="game-list"></section>
     <p id="emptyState" class="empty hidden">Aucun jeu ne correspond à ces critères.</p>
+    </section>
+
+    <section id="workshopPane" class="workshop-pane hidden" aria-labelledby="workshopTitle">
+      <header class="workshop-hero">
+        <div><p class="eyebrow">ATELIER</p><h2 id="workshopTitle">Restauration des consoles</h2><p>Inventorie les machines à réparer et le stock de pièces, regroupés par marque.</p></div>
+        <div class="workshop-actions"><button class="primary-btn" id="addWorkshopConsoleBtn" type="button">＋ Console</button><button class="ghost-btn" id="addWorkshopPartBtn" type="button">＋ Pièce</button></div>
+      </header>
+      <section class="workshop-summary" id="workshopSummary" aria-label="Résumé de l’atelier"></section>
+      <section class="workshop-filters">
+        <label class="search-wrap"><span>⌕</span><input id="workshopSearch" type="search" placeholder="Rechercher une console, une panne ou une pièce…" autocomplete="off" /></label>
+        <select id="workshopManufacturerFilter" aria-label="Filtrer l’atelier par marque"><option value="">Toutes les marques</option></select>
+      </section>
+      <section id="workshopBrands" class="workshop-brands"></section>
+      <p id="workshopEmpty" class="empty hidden">Aucune console ni pièce dans cet atelier.</p>
+    </section>
   </main>
 
   <nav class="bottom-nav" aria-label="Navigation">
     <button class="nav-item active" data-nav="collection"><span>▦</span>Collection</button>
     <button class="nav-item" data-nav="wanted"><span>♡</span>Recherchés</button>
+    <button class="nav-item" data-nav="workshop"><span>⚒</span>Atelier</button>
     <button class="nav-item" id="importBtn"><span>⇧</span>Importer</button>
     <button class="nav-item" id="exportBtn"><span>⇩</span>Sauvegarde</button>
     <button class="nav-item" id="tutorialBtn" type="button" aria-label="Ouvrir le guide d’utilisation"><span aria-hidden="true">?</span>Aide</button>
@@ -210,16 +227,69 @@
     </form>
   </dialog>
 
+  <datalist id="workshopManufacturerOptions">
+    <option value="Microsoft"></option><option value="Nintendo"></option><option value="Sega"></option><option value="Sony"></option><option value="Autre"></option>
+  </datalist>
+  <datalist id="workshopConsoleOptions">
+    <option value="Xbox"></option><option value="Xbox 360"></option><option value="Xbox One"></option><option value="Xbox Series"></option>
+    <option value="NES"></option><option value="Super Nintendo"></option><option value="Nintendo 64"></option><option value="GameCube"></option><option value="Wii"></option><option value="Wii U"></option><option value="Nintendo Switch"></option><option value="Nintendo Switch 2"></option>
+    <option value="Game Boy"></option><option value="Game Boy Color"></option><option value="Game Boy Advance"></option><option value="Nintendo DS"></option><option value="Nintendo 3DS"></option>
+    <option value="Master System"></option><option value="Mega Drive"></option><option value="Sega Saturn"></option><option value="Dreamcast"></option>
+    <option value="PlayStation"></option><option value="PlayStation 2"></option><option value="PlayStation 3"></option><option value="PlayStation 4"></option><option value="PlayStation 5"></option><option value="PSP"></option><option value="PS Vita"></option>
+  </datalist>
+
+  <dialog id="workshopConsoleDialog" class="workshop-dialog" aria-labelledby="workshopConsoleDialogTitle">
+    <form id="workshopConsoleForm">
+      <div class="dialog-head"><div><p class="eyebrow">FICHE CONSOLE</p><h2 id="workshopConsoleDialogTitle">Ajouter une console</h2></div><button class="icon-btn small" id="workshopConsoleCloseBtn" type="button" aria-label="Fermer">×</button></div>
+      <input type="hidden" id="workshopConsoleId" />
+      <div class="two-cols">
+        <label>Marque<input id="workshopConsoleManufacturer" list="workshopManufacturerOptions" required placeholder="Nintendo, Sony…" /></label>
+        <label>Console / modèle<input id="workshopConsoleName" list="workshopConsoleOptions" required placeholder="Super Nintendo…" /></label>
+      </div>
+      <div class="two-cols">
+        <label>État<select id="workshopConsoleCondition"><option>OK</option><option>Semi-HS</option><option>HS</option></select></label>
+        <label>Quantité<input id="workshopConsoleQuantity" type="number" min="1" value="1" /></label>
+      </div>
+      <label>Panne ou intervention à prévoir<textarea id="workshopConsoleIssue" rows="3" placeholder="Lecteur, alimentation, condensateurs…"></textarea></label>
+      <label>Notes<textarea id="workshopConsoleNotes" rows="3" placeholder="État esthétique, numéro de série, historique…"></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" class="danger hidden" id="workshopConsoleDeleteBtn">Supprimer</button><span></span>
+        <button type="button" class="ghost-btn" id="workshopConsoleCancelBtn">Annuler</button><button type="submit" class="primary-btn">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="workshopPartDialog" class="workshop-dialog" aria-labelledby="workshopPartDialogTitle">
+    <form id="workshopPartForm">
+      <div class="dialog-head"><div><p class="eyebrow">STOCK DE PIÈCES</p><h2 id="workshopPartDialogTitle">Ajouter une pièce</h2></div><button class="icon-btn small" id="workshopPartCloseBtn" type="button" aria-label="Fermer">×</button></div>
+      <input type="hidden" id="workshopPartId" />
+      <div class="two-cols">
+        <label>Marque<input id="workshopPartManufacturer" list="workshopManufacturerOptions" required placeholder="Sega, Microsoft…" /></label>
+        <label>Pièce<input id="workshopPartName" required placeholder="Bloc optique, nappe, coque…" /></label>
+      </div>
+      <div class="two-cols">
+        <label>Console compatible<input id="workshopPartConsole" list="workshopConsoleOptions" placeholder="Dreamcast…" /></label>
+        <label>Quantité en stock<input id="workshopPartQuantity" type="number" min="0" value="1" /></label>
+      </div>
+      <label>Emplacement<input id="workshopPartLocation" placeholder="Bac A3, étagère atelier…" /></label>
+      <label>Notes<textarea id="workshopPartNotes" rows="3" placeholder="Référence, état, provenance…"></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" class="danger hidden" id="workshopPartDeleteBtn">Supprimer</button><span></span>
+        <button type="button" class="ghost-btn" id="workshopPartCancelBtn">Annuler</button><button type="submit" class="primary-btn">Enregistrer</button>
+      </div>
+    </form>
+  </dialog>
+
   <dialog id="tutorialDialog" class="tutorial-dialog" aria-labelledby="tutorialTitle" aria-describedby="tutorialDescription">
     <section class="tutorial-shell">
       <div class="dialog-head tutorial-head">
         <div><p class="eyebrow">GUIDE DE DÉMARRAGE</p><h2 id="tutorialTitle">Découvrir RétroMax</h2></div>
         <button class="icon-btn small" id="tutorialCloseBtn" type="button" aria-label="Fermer le guide">×</button>
       </div>
-      <p class="sr-only" id="tutorialDescription">Dix étapes pour installer RétroMax comme une app et utiliser les fonctions essentielles de ta collection.</p>
-      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" aria-label="Progression du guide">
-        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 10</span>
-        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      <p class="sr-only" id="tutorialDescription">Onze étapes pour installer RétroMax comme une app et utiliser les fonctions essentielles de ta collection et de ton atelier.</p>
+      <div class="tutorial-progress" id="tutorialProgressBar" role="progressbar" aria-valuemin="1" aria-valuemax="11" aria-valuenow="1" aria-label="Progression du guide">
+        <span id="tutorialProgress" aria-live="polite">Étape 1 sur 11</span>
+        <span class="tutorial-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="tutorial-pages">
         <article class="tutorial-step" data-tutorial-step="0" data-tutorial-topic="privacy">
@@ -279,26 +349,34 @@
           <ul><li><strong>Aperçu</strong> affiche uniquement les indicateurs que tu coches.</li><li><strong>Camembert</strong> et <strong>Frise</strong> remplacent les cartes de l’accueil par une répartition visuelle.</li><li>Répartis par plateforme, constructeur, statut, région ou format, puis choisis entre la collection, les acquis, les commandés ou la wishlist et un calcul en jeux ou exemplaires.</li></ul>
           <div class="tutorial-callout"><strong>Tout reste visible</strong><span>Chaque plateforme possède sa propre ligne et sa propre couleur. Sur iPhone, fais défiler la légende pour toutes les consulter.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="search" hidden>
+        <article class="tutorial-step" data-tutorial-step="7" data-tutorial-topic="workshop" hidden>
+          <span class="tutorial-icon" aria-hidden="true">⚒</span>
+          <p class="eyebrow">RESTAURER ET RÉPARER</p>
+          <h3 tabindex="-1">Suis tes consoles et tes pièces</h3>
+          <p>Ouvre <strong>Atelier</strong> pour inventorier séparément les machines à restaurer et le stock de pièces.</p>
+          <ul><li>Pour une console : marque, modèle, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
+          <div class="tutorial-callout"><strong>Sauvegarde locale</strong><span>L’atelier reste dans ce navigateur et fait partie de la sauvegarde JSON RétroMax.</span></div>
+        </article>
+        <article class="tutorial-step" data-tutorial-step="8" data-tutorial-topic="search" hidden>
           <span class="tutorial-icon" aria-hidden="true">⌕</span>
           <p class="eyebrow">RETROUVER UN JEU</p>
           <h3 tabindex="-1">Recherche et filtres en cascade</h3>
           <p>Recherche un titre, choisis un constructeur, puis une console et un statut. Les consoles proposées suivent automatiquement le constructeur sélectionné. L’onglet <strong>Recherchés</strong> rassemble ta liste d’envies.</p>
           <div class="tutorial-callout"><strong>Réinitialiser</strong><span>Ce bouton efface uniquement la recherche et les filtres. Il ne supprime aucun jeu.</span></div>
         </article>
-        <article class="tutorial-step" data-tutorial-step="8" data-tutorial-topic="bulk" hidden>
+        <article class="tutorial-step" data-tutorial-step="9" data-tutorial-topic="bulk" hidden>
           <span class="tutorial-icon" aria-hidden="true">☑</span>
           <p class="eyebrow">GAGNER DU TEMPS</p>
           <h3 tabindex="-1">Modifier plusieurs jeux ensemble</h3>
           <p>Active la multisélection avec <strong>☑</strong>, coche les fiches voulues, puis touche <strong>Modifier</strong>.</p>
           <p>Tu peux appliquer en une fois une région, un format, un statut ou des tags. Seules les informations cochées sont modifiées.</p>
         </article>
-        <article class="tutorial-step" data-tutorial-step="9" data-tutorial-topic="backup" hidden>
+        <article class="tutorial-step" data-tutorial-step="10" data-tutorial-topic="backup" hidden>
           <span class="tutorial-icon" aria-hidden="true">⇩</span>
           <p class="eyebrow">INDISPENSABLE</p>
           <h3 tabindex="-1">Sauvegarde régulièrement ta collection</h3>
-          <p><strong>Sauvegarde</strong> télécharge ton fichier JSON privé. Conserve-le dans Fichiers ou iCloud Drive pour pouvoir restaurer ta collection.</p>
-          <div class="tutorial-callout important"><strong>Importer</strong><span>Restaure une sauvegarde et remplace la collection locale actuelle après confirmation.</span></div>
+          <p><strong>Sauvegarde</strong> télécharge ton fichier JSON privé avec les jeux et l’atelier. Conserve-le dans Fichiers ou iCloud Drive pour pouvoir tout restaurer.</p>
+          <div class="tutorial-callout important"><strong>Importer</strong><span>Restaure une sauvegarde et remplace les données locales correspondantes après confirmation.</span></div>
           <p class="tutorial-reopen">Tu pourras rouvrir ce guide à tout moment avec <strong>Aide</strong>.</p>
         </article>
       </div>
@@ -311,11 +389,12 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.35"></script>
-  <script src="barcode-utils.js?v=0.0.35"></script>
-  <script src="status-utils.js?v=0.0.35"></script>
-  <script src="stats-utils.js?v=0.0.35"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.35"></script>
-  <script src="app.js?v=0.0.35"></script>
+  <script src="tutorial-utils.js?v=0.0.36"></script>
+  <script src="barcode-utils.js?v=0.0.36"></script>
+  <script src="status-utils.js?v=0.0.36"></script>
+  <script src="stats-utils.js?v=0.0.36"></script>
+  <script src="workshop-utils.js?v=0.0.36"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.36"></script>
+  <script src="app.js?v=0.0.36"></script>
 </body>
 </html>

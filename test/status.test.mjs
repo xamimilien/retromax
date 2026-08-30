@@ -54,13 +54,13 @@ test('le filtre et les formulaires conservent la valeur choisie',()=>{
 });
 
 test('Commandé est exporté sans être ajouté à l’onglet Recherchés',()=>{
-  assert.match(appSource,/const payload=\{app:'RétroMax',version:2,exportedAt:new Date\(\)\.toISOString\(\),games\}/);
-  assert.match(appSource,/b\.dataset\.nav==='wanted'\?'Recherché':''/);
+  assert.match(appSource,/const payload=\{app:'RétroMax',version:3,exportedAt:new Date\(\)\.toISOString\(\),games,workshop\}/);
+  assert.match(appSource,/nav==='wanted'\?'Recherché':''/);
 });
 
-test('l’utilitaire de statut 0.0.35 est chargé avant l’application et mis en cache',()=>{
-  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.35');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.35');
+test('l’utilitaire de statut 0.0.36 est chargé avant l’application et mis en cache',()=>{
+  const utilityIndex=htmlSource.indexOf('status-utils.js?v=0.0.36');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.36');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/status-utils\.js\?v=\$\{VERSION\}/);
 });
