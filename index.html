@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.37" />
+  <link rel="stylesheet" href="styles.css?v=0.0.38" />
 </head>
 <body>
   <header class="topbar">
@@ -235,7 +235,8 @@
         <label>Marque<div class="workshop-combobox"><input id="workshopConsoleManufacturer" required placeholder="Nintendo, Sony…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopConsoleManufacturerSuggestions" /><div id="workshopConsoleManufacturerSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
         <label>Console / modèle<div class="workshop-combobox"><input id="workshopConsoleName" required placeholder="Super Nintendo…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopConsoleNameSuggestions" /><div id="workshopConsoleNameSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
       </div>
-      <div class="two-cols">
+      <div class="three-cols">
+        <label>Version / révision<div class="workshop-combobox"><input id="workshopConsoleVariant" placeholder="Fat, Slim, Super Slim…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopConsoleVariantSuggestions" /><div id="workshopConsoleVariantSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
         <label>État<select id="workshopConsoleCondition"><option>OK</option><option>Semi-HS</option><option>HS</option></select></label>
         <label>Quantité<input id="workshopConsoleQuantity" type="number" min="1" value="1" /></label>
       </div>
@@ -256,8 +257,9 @@
         <label>Marque<div class="workshop-combobox"><input id="workshopPartManufacturer" required placeholder="Sega, Microsoft…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopPartManufacturerSuggestions" /><div id="workshopPartManufacturerSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
         <label>Pièce<div class="workshop-combobox"><input id="workshopPartName" required placeholder="Bloc optique, nappe, coque…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopPartNameSuggestions" /><div id="workshopPartNameSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
       </div>
-      <div class="two-cols">
+      <div class="three-cols">
         <label>Console compatible<div class="workshop-combobox"><input id="workshopPartConsole" placeholder="Dreamcast…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopPartConsoleSuggestions" /><div id="workshopPartConsoleSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
+        <label>Version compatible<div class="workshop-combobox"><input id="workshopPartVariant" placeholder="Slim, Pro, Model 2…" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="workshopPartVariantSuggestions" /><div id="workshopPartVariantSuggestions" class="workshop-autocomplete-list" role="listbox" hidden></div></div></label>
         <label>Quantité en stock<input id="workshopPartQuantity" type="number" min="0" value="1" /></label>
       </div>
       <label>Emplacement<input id="workshopPartLocation" placeholder="Bac A3, étagère atelier…" /></label>
@@ -343,6 +345,7 @@
           <p class="eyebrow">RESTAURER ET RÉPARER</p>
           <h3 tabindex="-1">Suis tes consoles et tes pièces</h3>
           <p>Ouvre <strong>Atelier</strong> pour inventorier séparément les machines à restaurer et le stock de pièces.</p>
+          <p>Précise la <strong>version matérielle</strong> de chaque console — Fat, Slim, Super Slim, Pro, OLED… — et la compatibilité exacte des pièces.</p>
           <ul><li>Pour une console : marque, modèle, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>L’autocomplétion propose les marques, les modèles compatibles et les pièces courantes tout en laissant la saisie libre.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
           <div class="tutorial-callout"><strong>Sauvegarde locale</strong><span>L’atelier reste dans ce navigateur et fait partie de la sauvegarde JSON RétroMax.</span></div>
         </article>
@@ -378,12 +381,12 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.37"></script>
-  <script src="barcode-utils.js?v=0.0.37"></script>
-  <script src="status-utils.js?v=0.0.37"></script>
-  <script src="stats-utils.js?v=0.0.37"></script>
-  <script src="workshop-utils.js?v=0.0.37"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.37"></script>
-  <script src="app.js?v=0.0.37"></script>
+  <script src="tutorial-utils.js?v=0.0.38"></script>
+  <script src="barcode-utils.js?v=0.0.38"></script>
+  <script src="status-utils.js?v=0.0.38"></script>
+  <script src="stats-utils.js?v=0.0.38"></script>
+  <script src="workshop-utils.js?v=0.0.38"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.38"></script>
+  <script src="app.js?v=0.0.38"></script>
 </body>
 </html>

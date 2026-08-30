@@ -23,11 +23,11 @@ function memoryStorage(initial={}){
 
 const sample={
   consoles:[
-    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',condition:'semi hs',quantity:2,issue:'Port cartouche'},
+    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',condition:'semi hs',quantity:2,issue:'Port cartouche'},
     {id:'dc',manufacturer:'Sega',console:'Dreamcast',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
   ],
   parts:[
-    {id:'laser',manufacturer:'Sega',name:'Bloc optique',console:'Dreamcast',quantity:3,location:'Bac A2'},
+    {id:'laser',manufacturer:'Sega',name:'Bloc optique',console:'Dreamcast',variant:'VA1',quantity:3,location:'Bac A2'},
     {id:'pad',manufacturer:'Nintendo',name:'Membrane manette',console:'Nintendo 64',quantity:0}
   ]
 };
@@ -36,9 +36,12 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.deepEqual([...workshop.CONDITIONS],['OK','Semi-HS','HS']);
   const normalized=workshop.normalize(sample);
   assert.equal(normalized.consoles[0].condition,'Semi-HS');
+  assert.equal(normalized.consoles[0].variant,'Funtastic');
   assert.equal(normalized.consoles[0].quantity,2);
   assert.equal(normalized.consoles[1].condition,'HS');
   assert.equal(normalized.parts[1].quantity,0,'une référence épuisée reste dans le stock');
+  assert.equal(normalized.parts[0].variant,'VA1');
+  assert.equal(workshop.normalize({consoles:[{}],parts:[{}]}).consoles[0].variant,'','les anciennes fiches restent compatibles');
   assert.equal(workshop.condition('état inconnu'),'OK');
 });
 
@@ -78,11 +81,11 @@ test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   assert.match(htmlSource,/id="workshopPane"[^>]+hidden/);
   for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
-  for(const id of ['workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopConsoleVariant','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
 });
 
 test('les champs de l’atelier proposent une autocomplétion accessible sur iPhone',()=>{
-  for(const [input,list] of [['workshopConsoleManufacturer','workshopConsoleManufacturerSuggestions'],['workshopConsoleName','workshopConsoleNameSuggestions'],['workshopPartManufacturer','workshopPartManufacturerSuggestions'],['workshopPartConsole','workshopPartConsoleSuggestions'],['workshopPartName','workshopPartNameSuggestions']]){
+  for(const [input,list] of [['workshopConsoleManufacturer','workshopConsoleManufacturerSuggestions'],['workshopConsoleName','workshopConsoleNameSuggestions'],['workshopConsoleVariant','workshopConsoleVariantSuggestions'],['workshopPartManufacturer','workshopPartManufacturerSuggestions'],['workshopPartConsole','workshopPartConsoleSuggestions'],['workshopPartVariant','workshopPartVariantSuggestions'],['workshopPartName','workshopPartNameSuggestions']]){
     assert.match(htmlSource,new RegExp(`id="${input}"[^>]+role="combobox"[^>]+aria-autocomplete="list"[^>]+aria-controls="${list}"`));
     assert.match(htmlSource,new RegExp(`id="${list}"[^>]+role="listbox"[^>]+hidden`));
   }
@@ -95,6 +98,9 @@ test('les suggestions suivent la marque et complètent automatiquement la fiche'
   assert.match(appSource,/function workshopConsoleChoices\(manufacturerValue=''/);
   assert.match(appSource,/CONSOLE_CATALOG\[manufacturer\]/);
   assert.match(appSource,/function workshopManufacturerForConsole/);
+  assert.match(appSource,/const CONSOLE_VARIANT_CATALOG=/);
+  assert.match(appSource,/['"]PlayStation 3['"]:\[['"]Fat['"],['"]Slim['"],['"]Super Slim['"]\]/);
+  assert.match(appSource,/function workshopVariantChoices/);
   assert.match(appSource,/manufacturerInput\.value=inferred/);
   assert.match(appSource,/WORKSHOP_PART_CATALOG/);
   assert.match(appSource,/function workshopPartChoices/);
@@ -104,6 +110,8 @@ test('les suggestions suivent la marque et complètent automatiquement la fiche'
   assert.match(appSource,/event\.key==='Escape'/);
   assert.match(appSource,/aria-activedescendant/);
   assert.match(appSource,/setupWorkshopAutocomplete\('#workshopPartName'/);
+  assert.match(appSource,/setupWorkshopAutocomplete\('#workshopConsoleVariant'/);
+  assert.match(appSource,/setupWorkshopAutocomplete\('#workshopPartVariant'/);
 });
 
 test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
@@ -111,6 +119,9 @@ test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
   assert.match(appSource,/function renderWorkshop\(\)/);
   assert.match(appSource,/workshopEls\.consoleForm\.addEventListener\(['"]submit['"]/);
   assert.match(appSource,/workshopEls\.partForm\.addEventListener\(['"]submit['"]/);
+  assert.match(appSource,/variant:\$\('#workshopConsoleVariant'\)\.value/);
+  assert.match(appSource,/variant:\$\('#workshopPartVariant'\)\.value/);
+  assert.match(appSource,/workshop-variant/);
   assert.match(appSource,/workshop\.consoles=workshop\.consoles\.filter/);
   assert.match(appSource,/workshop\.parts=workshop\.parts\.filter/);
   assert.match(appSource,/function saveWorkshop\(\)\{workshop=WORKSHOP\.save\(workshop\)\}/);
@@ -130,7 +141,7 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.37');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.37');
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.38');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.38');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
