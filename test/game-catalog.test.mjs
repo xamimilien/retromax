@@ -42,12 +42,12 @@ test('la fiche utilise un combobox libre relié à la banque locale', () => {
   assert.match(htmlSource, /id="title"[^>]+role="combobox"[^>]+aria-controls="titleSuggestions"/);
   assert.match(appSource, /assets\/data\/game-catalog\.json\?v=\$\{APP_VERSION\}/);
   assert.match(appSource, /function chooseTitleSuggestion/);
-  assert.doesNotMatch(htmlSource, /<datalist/i);
+  assert.doesNotMatch(htmlSource, /id="title"[^>]+list=/i);
 });
 
-test('la version 0.0.35 met en cache la banque sans supprimer les caches étrangers', () => {
-  assert.match(appSource, /APP_VERSION='0\.0\.35'/);
-  assert.match(workerSource, /VERSION='0\.0\.35'/);
+test('la version 0.0.36 met en cache la banque sans supprimer les caches étrangers', () => {
+  assert.match(appSource, /APP_VERSION='0\.0\.36'/);
+  assert.match(workerSource, /VERSION='0\.0\.36'/);
   assert.match(workerSource, /CATALOG_URL/);
   assert.match(workerSource, /k\.startsWith\('retromax-public-v'\)/);
 });

@@ -1,12 +1,18 @@
 # RétroMax
 
-Application web/PWA personnelle pour gérer une collection de jeux vidéo.
+Application web/PWA personnelle pour gérer une collection de jeux vidéo et un atelier de restauration de consoles.
 
 ## Confidentialité
 
-Le dépôt ne contient aucune donnée de collection. Les jeux importés sont enregistrés uniquement dans le stockage local du navigateur (`localStorage`) de l'appareil.
+Le dépôt ne contient aucune donnée de collection. Les jeux et les fiches de l’atelier sont enregistrés uniquement dans le stockage local du navigateur (`localStorage`) de l'appareil.
 
 Utiliser le bouton **Importer** pour charger une sauvegarde JSON privée, puis **Sauvegarde** pour exporter régulièrement une copie vers Fichiers/iCloud Drive.
+
+## Atelier de restauration
+
+L’onglet **Atelier** est séparé de la collection de jeux. Il permet d’inventorier les consoles par marque, modèle, quantité et état (**OK**, **Semi-HS** ou **HS**), puis de noter la panne, l’intervention prévue et l’historique de chaque machine.
+
+Le même volet gère le stock de pièces avec la marque, la console compatible, la quantité disponible, l’emplacement et des notes libres. Les consoles et les pièces sont regroupées par marque, recherchables et filtrables. Elles restent dans un stockage local distinct de celui des jeux, mais sont incluses ensemble dans les nouvelles sauvegardes JSON v3. Les anciennes sauvegardes de collection restent importables et ne suppriment pas un atelier existant lorsqu’elles ne contiennent aucune donnée d’atelier.
 
 ## Identité des consoles
 
@@ -18,11 +24,11 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.35**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.36`, `0.0.37`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.36**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.37`, `0.0.38`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Guide de démarrage
 
-Lors de la première ouverture, un guide en dix étapes explique la confidentialité de la collection, l’installation en mode app sur l’écran d’accueil de l’iPhone, la création et la configuration des fiches, le scan, les statuts, les statistiques personnalisables, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
+Lors de la première ouverture, un guide en onze étapes explique la confidentialité de la collection, l’installation en mode app sur l’écran d’accueil de l’iPhone, la création et la configuration des fiches, le scan, les statuts, les statistiques personnalisables, l’atelier, les filtres, la multisélection et la sauvegarde JSON. Une fois fermé, il ne s’affiche plus automatiquement sur cet appareil. Le bouton **Aide** du menu inférieur permet de le revoir à tout moment.
 
 L’installation iPhone suit le parcours Safari **Partager → Sur l’écran d’accueil → Ouvrir comme app web → Ajouter**, conformément au [guide Apple](https://support.apple.com/fr-fr/guide/iphone/iphea86e5236/ios). Les icônes 180, 192 et 512 px sont fournies localement afin que le raccourci utilise l’identité RétroMax.
 
