@@ -23,7 +23,7 @@ function memoryStorage(initial={}){
 
 const sample={
   consoles:[
-    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',condition:'semi hs',quantity:2,issue:'Port cartouche'},
+    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',accessories:{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true,unknown:true},condition:'semi hs',quantity:2,issue:'Port cartouche'},
     {id:'dc',manufacturer:'Sega',console:'Dreamcast',status:'Recherché',completeness:'Incomplete',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
   ],
   parts:[
@@ -41,6 +41,7 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.equal(normalized.consoles[0].variant,'Funtastic');
   assert.equal(normalized.consoles[0].status,'Commandé');
   assert.equal(normalized.consoles[0].completeness,'Boîte');
+  assert.deepEqual(JSON.parse(JSON.stringify(normalized.consoles[0].accessories)),{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true});
   assert.equal(normalized.consoles[1].completeness,'Incomplet');
   assert.equal(normalized.consoles[0].quantity,2);
   assert.equal(normalized.consoles[1].condition,'HS');
@@ -50,7 +51,21 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.equal(legacy.variant,'','les anciennes fiches restent compatibles');
   assert.equal(legacy.status,'Acquis','une ancienne console présente dans l’atelier reste acquise');
   assert.equal(legacy.completeness,'','le contenu inconnu d’une ancienne fiche n’est pas inventé');
+  assert.deepEqual(JSON.parse(JSON.stringify(legacy.accessories)),{},'les anciennes fiches restent valides sans checklist');
   assert.equal(workshop.condition('état inconnu'),'OK');
+});
+
+test('la checklist d’une console incomplète suit le modèle et son alimentation',()=>{
+  const ids=(consoleName,variant='')=>Array.from(workshop.accessoryOptions(consoleName,variant),item=>item.id);
+  assert.deepEqual(ids('Nintendo 64'),['controller','powerSupply','videoCable','expansionPak','memoryCard']);
+  assert.deepEqual(ids('Wii U'),['controller','powerSupply','videoCable','sensorCamera','gamepad']);
+  assert.deepEqual(ids('Switch','OLED'),['controller','powerSupply','videoCable','dock']);
+  assert.deepEqual(ids('Switch','Lite'),['powerSupply']);
+  assert.deepEqual(ids('PlayStation 5'),['controller','powerCable','videoCable']);
+  assert.deepEqual(ids('Dreamcast'),['controller','powerCable','videoCable','memoryCard']);
+  assert.deepEqual(ids('Xbox One','Fat'),['controller','powerSupply','videoCable']);
+  assert.deepEqual(ids('Xbox One','S'),['controller','powerCable','videoCable']);
+  assert.ok(ids('PlayStation VR').includes('sensorCamera'));
 });
 
 test('le résumé compte les machines et les pièces sans mélanger les jeux',()=>{
@@ -92,7 +107,7 @@ test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   assert.match(htmlSource,/id="workshopPane"[^>]+hidden/);
   for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopStatusFilter','workshopCompletenessFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
-  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleAccessories','workshopConsoleAccessoryList','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleStatus"[\s\S]*?<option>Acquis<\/option><option>Commandé<\/option><option>Recherché<\/option>/);
   assert.match(htmlSource,/id="workshopConsoleCompleteness"[\s\S]*?<option>Loose<\/option><option>Boîte<\/option><option>Complet<\/option><option>Incomplet<\/option>/);
 });
@@ -134,7 +149,10 @@ test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
   assert.match(appSource,/workshopEls\.partForm\.addEventListener\(['"]submit['"]/);
   assert.match(appSource,/variant:\$\('#workshopConsoleVariant'\)\.value/);
   assert.match(appSource,/status:\$\('#workshopConsoleStatus'\)\.value/);
-  assert.match(appSource,/completeness:\$\('#workshopConsoleCompleteness'\)\.value/);
+  assert.match(appSource,/completeness=\$\('#workshopConsoleCompleteness'\)\.value/);
+  assert.match(appSource,/accessories:completeness==='Incomplet'\?currentWorkshopAccessories\(\):\{\}/);
+  assert.match(appSource,/WORKSHOP\.accessoryOptions/);
+  assert.match(appSource,/data-workshop-accessory/);
   assert.match(appSource,/STATUS\.className\(item\.status\)/);
   assert.match(appSource,/workshopEls\.statusFilter\.value/);
   assert.match(appSource,/workshopEls\.completenessFilter\.value/);
@@ -159,7 +177,7 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.39');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.39');
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.40');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.40');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
