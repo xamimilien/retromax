@@ -26,6 +26,7 @@
   function lookup(value=''){return text(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').replace(/[^a-z0-9]+/g,' ').trim()}
   function consoleQuantity(value){return Math.max(1,Math.round(Number(value)||1))}
   function partQuantity(value){return Math.max(0,Math.round(Number(value)||0))}
+  function price(value){const numeric=Number(String(value??'').replace(',','.'));return Number.isFinite(numeric)&&numeric>0?Math.round(numeric*100)/100:0}
   function condition(value){
     const normalized=text(value).toLocaleLowerCase('fr').replace(/[\s_]+/g,'-');
     if(normalized==='hs')return'HS';
@@ -68,6 +69,15 @@
     if(/playstation (1|2)|dreamcast|gamecube|nintendo 64|\bn64\b|saturn/.test(consoleKey))ids.push('memoryCard');
     return ids.map(id=>ACCESSORIES.find(item=>item.id===id)).filter(Boolean);
   }
+  function repairHistory(value){
+    return(Array.isArray(value)?value:[]).filter(entry=>entry&&typeof entry==='object').map((entry,index)=>({
+      id:text(entry.id,`repair-${index}`),
+      date:/^\d{4}-\d{2}-\d{2}$/.test(text(entry.date))?text(entry.date):'',
+      description:text(entry.description||entry.intervention),
+      cost:price(entry.cost??entry.price)
+    })).filter(entry=>entry.date||entry.description||entry.cost);
+  }
+  function repairTotal(value){return Math.round(repairHistory(value).reduce((sum,entry)=>sum+entry.cost,0)*100)/100}
 
   function normalizeConsole(entry={},index=0){
     return{
@@ -78,6 +88,8 @@
       status:status(entry.status),
       completeness:completeness(entry.completeness),
       accessories:accessories(entry.accessories),
+      purchasePrice:price(entry.purchasePrice),
+      repairs:repairHistory(entry.repairs||entry.repairHistory),
       condition:condition(entry.condition),
       quantity:consoleQuantity(entry.quantity),
       issue:text(entry.issue),
@@ -133,7 +145,7 @@
 
   function filter(value,criteria={}){
     const state=normalize(value),manufacturer=text(criteria.manufacturer),statusFilter=text(criteria.status),completenessFilter=text(criteria.completeness),query=text(criteria.query).toLocaleLowerCase('fr');
-    const matches=item=>(!manufacturer||item.manufacturer===manufacturer)&&(!query||Object.values(item).join(' ').toLocaleLowerCase('fr').includes(query));
+    const matches=item=>(!manufacturer||item.manufacturer===manufacturer)&&(!query||JSON.stringify(item).toLocaleLowerCase('fr').includes(query));
     return{
       consoles:state.consoles.filter(item=>matches(item)&&(!statusFilter||item.status===statusFilter)&&(!completenessFilter||item.completeness===completenessFilter)),
       parts:statusFilter||completenessFilter?[]:state.parts.filter(matches)
@@ -163,5 +175,5 @@
     return ranked.slice(0,Math.max(1,Number(limit)||8)).map(entry=>entry.label);
   }
 
-  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,ACCESSORIES,condition,status,completeness,accessories,accessoryOptions,normalize,load,save,summary,filter,groupByManufacturer,suggest});
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,ACCESSORIES,condition,status,completeness,accessories,accessoryOptions,price,repairHistory,repairTotal,normalize,load,save,summary,filter,groupByManufacturer,suggest});
 })(globalThis);

@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.40" />
+  <link rel="stylesheet" href="styles.css?v=0.0.41" />
 </head>
 <body>
   <header class="topbar">
@@ -251,6 +251,16 @@
         <p>Coche les éléments présents avec la console. Une case non cochée indique un élément manquant.</p>
         <div id="workshopConsoleAccessoryList" class="workshop-accessory-list"></div>
       </fieldset>
+      <section class="workshop-costs" aria-label="Coûts de la console">
+        <label>Prix d’achat (€)<input id="workshopConsolePurchasePrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></label>
+        <div class="workshop-cost-total"><span>Réparations</span><strong id="workshopRepairTotal">0,00 €</strong><small id="workshopOverallTotal">Total avec achat : 0,00 €</small></div>
+      </section>
+      <fieldset class="workshop-repair-history">
+        <legend>Historique des réparations</legend>
+        <p>Ajoute chaque intervention avec sa date et son coût.</p>
+        <div id="workshopRepairList" class="workshop-repair-list"></div>
+        <button type="button" class="ghost-btn compact" id="workshopAddRepairBtn">＋ Ajouter une intervention</button>
+      </fieldset>
       <label>Panne ou intervention à prévoir<textarea id="workshopConsoleIssue" rows="3" placeholder="Lecteur, alimentation, condensateurs…"></textarea></label>
       <label>Notes<textarea id="workshopConsoleNotes" rows="3" placeholder="État esthétique, numéro de série, historique…"></textarea></label>
       <div class="dialog-actions">
@@ -358,7 +368,7 @@
           <p>Ouvre <strong>Atelier</strong> pour inventorier séparément les machines à restaurer et le stock de pièces.</p>
           <p>Précise la <strong>version matérielle</strong> de chaque console — Fat, Slim, Super Slim, Pro, OLED… — et la compatibilité exacte des pièces.</p>
           <p>Indique aussi son statut <strong>Recherché, Commandé ou Acquis</strong>, puis son contenu : <strong>Loose, Boîte, Complet ou Incomplet</strong>.</p>
-          <ul><li>Pour une console incomplète, coche les accessoires présents ; RétroMax adapte la liste au modèle et identifie ce qui manque.</li><li>Pour une console : marque, modèle, statut, contenu, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>L’autocomplétion propose les marques, les modèles compatibles et les pièces courantes tout en laissant la saisie libre.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
+          <ul><li>Pour une console incomplète, coche les accessoires présents ; RétroMax adapte la liste au modèle et identifie ce qui manque.</li><li>Renseigne le prix d’achat et ajoute chaque réparation avec sa date, son intervention et son coût ; les totaux sont calculés automatiquement.</li><li>Pour une console : marque, modèle, statut, contenu, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>L’autocomplétion propose les marques, les modèles compatibles et les pièces courantes tout en laissant la saisie libre.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
           <div class="tutorial-callout"><strong>Sauvegarde locale</strong><span>L’atelier reste dans ce navigateur et fait partie de la sauvegarde JSON RétroMax.</span></div>
         </article>
         <article class="tutorial-step" data-tutorial-step="8" data-tutorial-topic="search" hidden>
@@ -393,12 +403,12 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.40"></script>
-  <script src="barcode-utils.js?v=0.0.40"></script>
-  <script src="status-utils.js?v=0.0.40"></script>
-  <script src="stats-utils.js?v=0.0.40"></script>
-  <script src="workshop-utils.js?v=0.0.40"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.40"></script>
-  <script src="app.js?v=0.0.40"></script>
+  <script src="tutorial-utils.js?v=0.0.41"></script>
+  <script src="barcode-utils.js?v=0.0.41"></script>
+  <script src="status-utils.js?v=0.0.41"></script>
+  <script src="stats-utils.js?v=0.0.41"></script>
+  <script src="workshop-utils.js?v=0.0.41"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.41"></script>
+  <script src="app.js?v=0.0.41"></script>
 </body>
 </html>

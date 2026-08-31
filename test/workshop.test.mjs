@@ -23,7 +23,7 @@ function memoryStorage(initial={}){
 
 const sample={
   consoles:[
-    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',accessories:{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true,unknown:true},condition:'semi hs',quantity:2,issue:'Port cartouche'},
+    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',accessories:{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true,unknown:true},purchasePrice:'79,90',repairs:[{id:'r1',date:'2026-08-01',description:'Nettoyage',cost:'12,50'},{date:'date invalide',intervention:'Port cartouche',price:20},{description:'',cost:0}],condition:'semi hs',quantity:2,issue:'Port cartouche'},
     {id:'dc',manufacturer:'Sega',console:'Dreamcast',status:'Recherché',completeness:'Incomplete',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
   ],
   parts:[
@@ -42,6 +42,9 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.equal(normalized.consoles[0].status,'Commandé');
   assert.equal(normalized.consoles[0].completeness,'Boîte');
   assert.deepEqual(JSON.parse(JSON.stringify(normalized.consoles[0].accessories)),{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true});
+  assert.equal(normalized.consoles[0].purchasePrice,79.9);
+  assert.deepEqual(JSON.parse(JSON.stringify(normalized.consoles[0].repairs)),[{id:'r1',date:'2026-08-01',description:'Nettoyage',cost:12.5},{id:'repair-1',date:'',description:'Port cartouche',cost:20}]);
+  assert.equal(workshop.repairTotal(normalized.consoles[0].repairs),32.5);
   assert.equal(normalized.consoles[1].completeness,'Incomplet');
   assert.equal(normalized.consoles[0].quantity,2);
   assert.equal(normalized.consoles[1].condition,'HS');
@@ -52,6 +55,8 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.equal(legacy.status,'Acquis','une ancienne console présente dans l’atelier reste acquise');
   assert.equal(legacy.completeness,'','le contenu inconnu d’une ancienne fiche n’est pas inventé');
   assert.deepEqual(JSON.parse(JSON.stringify(legacy.accessories)),{},'les anciennes fiches restent valides sans checklist');
+  assert.equal(legacy.purchasePrice,0,'les anciennes fiches restent valides sans prix d’achat');
+  assert.deepEqual(JSON.parse(JSON.stringify(legacy.repairs)),[],'les anciennes fiches restent valides sans historique');
   assert.equal(workshop.condition('état inconnu'),'OK');
 });
 
@@ -80,6 +85,7 @@ test('la recherche, le filtre et les sections par marque fonctionnent ensemble',
   assert.deepEqual(nintendo.parts.map(item=>item.id),['pad']);
   const search=workshop.filter(sample,{query:'gd-rom'});
   assert.deepEqual(search.consoles.map(item=>item.id),['dc']);
+  assert.deepEqual(workshop.filter(sample,{query:'nettoyage'}).consoles.map(item=>item.id),['n64'],'l’historique des réparations est recherchable');
   assert.deepEqual(workshop.filter(sample,{status:'Commandé'}).consoles.map(item=>item.id),['n64']);
   assert.deepEqual(workshop.filter(sample,{completeness:'Incomplet'}).consoles.map(item=>item.id),['dc']);
   assert.equal(workshop.filter(sample,{status:'Recherché'}).parts.length,0,'un filtre propre aux consoles masque le stock de pièces');
@@ -107,7 +113,7 @@ test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   assert.match(htmlSource,/id="workshopPane"[^>]+hidden/);
   for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopStatusFilter','workshopCompletenessFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
-  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleAccessories','workshopConsoleAccessoryList','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleAccessories','workshopConsoleAccessoryList','workshopConsolePurchasePrice','workshopRepairTotal','workshopOverallTotal','workshopRepairList','workshopAddRepairBtn','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleStatus"[\s\S]*?<option>Acquis<\/option><option>Commandé<\/option><option>Recherché<\/option>/);
   assert.match(htmlSource,/id="workshopConsoleCompleteness"[\s\S]*?<option>Loose<\/option><option>Boîte<\/option><option>Complet<\/option><option>Incomplet<\/option>/);
 });
@@ -153,6 +159,11 @@ test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
   assert.match(appSource,/accessories:completeness==='Incomplet'\?currentWorkshopAccessories\(\):\{\}/);
   assert.match(appSource,/WORKSHOP\.accessoryOptions/);
   assert.match(appSource,/data-workshop-accessory/);
+  assert.match(appSource,/purchasePrice:\$\('#workshopConsolePurchasePrice'\)\.value/);
+  assert.match(appSource,/repairs:currentWorkshopRepairs\(\)/);
+  assert.match(appSource,/function renderWorkshopRepairHistory/);
+  assert.match(appSource,/WORKSHOP\.repairTotal/);
+  assert.match(appSource,/workshop-repair-remove/);
   assert.match(appSource,/STATUS\.className\(item\.status\)/);
   assert.match(appSource,/workshopEls\.statusFilter\.value/);
   assert.match(appSource,/workshopEls\.completenessFilter\.value/);
@@ -177,7 +188,7 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.40');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.40');
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.41');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.41');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
