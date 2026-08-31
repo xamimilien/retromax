@@ -117,9 +117,9 @@ test('le résumé et le détail utilisent la même source sans muter les jeux',(
   assert.doesNotMatch(utilitySource,/setItem\(['"]retromax-games-v2-private/);
 });
 
-test('l’utilitaire statistique 0.0.38 est chargé avant l’app et disponible hors ligne',()=>{
-  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.38');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.38');
+test('l’utilitaire statistique 0.0.39 est chargé avant l’app et disponible hors ligne',()=>{
+  const utilityIndex=htmlSource.indexOf('stats-utils.js?v=0.0.39');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.39');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
   assert.match(workerSource,/stats-utils\.js\?v=\$\{VERSION\}/);
 });

@@ -10,11 +10,11 @@ Utiliser le bouton **Importer** pour charger une sauvegarde JSON privée, puis *
 
 ## Atelier de restauration
 
-L’onglet **Atelier** est séparé de la collection de jeux. Il permet d’inventorier les consoles par marque, modèle, **version matérielle** (Fat, Slim, Super Slim, Pro, OLED, révision…), quantité et état (**OK**, **Semi-HS** ou **HS**), puis de noter la panne, l’intervention prévue et l’historique de chaque machine.
+L’onglet **Atelier** est séparé de la collection de jeux. Il permet d’inventorier les consoles par marque, modèle, **version matérielle** (Fat, Slim, Super Slim, Pro, OLED, révision…), statut d’acquisition (**Acquis**, **Commandé** ou **Recherché**), contenu (**Loose**, **Boîte**, **Complet** ou **Incomplet**), quantité et état (**OK**, **Semi-HS** ou **HS**), puis de noter la panne, l’intervention prévue et l’historique de chaque machine.
 
 Le même volet gère le stock de pièces avec la marque, la console et la **version compatibles**, la quantité disponible, l’emplacement et des notes libres. Les champs de marque, console, version et pièce proposent une autocomplétion tactile et clavier. Les modèles sont filtrés en cascade par marque, les versions proposées dépendent du modèle choisi, choisir une console peut renseigner automatiquement sa marque, et les valeurs déjà enregistrées enrichissent les propositions suivantes. La saisie libre reste possible.
 
-Les consoles et les pièces sont regroupées par marque, recherchables et filtrables. Elles restent dans un stockage local distinct de celui des jeux, mais sont incluses ensemble dans les nouvelles sauvegardes JSON v3. Les anciennes sauvegardes de collection restent importables et ne suppriment pas un atelier existant lorsqu’elles ne contiennent aucune donnée d’atelier.
+Les consoles et les pièces sont regroupées par marque, recherchables et filtrables. Les consoles peuvent aussi être filtrées par statut d’acquisition et par contenu. Elles restent dans un stockage local distinct de celui des jeux, mais sont incluses ensemble dans les nouvelles sauvegardes JSON v3. Les anciennes sauvegardes de collection restent importables et ne suppriment pas un atelier existant lorsqu’elles ne contiennent aucune donnée d’atelier.
 
 ## Identité des consoles
 
@@ -26,7 +26,7 @@ Les fichiers et leurs attributions sont documentés dans `assets/platforms/READM
 
 ## Versions
 
-La version courante est **0.0.38**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.39`, `0.0.40`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
+La version courante est **0.0.39**. Chaque nouvelle livraison terminée et testée incrémente le dernier nombre (`0.0.40`, `0.0.41`, etc.), met à jour le cache PWA, puis est fusionnée dans `main` et marquée par un tag Git correspondant (`v0.0.XX`).
 
 ## Guide de démarrage
 

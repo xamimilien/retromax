@@ -23,8 +23,8 @@ function memoryStorage(initial={}){
 
 const sample={
   consoles:[
-    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',condition:'semi hs',quantity:2,issue:'Port cartouche'},
-    {id:'dc',manufacturer:'Sega',console:'Dreamcast',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
+    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',condition:'semi hs',quantity:2,issue:'Port cartouche'},
+    {id:'dc',manufacturer:'Sega',console:'Dreamcast',status:'Recherché',completeness:'Incomplete',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
   ],
   parts:[
     {id:'laser',manufacturer:'Sega',name:'Bloc optique',console:'Dreamcast',variant:'VA1',quantity:3,location:'Bac A2'},
@@ -34,14 +34,22 @@ const sample={
 
 test('les états et quantités de restauration sont normalisés',()=>{
   assert.deepEqual([...workshop.CONDITIONS],['OK','Semi-HS','HS']);
+  assert.deepEqual([...workshop.STATUSES],['Acquis','Commandé','Recherché']);
+  assert.deepEqual([...workshop.COMPLETENESS],['Loose','Boîte','Complet','Incomplet']);
   const normalized=workshop.normalize(sample);
   assert.equal(normalized.consoles[0].condition,'Semi-HS');
   assert.equal(normalized.consoles[0].variant,'Funtastic');
+  assert.equal(normalized.consoles[0].status,'Commandé');
+  assert.equal(normalized.consoles[0].completeness,'Boîte');
+  assert.equal(normalized.consoles[1].completeness,'Incomplet');
   assert.equal(normalized.consoles[0].quantity,2);
   assert.equal(normalized.consoles[1].condition,'HS');
   assert.equal(normalized.parts[1].quantity,0,'une référence épuisée reste dans le stock');
   assert.equal(normalized.parts[0].variant,'VA1');
-  assert.equal(workshop.normalize({consoles:[{}],parts:[{}]}).consoles[0].variant,'','les anciennes fiches restent compatibles');
+  const legacy=workshop.normalize({consoles:[{}],parts:[{}]}).consoles[0];
+  assert.equal(legacy.variant,'','les anciennes fiches restent compatibles');
+  assert.equal(legacy.status,'Acquis','une ancienne console présente dans l’atelier reste acquise');
+  assert.equal(legacy.completeness,'','le contenu inconnu d’une ancienne fiche n’est pas inventé');
   assert.equal(workshop.condition('état inconnu'),'OK');
 });
 
@@ -57,6 +65,9 @@ test('la recherche, le filtre et les sections par marque fonctionnent ensemble',
   assert.deepEqual(nintendo.parts.map(item=>item.id),['pad']);
   const search=workshop.filter(sample,{query:'gd-rom'});
   assert.deepEqual(search.consoles.map(item=>item.id),['dc']);
+  assert.deepEqual(workshop.filter(sample,{status:'Commandé'}).consoles.map(item=>item.id),['n64']);
+  assert.deepEqual(workshop.filter(sample,{completeness:'Incomplet'}).consoles.map(item=>item.id),['dc']);
+  assert.equal(workshop.filter(sample,{status:'Recherché'}).parts.length,0,'un filtre propre aux consoles masque le stock de pièces');
   const groups=workshop.groupByManufacturer(sample);
   assert.deepEqual(Array.from(groups,group=>group.manufacturer),['Nintendo','Sega']);
 });
@@ -79,9 +90,11 @@ test('le stockage de l’atelier est local, séparé et résiste à un JSON inva
 test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   assert.match(htmlSource,/data-nav="workshop"[^>]*>[\s\S]*?Atelier/);
   assert.match(htmlSource,/id="workshopPane"[^>]+hidden/);
-  for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopStatusFilter','workshopCompletenessFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
-  for(const id of ['workshopConsoleVariant','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  assert.match(htmlSource,/id="workshopConsoleStatus"[\s\S]*?<option>Acquis<\/option><option>Commandé<\/option><option>Recherché<\/option>/);
+  assert.match(htmlSource,/id="workshopConsoleCompleteness"[\s\S]*?<option>Loose<\/option><option>Boîte<\/option><option>Complet<\/option><option>Incomplet<\/option>/);
 });
 
 test('les champs de l’atelier proposent une autocomplétion accessible sur iPhone',()=>{
@@ -120,6 +133,11 @@ test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
   assert.match(appSource,/workshopEls\.consoleForm\.addEventListener\(['"]submit['"]/);
   assert.match(appSource,/workshopEls\.partForm\.addEventListener\(['"]submit['"]/);
   assert.match(appSource,/variant:\$\('#workshopConsoleVariant'\)\.value/);
+  assert.match(appSource,/status:\$\('#workshopConsoleStatus'\)\.value/);
+  assert.match(appSource,/completeness:\$\('#workshopConsoleCompleteness'\)\.value/);
+  assert.match(appSource,/STATUS\.className\(item\.status\)/);
+  assert.match(appSource,/workshopEls\.statusFilter\.value/);
+  assert.match(appSource,/workshopEls\.completenessFilter\.value/);
   assert.match(appSource,/variant:\$\('#workshopPartVariant'\)\.value/);
   assert.match(appSource,/workshop-variant/);
   assert.match(appSource,/workshop\.consoles=workshop\.consoles\.filter/);
@@ -141,7 +159,7 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.38');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.38');
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.39');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.39');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
