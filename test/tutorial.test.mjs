@@ -174,7 +174,7 @@ test('chaque fonction clé possède une slide dédiée et compréhensible',()=>{
     configure:[/région/i,/format/i,/statut/i,/quantité/i,/tags/i,/notes/i],
     status:[/Acquis/i,/Commandé/i,/Recherché/i,/exemplaires acquis/i,/wishlist/i,/sans gonfler[\s\S]*statistiques/i,/filtre/i,/Statut/i,/multisélection/i],
     statistics:[/Détails/i,/Aperçu/i,/Camembert/i,/Frise/i,/remplacent[\s\S]*accueil/i,/plateforme/i,/constructeur/i,/statut/i,/région/i,/format/i,/wishlist/i,/jeux/i,/exemplaires/i,/fais défiler/i],
-    workshop:[/Atelier/i,/console/i,/OK \/ Semi-HS \/ HS/i,/pièce/i,/quantité/i,/emplacement/i,/regroupées par marque/i,/sauvegarde JSON/i],
+    workshop:[/Atelier/i,/console/i,/Recherché, Commandé ou Acquis/i,/Loose, Boîte, Complet ou Incomplet/i,/OK \/ Semi-HS \/ HS/i,/pièce/i,/quantité/i,/emplacement/i,/regroupées par marque/i,/sauvegarde JSON/i],
     search:[/recherche/i,/filtres en cascade/i,/Réinitialiser[\s\S]*ne supprime aucun jeu/i],
     bulk:[/multisélection/i,/Modifier/i,/région/i,/format/i,/statut/i,/tags/i],
     backup:[/Sauvegarde/i,/JSON/i,/jeux et l[’']atelier/i,/Importer/i,/remplace les données locales/i,/Aide/i]

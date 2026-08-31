@@ -3,6 +3,8 @@
 
   const KEY='retromax-workshop-v1-private';
   const CONDITIONS=Object.freeze(['OK','Semi-HS','HS']);
+  const STATUSES=Object.freeze(['Acquis','Commandé','Recherché']);
+  const COMPLETENESS=Object.freeze(['Loose','Boîte','Complet','Incomplet']);
 
   function resolveStorage(storage){
     if(storage!==undefined)return storage;
@@ -19,6 +21,15 @@
     if(normalized==='semi-hs'||normalized==='semihs')return'Semi-HS';
     return'OK';
   }
+  function status(value){
+    const normalized=lookup(value);
+    return STATUSES.find(item=>lookup(item)===normalized)||'Acquis';
+  }
+  function completeness(value){
+    const normalized=lookup(value);
+    const aliases={complete:'Complet',incomplete:'Incomplet',icomplete:'Incomplet',box:'Boîte',boxed:'Boîte'};
+    return COMPLETENESS.find(item=>lookup(item)===normalized)||aliases[normalized]||'';
+  }
 
   function normalizeConsole(entry={},index=0){
     return{
@@ -26,6 +37,8 @@
       manufacturer:text(entry.manufacturer,'Autre'),
       console:text(entry.console,'Console non précisée'),
       variant:text(entry.variant),
+      status:status(entry.status),
+      completeness:completeness(entry.completeness),
       condition:condition(entry.condition),
       quantity:consoleQuantity(entry.quantity),
       issue:text(entry.issue),
@@ -80,9 +93,12 @@
   }
 
   function filter(value,criteria={}){
-    const state=normalize(value),manufacturer=text(criteria.manufacturer),query=text(criteria.query).toLocaleLowerCase('fr');
+    const state=normalize(value),manufacturer=text(criteria.manufacturer),statusFilter=text(criteria.status),completenessFilter=text(criteria.completeness),query=text(criteria.query).toLocaleLowerCase('fr');
     const matches=item=>(!manufacturer||item.manufacturer===manufacturer)&&(!query||Object.values(item).join(' ').toLocaleLowerCase('fr').includes(query));
-    return{consoles:state.consoles.filter(matches),parts:state.parts.filter(matches)};
+    return{
+      consoles:state.consoles.filter(item=>matches(item)&&(!statusFilter||item.status===statusFilter)&&(!completenessFilter||item.completeness===completenessFilter)),
+      parts:statusFilter||completenessFilter?[]:state.parts.filter(matches)
+    };
   }
 
   function groupByManufacturer(value){
@@ -108,5 +124,5 @@
     return ranked.slice(0,Math.max(1,Number(limit)||8)).map(entry=>entry.label);
   }
 
-  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,condition,normalize,load,save,summary,filter,groupByManufacturer,suggest});
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,condition,status,completeness,normalize,load,save,summary,filter,groupByManufacturer,suggest});
 })(globalThis);
