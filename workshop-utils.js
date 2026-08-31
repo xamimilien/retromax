@@ -5,6 +5,17 @@
   const CONDITIONS=Object.freeze(['OK','Semi-HS','HS']);
   const STATUSES=Object.freeze(['Acquis','Commandé','Recherché']);
   const COMPLETENESS=Object.freeze(['Loose','Boîte','Complet','Incomplet']);
+  const ACCESSORIES=Object.freeze([
+    Object.freeze({id:'controller',label:'Manette'}),
+    Object.freeze({id:'powerSupply',label:'Alimentation externe'}),
+    Object.freeze({id:'powerCable',label:'Câble d’alimentation'}),
+    Object.freeze({id:'videoCable',label:'Câble vidéo'}),
+    Object.freeze({id:'sensorCamera',label:'Capteur / caméra'}),
+    Object.freeze({id:'gamepad',label:'GamePad'}),
+    Object.freeze({id:'dock',label:'Dock'}),
+    Object.freeze({id:'expansionPak',label:'Jumper Pak / Expansion Pak'}),
+    Object.freeze({id:'memoryCard',label:'VMU / carte mémoire'})
+  ]);
 
   function resolveStorage(storage){
     if(storage!==undefined)return storage;
@@ -30,6 +41,33 @@
     const aliases={complete:'Complet',incomplete:'Incomplet',icomplete:'Incomplet',box:'Boîte',boxed:'Boîte'};
     return COMPLETENESS.find(item=>lookup(item)===normalized)||aliases[normalized]||'';
   }
+  function accessories(value){
+    const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{};
+    return ACCESSORIES.reduce((result,item)=>{
+      if(Object.prototype.hasOwnProperty.call(source,item.id))result[item.id]=Boolean(source[item.id]);
+      return result;
+    },{});
+  }
+  function accessoryOptions(consoleName='',variant=''){
+    const consoleKey=lookup(consoleName),variantKey=lookup(variant);
+    const handheld=/game boy|game gear|nintendo ds|nintendo 3ds|\bpsp\b|ps vita/.test(consoleKey);
+    const switchLite=/\bswitch\b/.test(consoleKey)&&/\blite\b/.test(variantKey);
+    const xboxOneInternal=/xbox one/.test(consoleKey)&&/^(s|s all digital|x)$/.test(variantKey);
+    const internalPower=(/playstation 1/.test(consoleKey)&&!/ps one/.test(variantKey))
+      ||/playstation (3|4|5)|saturn|dreamcast|^xbox$|xbox series/.test(consoleKey)
+      ||(/playstation 2/.test(consoleKey)&&!/slim/.test(variantKey))
+      ||xboxOneInternal;
+    const ids=[];
+    if(!handheld&&!switchLite)ids.push('controller');
+    ids.push(internalPower?'powerCable':'powerSupply');
+    if(!handheld&&!switchLite)ids.push('videoCable');
+    if(/\bwii\b|wii u|\bvr\b/.test(consoleKey))ids.push('sensorCamera');
+    if(/wii u/.test(consoleKey))ids.push('gamepad');
+    if(/nintendo switch 2|\bswitch\b/.test(consoleKey)&&!switchLite)ids.push('dock');
+    if(/nintendo 64|\bn64\b/.test(consoleKey))ids.push('expansionPak');
+    if(/playstation (1|2)|dreamcast|gamecube|nintendo 64|\bn64\b|saturn/.test(consoleKey))ids.push('memoryCard');
+    return ids.map(id=>ACCESSORIES.find(item=>item.id===id)).filter(Boolean);
+  }
 
   function normalizeConsole(entry={},index=0){
     return{
@@ -39,6 +77,7 @@
       variant:text(entry.variant),
       status:status(entry.status),
       completeness:completeness(entry.completeness),
+      accessories:accessories(entry.accessories),
       condition:condition(entry.condition),
       quantity:consoleQuantity(entry.quantity),
       issue:text(entry.issue),
@@ -124,5 +163,5 @@
     return ranked.slice(0,Math.max(1,Number(limit)||8)).map(entry=>entry.label);
   }
 
-  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,condition,status,completeness,normalize,load,save,summary,filter,groupByManufacturer,suggest});
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,ACCESSORIES,condition,status,completeness,accessories,accessoryOptions,normalize,load,save,summary,filter,groupByManufacturer,suggest});
 })(globalThis);

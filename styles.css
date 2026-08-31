@@ -166,5 +166,12 @@ body[data-pane="workshop"] #scanBtn,body[data-pane="workshop"] #addBtn{display:n
 .workshop-filters{grid-template-columns:minmax(260px,1fr) repeat(3,minmax(140px,190px))}
 .workshop-card-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .workshop-card-pills .pill{font-size:10px}
+.workshop-accessory-checklist{margin:4px 0 14px;padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--panel2)}
+.workshop-accessory-checklist legend{padding:0 6px;color:var(--text);font-size:13px;font-weight:800}
+.workshop-accessory-checklist>p{margin:0 0 10px;color:var(--muted);font-size:11px;line-height:1.4}
+.workshop-accessory-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.workshop-accessory-list label{display:flex;align-items:center;gap:9px;min-height:42px;margin:0;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font-size:12px;cursor:pointer}
+.workshop-accessory-list input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+@media(max-width:420px){.workshop-accessory-list{grid-template-columns:1fr}}
 @media(max-width:900px){.workshop-filters{grid-template-columns:1fr 1fr}.workshop-filters .search-wrap{grid-column:1/-1}}
 @media(max-width:720px){.workshop-filters{grid-template-columns:1fr}.workshop-filters .search-wrap{grid-column:auto}}
