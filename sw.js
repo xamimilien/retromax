@@ -1,4 +1,4 @@
-const VERSION='0.0.40';
+const VERSION='0.0.41';
 const CACHE=`retromax-public-v${VERSION}`;
 const CATALOG_URL=`./assets/data/game-catalog.json?v=${VERSION}`;
 const BARCODE_BANK_URL=`./assets/data/barcode-overrides.json?v=${VERSION}`;
