@@ -166,6 +166,8 @@ body[data-pane="workshop"] #scanBtn,body[data-pane="workshop"] #addBtn{display:n
 .workshop-filters{grid-template-columns:minmax(260px,1fr) repeat(3,minmax(140px,190px))}
 .workshop-card-pills{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
 .workshop-card-pills .pill{font-size:10px}
+.workshop-region{border-color:color-mix(in srgb,var(--platform-accent) 55%,var(--line));color:var(--platform-accent);font-weight:900}
+.workshop-card-costs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:8px}.workshop-card-costs>span{min-width:0;padding:6px 7px;border:1px solid var(--line);border-radius:9px;background:#0f0f11;color:var(--muted);font-size:9px;line-height:1.25}.workshop-card-costs b{display:block;overflow:hidden;margin-top:2px;color:var(--text);font-size:11px;font-variant-numeric:tabular-nums;text-overflow:ellipsis;white-space:nowrap}.workshop-card-costs>span:last-child{border-color:color-mix(in srgb,var(--platform-accent) 40%,var(--line))}.workshop-card-costs>span:last-child b{color:var(--platform-accent)}
 .workshop-accessory-checklist{margin:4px 0 14px;padding:13px;border:1px solid var(--line);border-radius:16px;background:var(--panel2)}
 .workshop-accessory-checklist legend{padding:0 6px;color:var(--text);font-size:13px;font-weight:800}
 .workshop-accessory-checklist>p{margin:0 0 10px;color:var(--muted);font-size:11px;line-height:1.4}
@@ -176,5 +178,6 @@ body[data-pane="workshop"] #scanBtn,body[data-pane="workshop"] #addBtn{display:n
 .workshop-repair-history{margin:4px 0 14px;padding:13px;border:1px solid var(--line);border-radius:16px}.workshop-repair-history legend{padding:0 6px;font-size:13px;font-weight:800}.workshop-repair-history>p,.workshop-repair-empty{margin:0 0 10px;color:var(--muted);font-size:11px;line-height:1.4}.workshop-repair-list{display:grid;gap:8px;margin-bottom:10px}.workshop-repair-row{display:grid;grid-template-columns:130px minmax(0,1fr) 100px 40px;gap:7px;align-items:center}.workshop-repair-row input{min-width:0;width:100%;padding:10px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);font-size:12px}.workshop-repair-remove{width:38px;height:38px;font-size:22px}.workshop-repair-empty{padding:11px;border:1px dashed var(--line);border-radius:12px;text-align:center}
 @media(max-width:520px){.workshop-repair-row{grid-template-columns:minmax(0,1fr) 86px 38px}.workshop-repair-row [data-repair-field="date"]{grid-column:1/-1}.workshop-costs{grid-template-columns:1fr}}
 @media(max-width:420px){.workshop-accessory-list{grid-template-columns:1fr}}
+@media(max-width:360px){.workshop-card-costs{grid-template-columns:1fr 1fr}.workshop-card-costs>span:last-child{grid-column:1/-1}}
 @media(max-width:900px){.workshop-filters{grid-template-columns:1fr 1fr}.workshop-filters .search-wrap{grid-column:1/-1}}
 @media(max-width:720px){.workshop-filters{grid-template-columns:1fr}.workshop-filters .search-wrap{grid-column:auto}}

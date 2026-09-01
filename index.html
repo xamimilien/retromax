@@ -12,7 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/retromax-180.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/retromax-192.png" />
-  <link rel="stylesheet" href="styles.css?v=0.0.41" />
+  <link rel="stylesheet" href="styles.css?v=0.0.42" />
 </head>
 <body>
   <header class="topbar">
@@ -242,7 +242,8 @@
         <label>État<select id="workshopConsoleCondition"><option>OK</option><option>Semi-HS</option><option>HS</option></select></label>
         <label>Quantité<input id="workshopConsoleQuantity" type="number" min="1" value="1" /></label>
       </div>
-      <div class="two-cols">
+      <div class="three-cols">
+        <label>Région<select id="workshopConsoleRegion"><option value="">Non précisée</option><option>EUR</option><option>JAP</option><option>USA</option></select></label>
         <label>Statut<select id="workshopConsoleStatus"><option>Acquis</option><option>Commandé</option><option>Recherché</option></select></label>
         <label>Contenu<select id="workshopConsoleCompleteness"><option value="">Non précisé</option><option>Loose</option><option>Boîte</option><option>Complet</option><option>Incomplet</option></select></label>
       </div>
@@ -368,7 +369,7 @@
           <p>Ouvre <strong>Atelier</strong> pour inventorier séparément les machines à restaurer et le stock de pièces.</p>
           <p>Précise la <strong>version matérielle</strong> de chaque console — Fat, Slim, Super Slim, Pro, OLED… — et la compatibilité exacte des pièces.</p>
           <p>Indique aussi son statut <strong>Recherché, Commandé ou Acquis</strong>, puis son contenu : <strong>Loose, Boîte, Complet ou Incomplet</strong>.</p>
-          <ul><li>Pour une console incomplète, coche les accessoires présents ; RétroMax adapte la liste au modèle et identifie ce qui manque.</li><li>Renseigne le prix d’achat et ajoute chaque réparation avec sa date, son intervention et son coût ; les totaux sont calculés automatiquement.</li><li>Pour une console : marque, modèle, statut, contenu, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>L’autocomplétion propose les marques, les modèles compatibles et les pièces courantes tout en laissant la saisie libre.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
+          <ul><li>Pour une console incomplète, coche les accessoires présents ; RétroMax adapte la liste au modèle et identifie ce qui manque.</li><li>Choisis EUR, JAP ou USA : les appellations régionales connues comme Super Famicom et Genesis sont appliquées automatiquement.</li><li>Renseigne le prix d’achat et ajoute chaque réparation avec sa date, son intervention et son coût ; achat, réparations et total restent visibles dans la liste.</li><li>Pour une console : marque, modèle, statut, contenu, état OK / Semi-HS / HS, panne et notes.</li><li>Pour une pièce : compatibilité, quantité et emplacement.</li><li>L’autocomplétion propose les marques, les modèles compatibles et les pièces courantes tout en laissant la saisie libre.</li><li>Les fiches sont regroupées par marque et restent faciles à filtrer.</li></ul>
           <div class="tutorial-callout"><strong>Sauvegarde locale</strong><span>L’atelier reste dans ce navigateur et fait partie de la sauvegarde JSON RétroMax.</span></div>
         </article>
         <article class="tutorial-step" data-tutorial-step="8" data-tutorial-topic="search" hidden>
@@ -403,12 +404,12 @@
     </section>
   </dialog>
 
-  <script src="tutorial-utils.js?v=0.0.41"></script>
-  <script src="barcode-utils.js?v=0.0.41"></script>
-  <script src="status-utils.js?v=0.0.41"></script>
-  <script src="stats-utils.js?v=0.0.41"></script>
-  <script src="workshop-utils.js?v=0.0.41"></script>
-  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.41"></script>
-  <script src="app.js?v=0.0.41"></script>
+  <script src="tutorial-utils.js?v=0.0.42"></script>
+  <script src="barcode-utils.js?v=0.0.42"></script>
+  <script src="status-utils.js?v=0.0.42"></script>
+  <script src="stats-utils.js?v=0.0.42"></script>
+  <script src="workshop-utils.js?v=0.0.42"></script>
+  <script src="assets/vendor/zxing-library-0.23.0.min.js?v=0.0.42"></script>
+  <script src="app.js?v=0.0.42"></script>
 </body>
 </html>

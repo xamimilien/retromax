@@ -23,7 +23,7 @@ function memoryStorage(initial={}){
 
 const sample={
   consoles:[
-    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',variant:'Funtastic',status:'Commandé',completeness:'Boite',accessories:{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true,unknown:true},purchasePrice:'79,90',repairs:[{id:'r1',date:'2026-08-01',description:'Nettoyage',cost:'12,50'},{date:'date invalide',intervention:'Port cartouche',price:20},{description:'',cost:0}],condition:'semi hs',quantity:2,issue:'Port cartouche'},
+    {id:'n64',manufacturer:'Nintendo',console:'Nintendo 64',region:'Europe',variant:'Funtastic',status:'Commandé',completeness:'Boite',accessories:{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true,unknown:true},purchasePrice:'79,90',repairs:[{id:'r1',date:'2026-08-01',description:'Nettoyage',cost:'12,50'},{date:'date invalide',intervention:'Port cartouche',price:20},{description:'',cost:0}],condition:'semi hs',quantity:2,issue:'Port cartouche'},
     {id:'dc',manufacturer:'Sega',console:'Dreamcast',status:'Recherché',completeness:'Incomplete',condition:'HS',quantity:1,issue:'Lecteur GD-ROM'}
   ],
   parts:[
@@ -36,9 +36,11 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.deepEqual([...workshop.CONDITIONS],['OK','Semi-HS','HS']);
   assert.deepEqual([...workshop.STATUSES],['Acquis','Commandé','Recherché']);
   assert.deepEqual([...workshop.COMPLETENESS],['Loose','Boîte','Complet','Incomplet']);
+  assert.deepEqual([...workshop.REGIONS],['EUR','JAP','USA']);
   const normalized=workshop.normalize(sample);
   assert.equal(normalized.consoles[0].condition,'Semi-HS');
   assert.equal(normalized.consoles[0].variant,'Funtastic');
+  assert.equal(normalized.consoles[0].region,'EUR');
   assert.equal(normalized.consoles[0].status,'Commandé');
   assert.equal(normalized.consoles[0].completeness,'Boîte');
   assert.deepEqual(JSON.parse(JSON.stringify(normalized.consoles[0].accessories)),{controller:true,powerSupply:true,videoCable:false,expansionPak:false,memoryCard:true});
@@ -52,12 +54,26 @@ test('les états et quantités de restauration sont normalisés',()=>{
   assert.equal(normalized.parts[0].variant,'VA1');
   const legacy=workshop.normalize({consoles:[{}],parts:[{}]}).consoles[0];
   assert.equal(legacy.variant,'','les anciennes fiches restent compatibles');
+  assert.equal(legacy.region,'','une ancienne fiche reste valide sans région');
   assert.equal(legacy.status,'Acquis','une ancienne console présente dans l’atelier reste acquise');
   assert.equal(legacy.completeness,'','le contenu inconnu d’une ancienne fiche n’est pas inventé');
   assert.deepEqual(JSON.parse(JSON.stringify(legacy.accessories)),{},'les anciennes fiches restent valides sans checklist');
   assert.equal(legacy.purchasePrice,0,'les anciennes fiches restent valides sans prix d’achat');
   assert.deepEqual(JSON.parse(JSON.stringify(legacy.repairs)),[],'les anciennes fiches restent valides sans historique');
   assert.equal(workshop.condition('état inconnu'),'OK');
+});
+
+test('la région applique les appellations commerciales locales',()=>{
+  assert.equal(workshop.region('Japon'),'JAP');
+  assert.equal(workshop.regionalConsoleName('Super Nintendo','JAP'),'Super Famicom');
+  assert.equal(workshop.regionalConsoleName('Super Famicom','USA'),'Super Nintendo');
+  assert.equal(workshop.regionalConsoleName('Mega Drive','USA'),'Genesis');
+  assert.equal(workshop.regionalConsoleName('Genesis','EUR'),'Mega Drive');
+  assert.equal(workshop.regionalConsoleName('NES','JAP'),'Famicom');
+  assert.equal(workshop.regionalConsoleName('Master System','JAP'),'Sega Mark III');
+  assert.equal(workshop.regionalConsoleName('PC Engine','USA'),'TurboGrafx-16');
+  const regional=workshop.normalize({consoles:[{console:'Super Nintendo',region:'JAP'},{console:'Genesis',region:'EUR'}]}).consoles;
+  assert.deepEqual(Array.from(regional,item=>[item.console,item.region]),[['Super Famicom','JAP'],['Mega Drive','EUR']]);
 });
 
 test('la checklist d’une console incomplète suit le modèle et son alimentation',()=>{
@@ -113,7 +129,8 @@ test('l’interface propose un volet Atelier et deux fiches complètes',()=>{
   assert.match(htmlSource,/id="workshopPane"[^>]+hidden/);
   for(const id of ['workshopSummary','workshopSearch','workshopManufacturerFilter','workshopStatusFilter','workshopCompletenessFilter','workshopBrands','workshopConsoleDialog','workshopPartDialog'])assert.match(htmlSource,new RegExp(`id="${id}"`));
   assert.match(htmlSource,/id="workshopConsoleCondition"[\s\S]*?<option>OK<\/option><option>Semi-HS<\/option><option>HS<\/option>/);
-  for(const id of ['workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleAccessories','workshopConsoleAccessoryList','workshopConsolePurchasePrice','workshopRepairTotal','workshopOverallTotal','workshopRepairList','workshopAddRepairBtn','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  for(const id of ['workshopConsoleRegion','workshopConsoleVariant','workshopConsoleStatus','workshopConsoleCompleteness','workshopConsoleAccessories','workshopConsoleAccessoryList','workshopConsolePurchasePrice','workshopRepairTotal','workshopOverallTotal','workshopRepairList','workshopAddRepairBtn','workshopConsoleIssue','workshopConsoleNotes','workshopPartConsole','workshopPartVariant','workshopPartQuantity','workshopPartLocation','workshopPartNotes'])assert.match(htmlSource,new RegExp(`id="${id}"`));
+  assert.match(htmlSource,/id="workshopConsoleRegion"[\s\S]*?<option>EUR<\/option><option>JAP<\/option><option>USA<\/option>/);
   assert.match(htmlSource,/id="workshopConsoleStatus"[\s\S]*?<option>Acquis<\/option><option>Commandé<\/option><option>Recherché<\/option>/);
   assert.match(htmlSource,/id="workshopConsoleCompleteness"[\s\S]*?<option>Loose<\/option><option>Boîte<\/option><option>Complet<\/option><option>Incomplet<\/option>/);
 });
@@ -134,6 +151,8 @@ test('les suggestions suivent la marque et complètent automatiquement la fiche'
   assert.match(appSource,/function workshopManufacturerForConsole/);
   assert.match(appSource,/const CONSOLE_VARIANT_CATALOG=/);
   assert.match(appSource,/['"]PlayStation 3['"]:\[['"]Fat['"],['"]Slim['"],['"]Super Slim['"]\]/);
+  assert.match(appSource,/Famicom:\[['"]HVC-001['"],['"]AV Famicom['"]\]/);
+  assert.match(appSource,/Genesis:\[['"]Model 1['"],['"]Model 2['"],['"]Model 3['"]\]/);
   assert.match(appSource,/function workshopVariantChoices/);
   assert.match(appSource,/manufacturerInput\.value=inferred/);
   assert.match(appSource,/WORKSHOP_PART_CATALOG/);
@@ -160,10 +179,16 @@ test('les fiches sont créées, modifiées, supprimées et sauvegardées',()=>{
   assert.match(appSource,/WORKSHOP\.accessoryOptions/);
   assert.match(appSource,/data-workshop-accessory/);
   assert.match(appSource,/purchasePrice:\$\('#workshopConsolePurchasePrice'\)\.value/);
+  assert.match(appSource,/region:\$\('#workshopConsoleRegion'\)\.value/);
   assert.match(appSource,/repairs:currentWorkshopRepairs\(\)/);
   assert.match(appSource,/function renderWorkshopRepairHistory/);
   assert.match(appSource,/WORKSHOP\.repairTotal/);
   assert.match(appSource,/workshop-repair-remove/);
+  assert.match(appSource,/function workshopConsoleCardMarkup/);
+  assert.match(appSource,/Achat <b>\$\{formatWorkshopPrice\(item\.purchasePrice\)\}/);
+  assert.match(appSource,/Réparations <b>\$\{formatWorkshopPrice\(repairs\)\}/);
+  assert.match(appSource,/Total <b>\$\{formatWorkshopPrice\(overall\)\}/);
+  assert.match(appSource,/WORKSHOP\.regionalConsoleName/);
   assert.match(appSource,/STATUS\.className\(item\.status\)/);
   assert.match(appSource,/workshopEls\.statusFilter\.value/);
   assert.match(appSource,/workshopEls\.completenessFilter\.value/);
@@ -188,7 +213,8 @@ test('le volet est responsive, accessible hors ligne et n’encombre pas les act
   assert.match(styleSource,/\.workshop-columns\{display:grid;grid-template-columns:1fr 1fr/);
   assert.match(styleSource,/@media\(max-width:720px\)[\s\S]*?\.workshop-columns\{grid-template-columns:1fr\}/);
   assert.match(workerSource,/workshop-utils\.js\?v=\$\{VERSION\}/);
-  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.41');
-  const appIndex=htmlSource.indexOf('app.js?v=0.0.41');
+  assert.match(styleSource,/\.workshop-card-costs\{display:grid;grid-template-columns:repeat\(3/);
+  const utilityIndex=htmlSource.indexOf('workshop-utils.js?v=0.0.42');
+  const appIndex=htmlSource.indexOf('app.js?v=0.0.42');
   assert.ok(utilityIndex>=0&&utilityIndex<appIndex);
 });
