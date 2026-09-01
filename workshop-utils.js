@@ -5,6 +5,7 @@
   const CONDITIONS=Object.freeze(['OK','Semi-HS','HS']);
   const STATUSES=Object.freeze(['Acquis','Commandé','Recherché']);
   const COMPLETENESS=Object.freeze(['Loose','Boîte','Complet','Incomplet']);
+  const REGIONS=Object.freeze(['EUR','JAP','USA']);
   const ACCESSORIES=Object.freeze([
     Object.freeze({id:'controller',label:'Manette'}),
     Object.freeze({id:'powerSupply',label:'Alimentation externe'}),
@@ -41,6 +42,20 @@
     const normalized=lookup(value);
     const aliases={complete:'Complet',incomplete:'Incomplet',icomplete:'Incomplet',box:'Boîte',boxed:'Boîte'};
     return COMPLETENESS.find(item=>lookup(item)===normalized)||aliases[normalized]||'';
+  }
+  function region(value){
+    const normalized=lookup(value),aliases={eur:'EUR',europe:'EUR',eu:'EUR',pal:'EUR',jap:'JAP',japan:'JAP',japon:'JAP',jp:'JAP',ntscj:'JAP',usa:'USA',us:'USA',america:'USA',amerique:'USA',ntscu:'USA'};
+    return aliases[normalized]||'';
+  }
+  function regionalConsoleName(value,regionValue=''){
+    const original=text(value),key=lookup(original),target=region(regionValue);
+    if(!original||!target)return original;
+    if(['nes','nintendo entertainment system','famicom','family computer'].includes(key))return target==='JAP'?'Famicom':'NES';
+    if(['super nintendo','super nes','snes','super famicom'].includes(key))return target==='JAP'?'Super Famicom':'Super Nintendo';
+    if(['mega drive','megadrive','genesis'].includes(key))return target==='USA'?'Genesis':'Mega Drive';
+    if(['master system','sega master system','sega mark iii','mark iii'].includes(key))return target==='JAP'?'Sega Mark III':'Master System';
+    if(['pc engine','pcengine','turbografx 16','turbografx'].includes(key))return target==='USA'?'TurboGrafx-16':'PC Engine';
+    return original;
   }
   function accessories(value){
     const source=value&&typeof value==='object'&&!Array.isArray(value)?value:{};
@@ -80,10 +95,12 @@
   function repairTotal(value){return Math.round(repairHistory(value).reduce((sum,entry)=>sum+entry.cost,0)*100)/100}
 
   function normalizeConsole(entry={},index=0){
+    const normalizedRegion=region(entry.region);
     return{
       id:text(entry.id,`console-${index}`),
       manufacturer:text(entry.manufacturer,'Autre'),
-      console:text(entry.console,'Console non précisée'),
+      console:regionalConsoleName(text(entry.console,'Console non précisée'),normalizedRegion),
+      region:normalizedRegion,
       variant:text(entry.variant),
       status:status(entry.status),
       completeness:completeness(entry.completeness),
@@ -175,5 +192,5 @@
     return ranked.slice(0,Math.max(1,Number(limit)||8)).map(entry=>entry.label);
   }
 
-  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,ACCESSORIES,condition,status,completeness,accessories,accessoryOptions,price,repairHistory,repairTotal,normalize,load,save,summary,filter,groupByManufacturer,suggest});
+  scope.RetroMaxWorkshop=Object.freeze({KEY,CONDITIONS,STATUSES,COMPLETENESS,REGIONS,ACCESSORIES,condition,status,completeness,region,regionalConsoleName,accessories,accessoryOptions,price,repairHistory,repairTotal,normalize,load,save,summary,filter,groupByManufacturer,suggest});
 })(globalThis);
